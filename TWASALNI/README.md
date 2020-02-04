@@ -62,6 +62,9 @@ It comes pre-configured with the following bundles:
 
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.
+* **Important**
+You Have to install FOSuserBundle 
+php -d memory_limit=-1 composer.phar require friendsofsymfony/user-bundle "~2.0"
 
 Enjoy!
 

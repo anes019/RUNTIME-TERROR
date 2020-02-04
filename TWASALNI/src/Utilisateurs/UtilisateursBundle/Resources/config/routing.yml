@@ -1,0 +1,6 @@
+utilisateurs_utilisateurs_homepage:
+  path:     /
+  defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

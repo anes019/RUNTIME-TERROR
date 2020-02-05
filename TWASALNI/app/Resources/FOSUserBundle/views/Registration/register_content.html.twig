@@ -11,5 +11,7 @@
     <div>
         <input  class="btn btn-info" type="submit" value="{{ 'registration.submit'|trans }}" />
     </div>
+    <br>
+    <a style="color: whitesmoke" href="{{ path('fos_user_security_login') }}" for="Vous avez deja un compte ? se connecter">{{ 'Vous avez deja un compte ? se connecter '|trans }}</a>
 </div>
 {{ form_end(form) }}

@@ -3,8 +3,20 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+<head>
+
+    <meta http-equiv="refresh" content="5; url='../'">
+</head>
+<div align="center"  >
+
+<br>
+<br>
+
+<img style="width: 300px" src="{{ asset('templates/backoffice/images/icon/logo3.png')}}">
+<div style="background-color: whitesmoke">
+    <H4 style="color: #00aced">{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</H4>
     {% if targetUrl %}
-    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+        <H4 style="color: #00aced"><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></H4>
     {% endif %}
+</div>
 {% endblock fos_user_content %}

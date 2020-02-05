@@ -1,5 +1,11 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
 {% block fos_user_content %}
+    <div align="center"  >
+        <br>
+        <br>
+        <H1 style="color: whitesmoke"> réinitialisation de mot de passe</H1>
+        <img style="width: 300px" src="{{ asset('templates/backoffice/images/icon/logo3.png')}}">
 {% include "@FOSUser/Resetting/request_content.html.twig" %}
+</div>
 {% endblock fos_user_content %}

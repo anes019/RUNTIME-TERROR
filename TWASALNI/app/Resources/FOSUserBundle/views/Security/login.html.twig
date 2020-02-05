@@ -5,8 +5,10 @@
 
 
     <div align="center"  >
+
         <br>
         <br>
+
         <img style="width: 300px" src="{{ asset('templates/backoffice/images/icon/logo3.png')}}">
     <form action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -26,8 +28,13 @@
                 <div class="checkbox">
                     <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                     <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-                </div>
 
+                      <br>  <br>
+                       <a style="color: whitesmoke" href="{{ path('fos_user_registration_register') }}" for="creer un compte">{{ 'créer un compte '|trans }}</a>
+                        <a>|</a>
+                        <a style="color: whitesmoke" href="{{ path('fos_user_resetting_request') }}" for="mot de passe oublié">{{ 'mot de passe oublié'|trans }}</a>
+                    </div>
+<br>
                 <input class="btn btn-info" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
             </div>
         </div>

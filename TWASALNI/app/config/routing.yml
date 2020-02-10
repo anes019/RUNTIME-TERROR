@@ -1,6 +1,4 @@
-utilisateurs_utilisateurs_reservation:
-    resource: "@UtilisateursUtilisateursBundle/Controller/reservationController.php"
-    type:     annotation
+
 
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"

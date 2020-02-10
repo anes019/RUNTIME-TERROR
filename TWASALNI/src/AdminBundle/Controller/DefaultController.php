@@ -10,4 +10,9 @@ class DefaultController extends Controller
     {
         return $this->render('AdminBundle:Default:index.html.twig');
     }
+
+    public function testAction()
+    {
+        return $this->render('AdminBundle:Default:test.html.twig');
+    }
 }

@@ -4,3 +4,9 @@ utilisateurs_utilisateurs_homepage:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+addReservation:
+  path:     /addreservation
+  defaults: { _controller: UtilisateursUtilisateursBundle:reservation:new }
+updateReservation:
+  path:     /updatereservation/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:reservation:edit }

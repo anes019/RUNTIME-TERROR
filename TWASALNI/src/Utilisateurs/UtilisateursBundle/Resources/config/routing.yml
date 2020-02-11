@@ -23,6 +23,30 @@ course_update:
   path:     /updateCourse/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:update }
 
+
+inventaire_read:
+  path:     /readInventaire
+  defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:read }
+
+commission_read:
+  path:     /readCommission/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Commission:read }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 utilisateurs_utilisateurs_reservation:
   resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/reservation.yml"
   prefix:   /reservation

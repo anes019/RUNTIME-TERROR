@@ -45,15 +45,17 @@ class CoursesController extends Controller
             {
                 $inventaire->setPartenaire($part);
                 $inventaire->setMontant($course->getPrix()*$commission->getPourcentage());
-                $inventaire->setDateI(date('r'));
+               // $inventaire->setDateI(date('r'));
             }
             else
             {
+                $inventaire=$arrayinv[0];
                 $inventaire->setMontant($inventaire->getMontant()+$course->getPrix()*$commission->getPourcentage());
             }
+            $commission->setInventairec($inventaire);
 
 
-            //$em->persist($inventaire);
+            $em->persist($inventaire);
             $em->persist($commission);
             $em->persist($course);
 

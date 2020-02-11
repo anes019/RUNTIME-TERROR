@@ -13,7 +13,7 @@ class InventaireCRepository extends \Doctrine\ORM\EntityRepository
     public function findInventaire($id)
     {
         $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireC i 
-WHERE i.partenaire=$id AND EXTRACT(MONTH FROM i.date_i)=EXTRACT(MONTH FROM CURRENT_DATE() )");
+WHERE i.partenaire=$id");
         return $query->getResult();
     }
 }

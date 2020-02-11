@@ -10,4 +10,10 @@ namespace Utilisateurs\UtilisateursBundle\Repository;
  */
 class CommissionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findCommission($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:Commission i 
+WHERE i.partenaire=$id");
+        return $query->getResult();
+    }
 }

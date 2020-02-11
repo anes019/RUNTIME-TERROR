@@ -1,0 +1,16 @@
+<center><h1>Inventaire</h1></center>
+<table border="1">
+    <tr><th>Id</th><th>Partenaire:Nom</th><th>Partenaire:Prenom</th><th>Montant</th><th>Details</th></tr>
+{% for i in liste %}
+    <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.partenaire.nom }}</td>
+        <td>{{ i.partenaire.prenom }}</td>
+        <td>{{ i.montant }}</td>
+        <td><a href="{{ path('commission_read',{'id':i.id}) }}"><button>Voir details</button></a></td>
+
+
+    </tr>
+
+{% endfor %}
+</table>

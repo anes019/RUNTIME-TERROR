@@ -2,8 +2,6 @@ utilisateurs_utilisateurs_homepage:
   path:     /
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }
 
-
-
 course_create:
   path:     /createCourse
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:create }
@@ -20,6 +18,10 @@ course_delete:
 course_update:
   path:     /updateCourse/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:update }
+
+utilisateurs_utilisateurs_reservation:
+  resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/reservation.yml"
+  prefix:   /reservation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

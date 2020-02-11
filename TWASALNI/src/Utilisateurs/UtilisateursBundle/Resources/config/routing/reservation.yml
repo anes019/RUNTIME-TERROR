@@ -4,7 +4,7 @@ reservation_index:
     methods:  GET
 
 reservation_show:
-    path:     /{id}/show
+    path:     admin/{id}/show
     defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:show" }
     methods:  GET
 
@@ -14,11 +14,11 @@ reservation_new:
     methods:  [GET, POST]
 
 reservation_edit:
-    path:     /{id}/edit
+    path:     admin/{id}/edit
     defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:edit" }
     methods:  [GET, POST]
 
 reservation_delete:
-    path:     /{id}/delete
+    path:     admin/{id}/delete
     defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:delete" }
     methods:  DELETE

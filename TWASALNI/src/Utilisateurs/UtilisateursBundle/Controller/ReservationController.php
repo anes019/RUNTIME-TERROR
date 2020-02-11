@@ -5,6 +5,7 @@ namespace Utilisateurs\UtilisateursBundle\Controller;
 use Utilisateurs\UtilisateursBundle\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Utilisateurs\UtilisateursBundle\Entity\Utilisateurs;
 
 /**
  * Reservation controller.
@@ -33,12 +34,24 @@ class ReservationController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em=$this->getDoctrine()->getManager();
         $reservation = new Reservation();
+        $reservation->setPrix(20);
         $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\ReservationType', $reservation);
+        $table=$em->getRepository(Utilisateurs::class)->findrole();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $id=$request->get('partenaire');
+            $part=$em->getRepository(Utilisateurs::class)->find($id);
+            $reservation->setPrix(200);
+            $reservation->setPartenaire($part);
+            $user=$this->container->get('security.token_storage')->getToken()->getUser();
+            $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
+            $reservation->setClient($client);
+
+
             $em->persist($reservation);
             $em->flush();
 
@@ -47,7 +60,7 @@ class ReservationController extends Controller
 
         return $this->render('reservation/new.html.twig', array(
             'reservation' => $reservation,
-            'form' => $form->createView(),
+            'form' => $form->createView(),'table'=>$table
         ));
     }
 

@@ -27,7 +27,7 @@ class CoursesController extends Controller
         {
             $id=$request->get('partenaire');
            //hedhi
-            //$arrayinv=$em->getRepository(InventaireC::class)->findInventaire($id);
+            $arrayinv=$em->getRepository(InventaireC::class)->findInventaire($id);
 
             $part=$em->getRepository(Utilisateurs::class)->find($id);
 
@@ -41,7 +41,7 @@ class CoursesController extends Controller
             $commission->setPourcentage(0.15);
             $commission->setDateCommission($course->getDateCourse());
 
-            /*if(count($arrayinv)==0)
+            if(count($arrayinv)==0)
             {
                 $inventaire->setPartenaire($part);
                 $inventaire->setMontant($course->getPrix()*$commission->getPourcentage());
@@ -50,7 +50,7 @@ class CoursesController extends Controller
             else
             {
                 $inventaire->setMontant($inventaire->getMontant()+$course->getPrix()*$commission->getPourcentage());
-            }*/
+            }
 
 
             //$em->persist($inventaire);

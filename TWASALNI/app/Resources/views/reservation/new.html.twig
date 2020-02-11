@@ -7,6 +7,15 @@
     <h1>Reservation creation</h1>
 
     {{ form_start(form) }}
+    <div><label>Partenaire</label><select name="partenaire">
+                    {% for i in table %}
+                        <option value="{{ i.id }}"> {{ i.nom }}</option>
+
+                    {% endfor %}
+                </select></div>
+    <div hidden="hidden">{{ form_widget(form.prix)}}</div>
+    <div hidden="hidden">{{ form_widget(form.client)}}</div>
+    <div hidden="hidden">{{ form_widget(form.partenaire)}}</div>
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form) }}

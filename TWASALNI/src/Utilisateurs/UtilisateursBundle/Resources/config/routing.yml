@@ -1,3 +1,7 @@
+utilisateurs_utilisateurs_reservation:
+    resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/reservation.yml"
+    prefix:   /reservation
+
 utilisateurs_utilisateurs_homepage:
   path:     /
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }

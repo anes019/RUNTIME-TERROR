@@ -1,0 +1,20 @@
+
+<center><h1>Résérvation</h1></center>
+{{ form_start(form) }}
+<table>
+    <div><tr><td><label for="dep">Depart</label></td><td>{{ form_widget(form.depart)}}</td></tr></div>
+    <div><tr><td><label>Destination</label></td><td>{{ form_widget(form.destination)}}</td></tr></div>
+    <div><tr><td><label>Date</label></td><td>{{ form_widget(form.dateCourse)}}</td></tr></div>
+    <div><tr><td><label>Partenaire</label></td><td><select name="partenaire">
+                    {% for i in table %}
+                        <option value="{{ i.id }}"> {{ i.nom }}</option>
+
+                    {% endfor %}
+                </select></td></tr></div>
+    <div><tr><td>{{ form_widget(form.Reserver)}}</td></tr></div>
+
+    <div hidden="hidden">{{ form_widget(form.prix)}}</div>
+    <div hidden="hidden">{{ form_widget(form.client)}}</div>
+    <div hidden="hidden">{{ form_widget(form.partenaire)}}</div>
+</table>
+{{ form_end(form) }}

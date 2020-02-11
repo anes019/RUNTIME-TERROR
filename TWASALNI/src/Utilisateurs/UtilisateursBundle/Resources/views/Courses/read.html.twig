@@ -1,0 +1,19 @@
+<table border="1" >
+    <tr><td>Id</td><td>Client</td><td>Partenaire</td><td>Depart</td><td>Destination</td><td>Prix</td><td>Supprimer</td><td>Modifier</td></tr>
+{% for i in liste %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{ i.client }}</td>
+        <td>{{ i.partenaire }}</td>
+        <td>{{ i.depart }}</td>
+        <td>{{ i.destination }}</td>
+        <td>{{ i.prix }}</td>
+        <td><a href="{{ path('course_delete',{'id':i.id}) }}"><button>Supprimer</button></a></td>
+        <td><a href="{{ path('course_update',{'id':i.id}) }}"><button>Modifier</button></a></td>
+
+    </tr>
+
+{% endfor %}
+</table>
+
+<a href="{{ path('course_create')}}"><button>Ajouter Une course</button></a>

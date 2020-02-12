@@ -2,6 +2,8 @@
 
 namespace Utilisateurs\UtilisateursBundle\Controller;
 
+use Utilisateurs\UtilisateursBundle\Entity\CommissionR;
+use Utilisateurs\UtilisateursBundle\Entity\InventaireR;
 use Utilisateurs\UtilisateursBundle\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,12 +38,17 @@ class ReservationController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $reservation = new Reservation();
+        $commission= new CommissionR();
+        $inventaire= new InventaireR();
+
         $reservation->setPrix(20);
         $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\ReservationType', $reservation);
         $table=$em->getRepository(Utilisateurs::class)->findrole();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $id=$request->get('partenaire');
+            $arrayinv=$em->getRepository(InventaireR::class)->findInventaireR($id);
             $em = $this->getDoctrine()->getManager();
             $id=$request->get('partenaire');
             $part=$em->getRepository(Utilisateurs::class)->find($id);
@@ -50,7 +57,27 @@ class ReservationController extends Controller
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
             $reservation->setClient($client);
+            $commission->setReservation($reservation);
+            $commission->setPartenaire($reservation->getPartenaire());
+            $commission->setPourcentage(0.15);
+            $commission->setDateCommission($reservation->getDate());
 
+            if(count($arrayinv)==0)
+            {
+                $inventaire->setPartenaire($part);
+                $inventaire->setMontant($reservation->getPrix()*$commission->getPourcentage());
+                // $inventaire->setDateI(date('r'));
+            }
+            else
+            {
+                $inventaire=$arrayinv[0];
+                $inventaire->setMontant($inventaire->getMontant()+$reservation->getPrix()*$commission->getPourcentage());
+            }
+            $commission->setInventaireR($inventaire);
+
+
+            $em->persist($inventaire);
+            $em->persist($commission);
 
             $em->persist($reservation);
             $em->flush();

@@ -15,7 +15,7 @@
        <br>
        <br>
        {% block body %}
-           <h1 style=" position: relative; right: -30px">  liste des Inventaires </h1>
+           <h1 style=" position: relative; right: -30px">  liste des Commission pour Mr/Mme {{ inventaire.partenaire.nom }}  {{ inventaire.partenaire.prenom }}</h1>
            <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
            <br>
            <table class="table table-bordered table-striped">
@@ -23,10 +23,10 @@
                <tr>
 
                    <th class="th-sm">Id</th>
-                   <th class="th-sm">Partenaire:Nom</th>
-                   <th class="th-sm">Partenaire:Prenom</th>
-                   <th class="th-sm">Montant</th>
-                   <th class="th-sm">Details</th>
+                   <th class="th-sm">Depart</th>
+                   <th class="th-sm">Destination</th>
+                   <th class="th-sm">Prix de course</th>
+                   <th class="th-sm">Pourcentage</th>
 
 
                    {#<th class="th-sm">Actions</th>#}
@@ -37,26 +37,26 @@
                    <tr>
 
                        <td>{{ i.id }}</td>
-                       <td>{{ i.partenaire.nom }}</td>
-                       <td>{{ i.partenaire.prenom }}</td>
-                       <td>{{ i.montant }}</td>
+                       <td>{{ i.reservation.pointAchat }}</td>
+                       <td>{{ i.reservation.destination }}</td>
+                       <td>{{ i.reservation.prix }}</td>
+                       <td>{{ i.pourcentage*100 }}%</td>
 
 
-                           <div style=" display: flex;
+                       <div style=" display: flex;
   align-content: space-between;">
 
-                       <td><a href="{{ path('commission_read',{'id':i.id}) }}"><button>Voir details</button></a></td>
-                               {#<a class="text-sm-center " href="{{ path('course_update', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="modifier"><button class="btn btn-success btn-s" data-title="edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-edit"></span></button></p></a>#}
-                               {#<a class="text-sm-right" href="{{ path('course_delete', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></a>#}
-                           </div>
+                           {#<a class="text-sm-center " href="{{ path('course_update', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="modifier"><button class="btn btn-success btn-s" data-title="edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-edit"></span></button></p></a>#}
+                           {#<a class="text-sm-right" href="{{ path('course_delete', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></a>#}
+                       </div>
                        </td>
 
                    </tr>
                {% endfor %}
                </tbody>
            </table>
+           <a href="{{ path('inventaireR_read')}}"><button>Voir inventaire des Reservations</button></a>
 
-           <a href="{{ path('course_read')}}"><button>Voir toutes les courses</button></a>
 
        {% endblock %}
 

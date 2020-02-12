@@ -11,8 +11,9 @@ class InventaireRController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $liste=$em->getRepository(InventaireR::class)->findAll();
+        $sum=$em->getRepository(InventaireR::class)->sum();
         return $this->render('@UtilisateursUtilisateurs/InventaireR/read.html.twig',array(
-            "liste"=>$liste
+            "liste"=>$liste,"sum"=>$sum
         ));
     }
 

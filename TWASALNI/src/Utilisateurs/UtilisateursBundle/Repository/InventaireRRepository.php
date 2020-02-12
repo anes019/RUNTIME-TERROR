@@ -16,4 +16,10 @@ class InventaireRRepository extends \Doctrine\ORM\EntityRepository
 WHERE i.partenaire=$id");
         return $query->getResult();
     }
+    public function sum()
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT SUM( 'montant')  FROM UtilisateursUtilisateursBundle:InventaireR 
+");
+        return $query->getResult();
+    }
 }

@@ -1,7 +1,10 @@
 utilisateurs_utilisateurs_reservation:
     resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/reservation.yml"
-    prefix:   /reservation
-
+    prefix:   admin/reservation
+reservation_new:
+  path:     /reservationnew
+  defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:new" }
+  methods:  [GET, POST]
 utilisateurs_utilisateurs_homepage:
   path:     /
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }
@@ -11,27 +14,33 @@ course_create:
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:create }
 
 course_read:
-  path:     /readCourses
+  path:     admin/readCourses
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:read }
 
 course_delete:
-  path:     /deleteCourse/{id}
+  path:     admin/deleteCourse/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:delete }
 
 
 course_update:
-  path:     /updateCourse/{id}
+  path:     admin/updateCourse/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:update }
 
 
 inventaire_read:
-  path:     /readInventaire
+  path:     admin/readInventaire
   defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:read }
 
 commission_read:
-  path:     /readCommission/{id}
+  path:     admin/readCommission/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Commission:read }
+inventaireR_read:
+  path:     admin/readInventaireR
+  defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:read }
 
+commissionR_read:
+  path:     admin/readCommissionR/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:CommissionR:read }
 
 
 

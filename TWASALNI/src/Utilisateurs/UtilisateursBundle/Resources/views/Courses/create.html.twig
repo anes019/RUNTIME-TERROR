@@ -7,7 +7,7 @@
                <h1>Reservation de taxi creation</h1>
 
                {{ form_start(form) }}
-               <div><label>Partenaire</label><select name="partenaire">
+               <div><label>Partenaire</label><select class="form-control" name="partenaire">
                        {% for i in table %}
                            <option value="{{ i.id }}"> {{ i.nom }}</option>
 

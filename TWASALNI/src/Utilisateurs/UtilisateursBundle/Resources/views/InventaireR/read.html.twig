@@ -33,6 +33,7 @@
                </tr>
                </thead>
                <tbody id="myTable">
+
                {% for i in liste %}
                    <tr>
 
@@ -45,7 +46,7 @@
                            <div style=" display: flex;
   align-content: space-between;">
 
-                       <td><a href="{{ path('commission_read',{'id':i.id}) }}"><button>Voir details</button></a></td>
+                       <td><a href="{{ path('commissionR_read',{'id':i.id}) }}"><button>Voir details</button></a></td>
                                {#<a class="text-sm-center " href="{{ path('course_update', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="modifier"><button class="btn btn-success btn-s" data-title="edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-edit"></span></button></p></a>#}
                                {#<a class="text-sm-right" href="{{ path('course_delete', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></a>#}
                            </div>
@@ -53,10 +54,11 @@
 
                    </tr>
                {% endfor %}
+
                </tbody>
            </table>
 
-           <a href="{{ path('course_read')}}"><button>Voir toutes les courses</button></a>
+           <a href="{{ path('reservation_index')}}"><button>Voir toutes des Reservations</button></a>
 
        {% endblock %}
 

@@ -7,7 +7,7 @@
     <h1>Reservation creation</h1>
 
     {{ form_start(form) }}
-    <div><label>Partenaire</label><select name="partenaire">
+    <div><label>Partenaire</label><select class="form-control" name="partenaire">
                     {% for i in table %}
                         <option value="{{ i.id }}"> {{ i.nom }}</option>
 
@@ -17,14 +17,10 @@
     <div hidden="hidden">{{ form_widget(form.client)}}</div>
     <div hidden="hidden">{{ form_widget(form.partenaire)}}</div>
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-info" type="submit" value="Confirmer" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('reservation_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}
        </div>
        <br>

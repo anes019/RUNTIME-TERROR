@@ -1,0 +1,24 @@
+taxi_index:
+    path:     /taxi
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:index" }
+    methods:  GET
+
+taxi_show:
+    path:     /{id}/show
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:show" }
+    methods:  GET
+
+taxi_new:
+    path:     /new
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:new" }
+    methods:  [GET, POST]
+
+taxi_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:edit" }
+    methods:  [GET, POST]
+
+taxi_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:delete" }
+    methods:  DELETE

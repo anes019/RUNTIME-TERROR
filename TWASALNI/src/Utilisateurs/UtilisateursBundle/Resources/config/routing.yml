@@ -1,6 +1,14 @@
 utilisateurs_utilisateurs_reservation:
     resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/reservation.yml"
     prefix:   admin/reservation
+
+utilisateurs_utilisateurs_partenaire:
+  resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/partenaire.yml"
+  prefix:   admin/partenaire
+
+utilisateurs_utilisateurs_taxi:
+  resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/taxi.yml"
+  prefix:   admin/taxi
 reservation_new:
   path:     /reservationnew
   defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:new" }

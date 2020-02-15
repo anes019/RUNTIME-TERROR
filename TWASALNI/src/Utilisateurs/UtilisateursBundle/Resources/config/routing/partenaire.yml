@@ -1,0 +1,24 @@
+admin_partenaire_index:
+    path:     /partenaire
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:index" }
+    methods:  GET
+
+partenaire_show:
+    path:     /{id}/show
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:show" }
+    methods:  GET
+
+partenaire_new:
+    path:     /new
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:new" }
+    methods:  [GET, POST]
+
+partenaire_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:edit" }
+    methods:  [GET, POST]
+
+partenaire_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:delete" }
+    methods:  DELETE

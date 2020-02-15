@@ -15,7 +15,7 @@
        <br>
        <br>
        {% block body %}
-           <h1 style=" position: relative; right: -30px">  liste des Inventaires </h1>
+           <h1 style=" position: relative; right: -30px">  Liste des Inventaires </h1>
            <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
            <br>
            <table class="table table-bordered table-striped">
@@ -23,10 +23,11 @@
                <tr>
 
                    <th class="th-sm">Id</th>
-                   <th class="th-sm">Partenaire:Nom</th>
-                   <th class="th-sm">Partenaire:Prenom</th>
+                   <th class="th-sm">Partenaire</th>
+                   <th class="th-sm">Date</th>
                    <th class="th-sm">Montant</th>
                    <th class="th-sm">Details</th>
+                   <th class="th-sm">Valider Inventaire</th>
 
 
                    {#<th class="th-sm">Actions</th>#}
@@ -37,17 +38,16 @@
                    <tr>
 
                        <td>{{ i.id }}</td>
-                       <td>{{ i.partenaire.nom }}</td>
-                       <td>{{ i.partenaire.prenom }}</td>
+                       <td>{{ i.partenaire.nom }} {{ i.partenaire.prenom }}</td>
+                       <td>{{ i.dateI|date('Y-m-d') }}</td>
                        <td>{{ i.montant }}</td>
 
 
                            <div style=" display: flex;
   align-content: space-between;">
-
-                       <td><a href="{{ path('commission_read',{'id':i.id}) }}"><button>Voir details</button></a></td>
-                               {#<a class="text-sm-center " href="{{ path('course_update', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="modifier"><button class="btn btn-success btn-s" data-title="edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-edit"></span></button></p></a>#}
-                               {#<a class="text-sm-right" href="{{ path('course_delete', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></a>#}
+                        <td>  <a class="text-sm-left " href="{{ path('commission_read', { 'id': i.id }) }}"> <p data-placement="top" data-toggle="tooltip" title="afficher en details"><button class="btn btn-primary btn-s" data-title="show" data-toggle="modal" data-target="#show" ><span class="glyphicon glyphicon-eye-open"></span></button></p></a>
+                        </td>
+                               <td><a href="{{ path('inventaire_paye',{'id':i.id}) }}"><button>Payé</button></a></td>
                            </div>
                        </td>
 
@@ -56,7 +56,9 @@
                </tbody>
            </table>
 
-           <a href="{{ path('course_read')}}"><button>Voir toutes les courses</button></a>
+           <a href="{{ path('course_read')}}"><button>Voir toutes les courses</button></a><br/>
+           <a href="{{ path('inventaire_readArchive')}}"><button>Voir archive des inventaires</button></a>
+
 
        {% endblock %}
 

@@ -31,6 +31,19 @@ inventaire_read:
   path:     admin/readInventaire
   defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:read }
 
+inventaire_readArchive:
+  path:     admin/readInventaireArchive
+  defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:archive }
+
+
+inventaire_nonpaye:
+  path:     admin/nonpayerInventaire/{id}/{partenaire_id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:nonpayer }
+
+inventaire_paye:
+  path:     admin/payerInventaire/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:payer }
+
 commission_read:
   path:     admin/readCommission/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Commission:read }

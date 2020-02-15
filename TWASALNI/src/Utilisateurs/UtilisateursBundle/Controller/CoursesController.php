@@ -45,7 +45,8 @@ class CoursesController extends Controller
             {
                 $inventaire->setPartenaire($part);
                 $inventaire->setMontant($course->getPrix()*$commission->getPourcentage());
-               // $inventaire->setDateI(date('r'));
+                $inventaire->setDateI($course->getDateCourse());
+                $inventaire->setPaye(0);
             }
             else
             {
@@ -60,7 +61,8 @@ class CoursesController extends Controller
             $em->persist($course);
 
             $em->flush();
-            return $this->redirectToRoute('course_read');
+            $this->addFlash('success','Votre Reservation a été prise en charge');
+            return $this->redirectToRoute('course_create');
         }
         return $this->render('@UtilisateursUtilisateurs/Courses/create.html.twig', array(
             'form'=>$form->createView(),'table'=>$table
@@ -68,13 +70,20 @@ class CoursesController extends Controller
     }
 
 
-    public function readAction()
+    public function readAction(Request $request)
     {
         $em=$this->getDoctrine();
         $liste=$em->getRepository(Courses::class)->findAll();
+        /**
+         * @var $pagination \Knp\Component\Pager\Paginator
+         */
+        $paginator=$this->get('knp_paginator');
+        $result=$paginator->paginate($liste,
+            $request->query->getInt('page',1),
+            $request->query->getInt('limit',1));
 
         return $this->render('@UtilisateursUtilisateurs/Courses/read.html.twig',array(
-            "liste"=>$liste
+            "liste"=>$result
         ));
     }
 
@@ -84,6 +93,12 @@ class CoursesController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $course=$em->getRepository(Courses::class)->find($id);
+        $commission=$em->getRepository(Commission::class)->findCommissionbyCourse($id);
+        $inventaire=$em->getRepository(InventaireC::class)->find($commission[0]->getInventairec()->getId());
+        $inventaire->setMontant($inventaire->getMontant()-$course->getPrix()*$commission[0]->getPourcentage());
+        $com=$commission[0];
+        $em->remove($com);
+        $em->persist($inventaire);
         $em->remove($course);
         $em->flush();
         return $this->redirectToRoute('course_read');

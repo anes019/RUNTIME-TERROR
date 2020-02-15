@@ -42,6 +42,13 @@ class InventaireC
      */
     private $partenaire;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="paye", type="integer")
+     */
+    private $paye;
+
 
     /**
      * Get id
@@ -123,5 +130,29 @@ class InventaireC
     public function getPartenaire()
     {
         return $this->partenaire;
+    }
+
+    /**
+     * Set paye
+     *
+     * @param integer $paye
+     *
+     * @return InventaireC
+     */
+    public function setPaye($paye)
+    {
+        $this->paye = $paye;
+
+        return $this;
+    }
+
+    /**
+     * Get paye
+     *
+     * @return integer
+     */
+    public function getPaye()
+    {
+        return $this->paye;
     }
 }

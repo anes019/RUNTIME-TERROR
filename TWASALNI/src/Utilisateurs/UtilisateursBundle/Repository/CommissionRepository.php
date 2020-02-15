@@ -16,4 +16,17 @@ class CommissionRepository extends \Doctrine\ORM\EntityRepository
 WHERE i.partenaire=$id");
         return $query->getResult();
     }
+    public function findCommissionbyCourse($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:Commission i 
+WHERE i.course=$id");
+        return $query->getResult();
+    }
+
+    public function findComissionbyInventaire($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:Commission i 
+WHERE i.inventairec=$id");
+        return $query->getResult();
+    }
 }

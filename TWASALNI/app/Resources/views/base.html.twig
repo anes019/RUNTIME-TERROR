@@ -125,7 +125,13 @@
 
 </section>
 
-
+{% for message in app.flashes('success') %}
+    <div class="alert-success text-center" style="height: 70px">
+        <br>
+        {{ message }}
+        <br>
+    </div>
+{% endfor %}
 
 {% block content %}
 {% endblock %}

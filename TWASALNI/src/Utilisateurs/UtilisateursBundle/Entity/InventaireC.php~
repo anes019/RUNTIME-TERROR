@@ -42,6 +42,13 @@ class InventaireC
      */
     private $partenaire;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="paye", type="integer")
+     */
+    private $paye;
+
 
     /**
      * Get id
@@ -100,5 +107,28 @@ class InventaireC
     {
         return $this->dateI;
     }
-}
 
+    /**
+     * Set partenaire
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $partenaire
+     *
+     * @return InventaireC
+     */
+    public function setPartenaire(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $partenaire = null)
+    {
+        $this->partenaire = $partenaire;
+
+        return $this;
+    }
+
+    /**
+     * Get partenaire
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs
+     */
+    public function getPartenaire()
+    {
+        return $this->partenaire;
+    }
+}

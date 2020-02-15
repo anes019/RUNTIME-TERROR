@@ -2,28 +2,28 @@
 
 namespace Utilisateurs\UtilisateursBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Utilisateurs\UtilisateursBundle\Entity\Taxi;
 
-class ReservationType extends AbstractType
+class PartenaireType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('pointAchat')->add('destination')->add('date', DateTimeType::class ,array(
-            'widget' => 'single_text'))->add('prix')->add('listAchats',TextareaType::class)->add('remarques',TextareaType::class)->add('client')->add('partenaire');
+        $builder->add('nom')->add('prenom')->add('mail')->add('mdp')->add('tel')
+            ->add('taxi',EntityType::class,array('class'=>Taxi::class,'choice_label'=>'matricul','multiple'=>false));
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Utilisateurs\UtilisateursBundle\Entity\Reservation'
+            'data_class' => 'Utilisateurs\UtilisateursBundle\Entity\Partenaire'
         ));
     }
 
@@ -32,7 +32,7 @@ class ReservationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'utilisateurs_utilisateursbundle_reservation';
+        return 'utilisateurs_utilisateursbundle_partenaire';
     }
 
 

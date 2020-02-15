@@ -38,7 +38,7 @@ class Reservation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
@@ -134,28 +134,23 @@ class Reservation
     }
 
     /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return reservation
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
      * @return \DateTime
      */
-    public function getDate()
+    public function getDate ()
     {
         return $this->date;
     }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate ($date)
+    {
+        $this->date = $date;
+    }
+
+
+
 
     /**
      * @return float

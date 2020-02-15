@@ -18,28 +18,28 @@
     <h1 style=" position: relative; right: -30px">  liste des réservations </h1>
     <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
+    <div class="count">
+        <h4> Nombre total des réservation : {{ reservations.getTotalItemCount }}  </h4>
+    </div>
     <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(reservations, 'Pointachat', 'reservation.pointAchat') }}</th>
+            <th{% if reservations.isSorted('reservation.destination') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(reservations, 'Destination', 'reservation.destination') }}
+            </th>
+            <th{% if reservations.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(reservations, 'Date', ['a.date', 'a.time']) }}
+            </th>
+            <th >Actions</th>
+        </tr>
 
-                <th class="th-sm">Pointachat</th>
-                <th class="th-sm">Destination</th>
-                <th class="th-sm">Date</th>
-
-                <th class="th-sm">Actions</th>
-            </tr>
-        </thead>
         <tbody id="myTable">
         {% for reservation in reservations %}
             <tr>
-
                 <td>{{ reservation.pointAchat }}</td>
                 <td>{{ reservation.destination }}</td>
-                <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d') }}{% endif %}</td>
-
-
-
-
+                <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d / h:m') }}{% endif %}</td>
                 <td>
 <div style=" display: flex;
   align-content: space-between;">
@@ -56,14 +56,16 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
+
             <a href="{{ path('reservation_new') }}">Create a new reservation</a>
             <br>
-            <a href="{{ path('inventaireR_read')}}"><button>Voir inventaire des Reservations</button></a>
-        </li>
-    </ul>
+            <a href="{{ path('inventaireR_read')}}">Voir inventaire des Reservations</a>
 
+
+
+    <div class="navigation">
+        {{ knp_pagination_render(reservations) }}
+    </div>
 {% endblock %}
 
        <script>

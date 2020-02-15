@@ -18,4 +18,4 @@ reservation_edit:
 reservation_delete:
     path:     /{id}/delete
     defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:delete" }
-    methods:  DELETE
+    methods:  GET

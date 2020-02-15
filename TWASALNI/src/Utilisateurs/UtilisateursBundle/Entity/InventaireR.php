@@ -31,7 +31,7 @@ class InventaireR
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_i", type="date")
+     * @ORM\Column(name="date_i", type="datetime")
      */
     private $dateI;
 

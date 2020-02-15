@@ -19,14 +19,20 @@ class ReservationController extends Controller
      * Lists all reservation entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $reservations = $em->getRepository('UtilisateursUtilisateursBundle:Reservation')->findAll();
-
+        /**
+         * @var $pagination \Knp\Component\Pager\Paginator
+         */
+        $paginator=$this->get('knp_paginator');
+        $result=$paginator->paginate($reservations,
+            $request->query->getInt('page',1),
+            $request->query->getInt('limit',1));
         return $this->render('reservation/index.html.twig', array(
-            'reservations' => $reservations,
+            'reservations' => $result,
         ));
     }
 
@@ -50,9 +56,9 @@ class ReservationController extends Controller
             $id=$request->get('partenaire');
             $arrayinv=$em->getRepository(InventaireR::class)->findInventaireR($id);
             $em = $this->getDoctrine()->getManager();
-            $id=$request->get('partenaire');
+
             $part=$em->getRepository(Utilisateurs::class)->find($id);
-            $reservation->setPrix(200);
+            $reservation->setPrix(100);
             $reservation->setPartenaire($part);
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
@@ -66,7 +72,7 @@ class ReservationController extends Controller
             {
                 $inventaire->setPartenaire($part);
                 $inventaire->setMontant($reservation->getPrix()*$commission->getPourcentage());
-                // $inventaire->setDateI(date('r'));
+                 $inventaire->setDateI($reservation->getDate());
             }
             else
             {
@@ -81,8 +87,8 @@ class ReservationController extends Controller
 
             $em->persist($reservation);
             $em->flush();
-
-            return $this->redirectToRoute('reservation_show', array('id' => $reservation->getId()));
+          $this->addFlash('success','Votre Reservation a été prise en charge');
+            return $this->redirectToRoute('reservation_new', array('id' => $reservation->getId()));
         }
 
         return $this->render('reservation/new.html.twig', array(
@@ -137,7 +143,7 @@ class ReservationController extends Controller
         $form = $this->createDeleteForm($reservation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($reservation) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($reservation);
             $em->flush();
@@ -157,7 +163,7 @@ class ReservationController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('reservation_delete', array('id' => $reservation->getId())))
-            ->setMethod('DELETE')
+            ->setMethod('GET')
             ->getForm()
         ;
     }

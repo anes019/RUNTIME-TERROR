@@ -31,7 +31,7 @@ class CommissionR
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_commission", type="date")
+     * @ORM\Column(name="date_commission", type="datetime")
      */
     private $dateCommission;
 

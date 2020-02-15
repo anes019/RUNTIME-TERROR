@@ -1,25 +1,24 @@
 {% extends 'back.html.twig' %}
    {% block content %}
+
        <br>
        <br>
        <div  style="width: 400px ; position: relative ; right: -30%"  >
 {% block body %}
-    <h1>Reservation edit</h1>
+    <h1>Modification de reservation </h1>
 
     {{ form_start(edit_form) }}
+    <div hidden="hidden">{{ form_widget(edit_form.prix)}}</div>
+    <div hidden="hidden">{{ form_widget(edit_form.client)}}</div>
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input class="btn-success au-btn--submit" type="submit" value="modifier" />
     {{ form_end(edit_form) }}
 
     <ul>
         <li>
             <a href="{{ path('reservation_index') }}">Back to the list</a>
         </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+
     </ul>
 {% endblock %}
 <br>

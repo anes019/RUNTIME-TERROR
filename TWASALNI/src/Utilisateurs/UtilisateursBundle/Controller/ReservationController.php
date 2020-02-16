@@ -76,8 +76,7 @@ class ReservationController extends Controller
             $part=$em->getRepository(Utilisateurs::class)->find($id);
             $reservation->setPrix(100);
             $reservation->setPartenaire($part);
-            $list=$reservation->getListAchats();
-            $rem=$reservation->getRemarques();
+
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
             $reservation->setClient($client);
@@ -105,13 +104,7 @@ class ReservationController extends Controller
 
             $em->persist($reservation);
             $em->flush();
-            $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
-            $client =new \Nexmo\Client($basic);
-            $message = $client->message()->send([
-                'to' => '21652715563',
-                'from' => 'Twasalni?',
-                'text' => 'Votre reservation est confirmé , liste achats:  '.$list.'  remarques:   '.$rem.'',
-            ]);
+
 //            $mailer= $this->get('mailer');
 //            $msg = (new \Swift_Message('Reservation de taxi '))
 //                ->setFrom('noreply@twasalni.tn')
@@ -182,8 +175,19 @@ class ReservationController extends Controller
         if ($reservation) {
             $em = $this->getDoctrine()->getManager();
             $reservation->setEtat('traite');
+            $list=$reservation->getListAchats();
+            $rem=$reservation->getRemarques();
+            $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
+            $client =new \Nexmo\Client($basic);
+//            $message = $client->message()->send([
+//                'to' => '21652715563',
+//                'from' => 'Twasalni?',
+//                'text' => 'Votre reservation est confirmé , liste achats:  '.$list.'  remarques:   '.$rem.'',
+//            ]);
             $em->flush();
+            $this->addFlash('success','reservation acceptée , votre client est notifié');
         }
+
         return $this->redirectToRoute('reservation_index');
     }
     public function restoreAction(Request $request, Reservation $reservation,$id)

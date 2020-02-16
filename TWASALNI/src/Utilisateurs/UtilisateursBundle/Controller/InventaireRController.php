@@ -17,9 +17,9 @@ class InventaireRController extends Controller
         $result=$paginator->paginate($liste,
             $request->query->getInt('page',1),
             $request->query->getInt('limit',1));
-        $sum=$em->getRepository(InventaireR::class)->sum();
+
         return $this->render('@UtilisateursUtilisateurs/InventaireR/read.html.twig',array(
-            "liste"=>$result,"sum"=>$sum
+            "liste"=>$result
         ));
     }
     public function doneAction($id)

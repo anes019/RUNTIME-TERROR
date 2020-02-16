@@ -76,6 +76,8 @@ class ReservationController extends Controller
             $part=$em->getRepository(Utilisateurs::class)->find($id);
             $reservation->setPrix(100);
             $reservation->setPartenaire($part);
+            $list=$reservation->getListAchats();
+            $rem=$reservation->getRemarques();
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
             $reservation->setClient($client);
@@ -103,13 +105,19 @@ class ReservationController extends Controller
 
             $em->persist($reservation);
             $em->flush();
-
-            $mailer= $this->get('mailer');
-            $msg = (new \Swift_Message('Reservation de taxi '))
-                ->setFrom('noreply@twasalni.tn')
-                ->setTo('anestemani00@gmail.com')
-                ->setBody('Merci pour votre reservation');
-            $mailer->send($msg);
+            $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
+            $client =new \Nexmo\Client($basic);
+            $message = $client->message()->send([
+                'to' => '21652715563',
+                'from' => 'Twasalni?',
+                'text' => 'Votre reservation est confirmé , liste achats:  '.$list.'  remarques:   '.$rem.'',
+            ]);
+//            $mailer= $this->get('mailer');
+//            $msg = (new \Swift_Message('Reservation de taxi '))
+//                ->setFrom('noreply@twasalni.tn')
+//                ->setTo('anestemani00@gmail.com')
+//                ->setBody('Merci pour votre reservation');
+//            $mailer->send($msg);
           $this->addFlash('success','Votre Reservation a été prise en charge');
             return $this->redirectToRoute('reservation_new', array('id' => $reservation->getId()));
         }

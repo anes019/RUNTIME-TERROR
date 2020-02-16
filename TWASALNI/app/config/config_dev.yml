@@ -10,8 +10,7 @@ framework:
 web_profiler:
     toolbar: true
     intercept_redirects: false
-headsnet_sms:
-    delivery_override:   '+33123456789'
+
 monolog:
     handlers:
         main:

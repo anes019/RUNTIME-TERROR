@@ -60,6 +60,31 @@ class CoursesController extends Controller
             $em->persist($commission);
             $em->persist($course);
 
+            $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
+            $client =new \Nexmo\Client($basic);
+
+            //            $client =new \Nexmo\Client($basic,array("base_api_url"=>"https://rest.nexmo.com/sms/json?"));
+//            $client = new \Nexmo\Client($basic,);
+           /* $client = new Nexmo\Client(
+                new Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L'),
+                [
+                    'base_api_url' => 'https://rest.nexmo.com/sms/json?'
+                ]
+            );*/
+
+           $message = $client->message()->send([
+                'to' => '21652715563',
+                'from' => 'Arbi',
+                'text' => 'Merci pour votre validation'
+            ]);
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo('arbi.saidi8@gmail.com')
+                ->setBody('Merci pour votre reservation');
+
+            $mailer->send($msg);
+
             $em->flush();
             $this->addFlash('success','Votre Reservation a été prise en charge');
             return $this->redirectToRoute('course_create');

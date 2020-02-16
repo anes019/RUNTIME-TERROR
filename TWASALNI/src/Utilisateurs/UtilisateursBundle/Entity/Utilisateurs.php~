@@ -78,28 +78,4 @@ class Utilisateurs extends BaseUser
         parent::__construct();
         // your own logic
     }
-
-    /**
-     * Set telephone
-     *
-     * @param string $telephone
-     *
-     * @return Utilisateurs
-     */
-    public function setTelephone($telephone)
-    {
-        $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    /**
-     * Get telephone
-     *
-     * @return string
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
 }

@@ -54,9 +54,11 @@
       <library name="PHARS">
         <CLASSES>
           <root url="phar://$MODULE_DIR$/composer.phar/" />
+          <root url="phar://$MODULE_DIR$/vendor/esendex/sdk/phing-latest.phar/" />
         </CLASSES>
         <SOURCES>
           <root url="phar://$MODULE_DIR$/composer.phar/" />
+          <root url="phar://$MODULE_DIR$/vendor/esendex/sdk/phing-latest.phar/" />
         </SOURCES>
       </library>
     </orderEntry>

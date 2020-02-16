@@ -22,4 +22,24 @@ WHERE i.partenaire=$id");
 ");
         return $query->getResult();
     }
+
+    public function findInventaireNonPaye()
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireR i 
+WHERE i.done=0");
+        return $query->getResult();
+    }
+    public function findInventairePaye()
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireR i 
+WHERE i.done=1");
+        return $query->getResult();
+    }
+
+    public function findPartenaireNonpaye($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireR i 
+WHERE i.partenaire=$id AND i.done=0 ");
+        return $query->getResult();
+    }
 }

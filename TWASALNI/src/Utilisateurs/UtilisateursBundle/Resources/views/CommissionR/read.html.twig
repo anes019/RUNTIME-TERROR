@@ -18,25 +18,26 @@
            <h1 style=" position: relative; right: -30px">  liste des Commission pour Mr/Mme {{ inventaire.partenaire.nom }}  {{ inventaire.partenaire.prenom }}</h1>
            <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
            <br>
+           <div class="count">
+               <h4> Nombre total des commission : {{ liste.getTotalItemCount }}  </h4>
+           </div>
            <table class="table table-bordered table-striped">
-               <thead>
                <tr>
-
-                   <th class="th-sm">Id</th>
-                   <th class="th-sm">Depart</th>
-                   <th class="th-sm">Destination</th>
-                   <th class="th-sm">Prix de course</th>
-                   <th class="th-sm">Pourcentage</th>
-
-
-                   {#<th class="th-sm">Actions</th>#}
+                   {# sorting of properties based on query components #}
+                   <th>{{ knp_pagination_sortable(liste, 'Depart', 'liste.reservation.pointAchat') }}</th>
+                   <th{% if liste.isSorted('liste.reservation.destination') %} class="sorted"{% endif %}>
+                       {{ knp_pagination_sortable(liste, 'Destination', 'liste.reservation.destination') }}
+                   </th>
+                   <th{% if liste.isSorted('liste.reservation.prix') %} class="sorted"{% endif %}>
+                       {{ knp_pagination_sortable(liste, 'Prix', 'liste.reservation.prix') }}
+                   </th>
+                   <th >Pourcentage</th>
                </tr>
-               </thead>
+
                <tbody id="myTable">
                {% for i in liste %}
                    <tr>
 
-                       <td>{{ i.id }}</td>
                        <td>{{ i.reservation.pointAchat }}</td>
                        <td>{{ i.reservation.destination }}</td>
                        <td>{{ i.reservation.prix }}</td>
@@ -56,7 +57,9 @@
                </tbody>
            </table>
            <a href="{{ path('inventaireR_read')}}"><button>Voir inventaire des Reservations</button></a>
-
+           <div class="navigation">
+               {{ knp_pagination_render(liste) }}
+           </div>
 
        {% endblock %}
 

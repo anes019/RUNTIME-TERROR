@@ -76,6 +76,12 @@ class Reservation
      */
     private $partenaire;
     /**
+     * @var int
+     *
+     * @ORM\Column(name="etat", type="string", length=255 )
+     */
+    private $etat ="non traite";
+    /**
      * Get id
      *
      * @return int
@@ -231,6 +237,24 @@ class Reservation
     {
         $this->partenaire = $partenaire;
     }
+
+    /**
+     * @return int
+     */
+    public function getEtat ()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param int $etat
+     */
+    public function setEtat ($etat)
+    {
+        $this->etat = $etat;
+    }
+
+
 
 }
 

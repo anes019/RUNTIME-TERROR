@@ -21,7 +21,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Utilisateurs\UtilisateursBundle\UtilisateursUtilisateursBundle(),
             new AdminBundle\AdminBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Headsnet\SmsBundle\HeadsnetSmsBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

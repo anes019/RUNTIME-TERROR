@@ -42,11 +42,19 @@ inventaire_read:
 inventaire_readArchive:
   path:     admin/readInventaireArchive
   defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:archive }
+inventaire_readArchivereservation:
+  path:     admin/readInventaireReservationArchive
+  defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:archive }
+inventaire_notdone:
+  path:     admin/nonpayerInventaire/{id}/{partenaire_id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:Notdone }
 
-
+inventaire_done:
+  path:     admin/payerInventaire/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:done }
 inventaire_nonpaye:
   path:     admin/nonpayerInventaire/{id}/{partenaire_id}
-  defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:nonpayer }
+  defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:Notdone }
 
 inventaire_paye:
   path:     admin/payerInventaire/{id}

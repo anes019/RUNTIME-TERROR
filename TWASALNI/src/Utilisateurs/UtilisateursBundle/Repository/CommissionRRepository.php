@@ -10,10 +10,23 @@ namespace Utilisateurs\UtilisateursBundle\Repository;
  */
 class CommissionRRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findCommissionbyReservation($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:CommissionR i 
+WHERE i.reservation=$id");
+        return $query->getResult();
+    }
     public function findCommission($id)
     {
         $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:CommissionR i 
 WHERE i.partenaire=$id");
+        return $query->getResult();
+    }
+
+    public function findComissionbyInventaire($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:CommissionR i 
+WHERE i.inventaireR=$id");
         return $query->getResult();
     }
 }

@@ -10,4 +10,17 @@ namespace Utilisateurs\UtilisateursBundle\Repository;
  */
 class reservationRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function myfindAll()
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:Reservation i 
+WHERE i.etat='non traite'");
+        return $query->getResult();
+    }
+    public function myfindAllarchive()
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:Reservation i 
+WHERE i.etat!='non traite'");
+        return $query->getResult();
+    }
 }

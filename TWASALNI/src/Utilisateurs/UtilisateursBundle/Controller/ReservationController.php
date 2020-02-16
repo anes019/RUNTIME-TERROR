@@ -23,15 +23,31 @@ class ReservationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $reservations = $em->getRepository('UtilisateursUtilisateursBundle:Reservation')->findAll();
+        $reservations = $em->getRepository('UtilisateursUtilisateursBundle:Reservation')->myfindAll();
         /**
          * @var $pagination \Knp\Component\Pager\Paginator
          */
         $paginator=$this->get('knp_paginator');
         $result=$paginator->paginate($reservations,
             $request->query->getInt('page',1),
-            $request->query->getInt('limit',1));
+            $request->query->getInt('limit',5));
         return $this->render('reservation/index.html.twig', array(
+            'reservations' => $result,
+        ));
+    }
+    public function listarchiveAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $reservations = $em->getRepository('UtilisateursUtilisateursBundle:Reservation')->myfindAllarchive();
+        /**
+         * @var $pagination \Knp\Component\Pager\Paginator
+         */
+        $paginator=$this->get('knp_paginator');
+        $result=$paginator->paginate($reservations,
+            $request->query->getInt('page',1),
+            $request->query->getInt('limit',5));
+        return $this->render('reservation/archive.html.twig', array(
             'reservations' => $result,
         ));
     }
@@ -87,6 +103,13 @@ class ReservationController extends Controller
 
             $em->persist($reservation);
             $em->flush();
+
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo('anestemani00@gmail.com')
+                ->setBody('Merci pour votre reservation');
+            $mailer->send($msg);
           $this->addFlash('success','Votre Reservation a été prise en charge');
             return $this->redirectToRoute('reservation_new', array('id' => $reservation->getId()));
         }
@@ -106,6 +129,16 @@ class ReservationController extends Controller
         $deleteForm = $this->createDeleteForm($reservation);
 
         return $this->render('reservation/show.html.twig', array(
+            'reservation' => $reservation,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    public function showarchiveAction(Reservation $reservation)
+    {
+        $deleteForm = $this->createDeleteForm($reservation);
+
+        return $this->render('reservation/showarchive.html.twig', array(
             'reservation' => $reservation,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -133,18 +166,63 @@ class ReservationController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
-    /**
-     * Deletes a reservation entity.
-     *
-     */
-    public function deleteAction(Request $request, Reservation $reservation)
+    public function archiveAction(Request $request, Reservation $reservation,$id)
     {
         $form = $this->createDeleteForm($reservation);
         $form->handleRequest($request);
 
         if ($reservation) {
             $em = $this->getDoctrine()->getManager();
+            $reservation->setEtat('traite');
+            $em->flush();
+        }
+        return $this->redirectToRoute('reservation_index');
+    }
+    public function restoreAction(Request $request, Reservation $reservation,$id)
+    {
+        $form = $this->createDeleteForm($reservation);
+        $form->handleRequest($request);
+
+        if ($reservation) {
+            $em = $this->getDoctrine()->getManager();
+            $reservation->setEtat('non traite');
+            $em->flush();
+        }
+        return $this->redirectToRoute('reservation_index');
+    }
+
+    public function rejetAction(Request $request, Reservation $reservation,$id)
+    {
+        $form = $this->createDeleteForm($reservation);
+        $form->handleRequest($request);
+
+        if ($reservation) {
+            $em = $this->getDoctrine()->getManager();
+            $reservation->setEtat('refusé');
+            $em->flush();
+        }
+        return $this->redirectToRoute('reservation_index');
+    }
+    /**
+     * Deletes a reservation entity.
+     *
+     */
+
+
+    public function deleteAction(Request $request, Reservation $reservation,$id)
+    {
+        $form = $this->createDeleteForm($reservation);
+        $form->handleRequest($request);
+
+        if ($reservation) {
+            $em = $this->getDoctrine()->getManager();
+            $r=$em->getRepository(Reservation::class)->find($id);
+            $commission=$em->getRepository(CommissionR::class)->findCommissionbyReservation($id);
+            $inventaire=$em->getRepository(InventaireR::class)->find($commission[0]->getInventaireR()->getId());
+            $inventaire->setMontant($inventaire->getMontant()-$r->getPrix()*$commission[0]->getPourcentage());
+            $com=$commission[0];
+            $em->remove($com);
+            $em->persist($inventaire);
             $em->remove($reservation);
             $em->flush();
         }

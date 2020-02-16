@@ -7,3 +7,6 @@ utilisateurs_utilisateurs:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+headsnet_sms:
+    resource: '@HeadsnetSmsBundle/Resources/config/routing.yml'
+    prefix:   '/sms'

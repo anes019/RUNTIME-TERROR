@@ -41,7 +41,12 @@ class InventaireR
      * @ORM\JoinColumn(name="partenaire_id",referencedColumnName="id")
      */
     private $partenaire;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="done", type="integer")
+     */
+    private $done=0;
 
     /**
      * Get id
@@ -100,5 +105,22 @@ class InventaireR
     {
         $this->partenaire = $partenaire;
     }
+
+    /**
+     * @return int
+     */
+    public function getDone ()
+    {
+        return $this->done;
+    }
+
+    /**
+     * @param int $done
+     */
+    public function setDone ($done)
+    {
+        $this->done = $done;
+    }
+
 
 }

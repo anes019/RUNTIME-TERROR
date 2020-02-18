@@ -26,6 +26,8 @@ class InventaireRController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $inventaire=$em->getRepository(InventaireR::class)->find($id);
+        $commission=$em->getRepository(CommissionR::class)->find($id);
+
         $inventaire->setDone(1);
         $em->persist($inventaire);
         $em->flush();

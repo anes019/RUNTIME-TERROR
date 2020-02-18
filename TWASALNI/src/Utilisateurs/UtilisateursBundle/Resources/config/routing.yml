@@ -70,7 +70,10 @@ inventaireR_read:
 commissionR_read:
   path:     admin/readCommissionR/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:CommissionR:read }
+commissionR_pdf:
+  path:    admin/pdfComm/{id}
 
+  defaults: { _controller: UtilisateursUtilisateursBundle:CommissionR:pdf }
 
 
 

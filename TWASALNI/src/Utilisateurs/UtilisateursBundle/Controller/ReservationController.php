@@ -8,6 +8,8 @@ use Utilisateurs\UtilisateursBundle\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Utilisateurs\UtilisateursBundle\Entity\Utilisateurs;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * Reservation controller.
@@ -35,6 +37,8 @@ class ReservationController extends Controller
             'reservations' => $result,
         ));
     }
+
+
     public function listarchiveAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -199,8 +203,9 @@ class ReservationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $reservation->setEtat('non traite');
             $em->flush();
+            $this->addFlash('success','reservation restauré ');
         }
-        return $this->redirectToRoute('reservation_index');
+        return $this->redirectToRoute('reservation_archive');
     }
 
     public function rejetAction(Request $request, Reservation $reservation,$id)
@@ -212,6 +217,7 @@ class ReservationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $reservation->setEtat('refusé');
             $em->flush();
+
         }
         return $this->redirectToRoute('reservation_index');
     }
@@ -232,14 +238,27 @@ class ReservationController extends Controller
             $commission=$em->getRepository(CommissionR::class)->findCommissionbyReservation($id);
             $inventaire=$em->getRepository(InventaireR::class)->find($commission[0]->getInventaireR()->getId());
             $inventaire->setMontant($inventaire->getMontant()-$r->getPrix()*$commission[0]->getPourcentage());
+            $montant=$inventaire->getMontant();
+            if($montant=0)
+            {
+                $com=$commission[0];
+                $em->remove($com);
+                $em->remove($inventaire);
+                $em->remove($reservation);
+                $em->flush();
+                $this->addFlash('error','reservation supprimé');
+            }
+            else {
             $com=$commission[0];
             $em->remove($com);
             $em->persist($inventaire);
             $em->remove($reservation);
             $em->flush();
-        }
+            $this->addFlash('error','reservation supprimé');
+        } }
 
-        return $this->redirectToRoute('reservation_index');
+
+        return $this->redirectToRoute('reservation_archive');
     }
 
     /**

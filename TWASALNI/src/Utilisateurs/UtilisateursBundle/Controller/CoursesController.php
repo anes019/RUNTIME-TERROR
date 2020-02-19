@@ -16,6 +16,8 @@ class CoursesController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $course = new Courses();
+        $date = new \DateTime();
+        $course->setDateCourse($date);
         $commission= new Commission();
         $inventaire= new InventaireC();
         $course->setPrix(20);
@@ -32,7 +34,17 @@ class CoursesController extends Controller
             $part=$em->getRepository(Utilisateurs::class)->find($id);
 
             $course->setPrix(200);
+            $securityContext = $this->container->get('security.authorization_checker');
+            if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
+            {
+                echo"<script>alert('You have to login first')</script>";
+                return $this->redirectToRoute('fos_user_security_login');
+            }
+
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
+
+
+
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
             $course->setClient($client);
             $course->setPartenaire($part);
@@ -63,20 +75,13 @@ class CoursesController extends Controller
             $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
             $client =new \Nexmo\Client($basic);
 
-            //            $client =new \Nexmo\Client($basic,array("base_api_url"=>"https://rest.nexmo.com/sms/json?"));
-//            $client = new \Nexmo\Client($basic,);
-           /* $client = new Nexmo\Client(
-                new Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L'),
-                [
-                    'base_api_url' => 'https://rest.nexmo.com/sms/json?'
-                ]
-            );*/
 
-           $message = $client->message()->send([
-                'to' => '21652715563',
+
+          /* $message = $client->message()->send([
+                'to' => '21622842875',
                 'from' => 'Arbi',
                 'text' => 'Merci pour votre validation'
-            ]);
+            ]);*/
             $mailer= $this->get('mailer');
             $msg = (new \Swift_Message('Reservation de taxi '))
                 ->setFrom('noreply@twasalni.tn')
@@ -89,6 +94,7 @@ class CoursesController extends Controller
             $this->addFlash('success','Votre Reservation a été prise en charge');
             return $this->redirectToRoute('course_create');
         }
+
         return $this->render('@UtilisateursUtilisateurs/Courses/create.html.twig', array(
             'form'=>$form->createView(),'table'=>$table
         ));
@@ -98,6 +104,7 @@ class CoursesController extends Controller
     public function readAction(Request $request)
     {
         $em=$this->getDoctrine();
+
         $liste=$em->getRepository(Courses::class)->findAll();
         /**
          * @var $pagination \Knp\Component\Pager\Paginator
@@ -105,7 +112,7 @@ class CoursesController extends Controller
         $paginator=$this->get('knp_paginator');
         $result=$paginator->paginate($liste,
             $request->query->getInt('page',1),
-            $request->query->getInt('limit',1));
+            $request->query->getInt('limit',5));
 
         return $this->render('@UtilisateursUtilisateurs/Courses/read.html.twig',array(
             "liste"=>$result
@@ -121,9 +128,16 @@ class CoursesController extends Controller
         $commission=$em->getRepository(Commission::class)->findCommissionbyCourse($id);
         $inventaire=$em->getRepository(InventaireC::class)->find($commission[0]->getInventairec()->getId());
         $inventaire->setMontant($inventaire->getMontant()-$course->getPrix()*$commission[0]->getPourcentage());
+
         $com=$commission[0];
         $em->remove($com);
-        $em->persist($inventaire);
+        if($inventaire->getMontant()==0)
+        {
+            $em->remove($inventaire);
+        }
+        else {
+            $em->persist($inventaire);
+        }
         $em->remove($course);
         $em->flush();
         return $this->redirectToRoute('course_read');

@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class CoursesType extends AbstractType
 {
@@ -14,7 +15,8 @@ class CoursesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('depart')->add('destination')->add('dateCourse')->add('prix')->add('client')->add('partenaire')->add('Reserver',SubmitType::class);
+        $builder->add('depart')->add('destination')->add('dateCourse', DateTimeType::class ,array(
+            'widget' => 'single_text'))->add('prix')->add('client')->add('partenaire')->add('Reserver',SubmitType::class);
     }/**
      * {@inheritdoc}
      */

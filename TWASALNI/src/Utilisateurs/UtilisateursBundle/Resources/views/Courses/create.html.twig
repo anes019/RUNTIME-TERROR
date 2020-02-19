@@ -15,6 +15,7 @@
 
                        {% endfor %}
                    </select></div>
+
            <br>
 
            <!-- Autocomplete location search input -->
@@ -45,8 +46,11 @@
        </div>
 
        <div hidden="hidden">{{ form_widget(form.prix)}}</div>
+
+               <div hidden="hidden">{{ form_widget(form.prix)}}</div>
                <div hidden="hidden">{{ form_widget(form.client)}}</div>
                <div hidden="hidden">{{ form_widget(form.partenaire)}}</div>
+             
                {{ form_widget(form) }}
        <div id="map"></div>
                {{ form_end(form) }}

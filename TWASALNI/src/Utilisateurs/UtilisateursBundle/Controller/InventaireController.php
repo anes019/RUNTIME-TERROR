@@ -5,6 +5,7 @@ namespace Utilisateurs\UtilisateursBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Utilisateurs\UtilisateursBundle\Entity\Commission;
 use Utilisateurs\UtilisateursBundle\Entity\InventaireC;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 
 class InventaireController extends Controller
 {
@@ -12,8 +13,46 @@ class InventaireController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $liste=$em->getRepository(InventaireC::class)->findInventaireNonPaye();
+        $montantTotal=0;
+        foreach ($liste as $row)
+        {
+            $montantTotal+=$row->getMontant();
+
+        }
+
+        $data= array();
+        $stat=['inventaire','montant'];
+        $nb=0;
+        array_push($data,$stat);
+        foreach ($liste as $row)
+        {
+            $stat=array();
+//            array_push($stat,$row->getPartenaire()->getNom(),(($row->getMontant())*100)/$montantTotal);
+//            $nb=($row->getMontant()*100)/$montantTotal;
+
+            array_push($stat,$row->getPartenaire()->getNom(),$row->getMontant());
+
+            $nb=$row->getMontant();
+
+            $stat=[$row->getPartenaire()->getNom()." ".$row->getPartenaire()->getPrenom(),$nb];
+            array_push($data,$stat);
+        }
+
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable($data);
+        $pieChart->getOptions()->setTitle('Montant à payer par chaque partenaire');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(1125);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#f47684');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+
+
         return $this->render('@UtilisateursUtilisateurs/Inventaire/read.html.twig',array(
-            "liste"=>$liste
+            "liste"=>$liste,"piechart"=>$pieChart
         ));
     }
 

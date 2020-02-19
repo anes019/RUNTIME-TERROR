@@ -43,13 +43,22 @@ class CoursesController extends Controller
             $longitude_view2 = $request->get('longitude_view2');
             $course->setDepart($from);
             $course->setDestination($to);
-            $distance=sqrt(pow($longitude_view- $longitude_view2,2)-pow($latitude_view2-$latitude_view,2));
+
+
+
+
+
+            $distance=sqrt(pow($longitude_view- $longitude_view2,2)+pow($latitude_view2-$latitude_view,2));
+
+           //$distance=($longitude_view- $longitude_view2)*($longitude_view- $longitude_view2)+;
+           //echo $distance;
+           //return 1;
             $course->setPrix($distance);
         
             $securityContext = $this->container->get('security.authorization_checker');
             if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
             {
-                echo"<script>alert('You have to login first')</script>";
+                $this->addFlash('success','Votre Reservation de taxi a été prise en charge');
                 return $this->redirectToRoute('fos_user_security_login');
             }
 

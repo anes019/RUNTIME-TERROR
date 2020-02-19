@@ -30,8 +30,16 @@ class CoursesController extends Controller
             $arrayinv=$em->getRepository(InventaireC::class)->findInventaire($id);
 
             $part=$em->getRepository(Utilisateurs::class)->find($id);
-
-            $course->setPrix(200);
+            $from = $request->get('from');
+            $to = $request->get('to');
+            $latitude_view2 = $request->get('latitude_view2');
+            $latitude_view= $request->get('latitude_view');
+            $longitude_view = $request->get('longitude_view');
+            $longitude_view2 = $request->get('longitude_view2');
+            $course->setDepart($from);
+            $course->setDestination($to);
+            $distance=sqrt(pow($longitude_view- $longitude_view2,2)-  pow($latitude_view2-$latitude_view,2));
+            $course->setPrix($distance);
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
             $course->setClient($client);
@@ -86,7 +94,7 @@ class CoursesController extends Controller
             $mailer->send($msg);
 
             $em->flush();
-            $this->addFlash('success','Votre Reservation a été prise en charge');
+            $this->addFlash('success','Votre Reservation de taxi a été prise en charge');
             return $this->redirectToRoute('course_create');
         }
         return $this->render('@UtilisateursUtilisateurs/Courses/create.html.twig', array(

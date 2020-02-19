@@ -68,8 +68,8 @@ class ReservationController extends Controller
         $inventaire= new InventaireR();
 
         $reservation->setPrix(20);
-        $reservation->setpointAchat('');
-        $reservation->setdestination('');
+//        $reservation->setpointAchat('');
+//        $reservation->setdestination('');
         $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\ReservationType', $reservation);
         $table=$em->getRepository(Utilisateurs::class)->findrole();
         $form->handleRequest($request);

@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
    {% block content %}
-
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDUNjdbNO6RKsAp4pC9r8HyWUuEun6X3vA"></script>
 <div  style="width: 400px ; position: relative ; right: -30%"  >
         <h1>Reservation creation</h1>
         {{ form_start(form) }}
@@ -11,15 +12,14 @@
                 {% endfor %}
             </select>
             <br>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyD1fXpmK5w0vgIymPHfV4_tYW53RHu_gpY"></script>
+
             <!-- Autocomplete location search input -->
             <div class="form-group">
-                <label>Location:</label>
+                <label>point d'Achat:</label>
                 <input type="text" class="form-control" id="search_input" name="from" placeholder="point d'Achat" />
                 <input type="hidden" id="loc_lat" />
                 <input type="hidden" id="loc_long" />
-                <label>Location2:</label>
+                <label>destination:</label>
                 <input type="text" class="form-control" id="search_input2" name="to" placeholder="destination" />
                 <input type="hidden" id="loc_lat2" />
                 <input type="hidden" id="loc_long2" />

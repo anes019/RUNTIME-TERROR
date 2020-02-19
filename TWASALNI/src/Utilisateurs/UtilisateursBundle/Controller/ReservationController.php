@@ -68,6 +68,8 @@ class ReservationController extends Controller
         $inventaire= new InventaireR();
 
         $reservation->setPrix(20);
+        $reservation->setpointAchat('');
+        $reservation->setdestination('');
         $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\ReservationType', $reservation);
         $table=$em->getRepository(Utilisateurs::class)->findrole();
         $form->handleRequest($request);
@@ -76,9 +78,18 @@ class ReservationController extends Controller
             $id=$request->get('partenaire');
             $arrayinv=$em->getRepository(InventaireR::class)->findInventaireR($id);
             $em = $this->getDoctrine()->getManager();
-
+            $from = $request->get('from');
+            $to = $request->get('to');
+            $latitude_view2 = $request->get('latitude_view2');
+            $latitude_view= $request->get('latitude_view');
+            $longitude_view = $request->get('longitude_view');
+            $longitude_view2 = $request->get('longitude_view2');
+            $distance=sqrt(pow($longitude_view- $longitude_view2,2)-  pow($latitude_view2-$latitude_view,2));
+            $reservation->setpointAchat($from);
+            $reservation->setdestination($to);
             $part=$em->getRepository(Utilisateurs::class)->find($id);
-            $reservation->setPrix(100);
+
+            $reservation->setPrix($distance);
             $reservation->setPartenaire($part);
 
             $user=$this->container->get('security.token_storage')->getToken()->getUser();

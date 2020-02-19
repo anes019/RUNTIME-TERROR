@@ -21,6 +21,8 @@ class CoursesController extends Controller
         $commission= new Commission();
         $inventaire= new InventaireC();
         $course->setPrix(20);
+        $course->setDepart('aa');
+        $course->setDestination('aa');
         $form=$this->createForm(CoursesType::class,$course);
         $table=$em->getRepository(Utilisateurs::class)->findrole();
 
@@ -41,7 +43,7 @@ class CoursesController extends Controller
             $longitude_view2 = $request->get('longitude_view2');
             $course->setDepart($from);
             $course->setDestination($to);
-            $distance=sqrt(pow($longitude_view- $longitude_view2,2)-  pow($latitude_view2-$latitude_view,2));
+            $distance=sqrt(pow($longitude_view- $longitude_view2,2)-pow($latitude_view2-$latitude_view,2));
             $course->setPrix($distance);
         
             $securityContext = $this->container->get('security.authorization_checker');

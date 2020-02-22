@@ -4,6 +4,7 @@ namespace Utilisateurs\UtilisateursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Partenaire
  *

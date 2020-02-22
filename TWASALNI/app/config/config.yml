@@ -76,7 +76,7 @@ swiftmailer:
     spool: { type: memory }
 
 sensio_framework_extra:
-   router:
+    router:
         annotations: false
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
@@ -108,6 +108,9 @@ fos_user:
                 address:        noreply@twasalni.tn
                 sender_name:    Twasalni
 
+
+
+
 knp_paginator:
     page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
     default_options:
@@ -122,3 +125,7 @@ knp_paginator:
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
 
+fos_message:
+    db_driver: orm
+    thread_class: Utilisateurs\UtilisateursBundle\Entity\Thread
+    message_class: Utilisateurs\UtilisateursBundle\Entity\Message

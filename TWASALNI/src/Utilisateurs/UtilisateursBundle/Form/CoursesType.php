@@ -14,7 +14,11 @@ class CoursesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('depart')->add('destination')->add('dateCourse')->add('prix')->add('client')->add('partenaire')->add('Reserver',SubmitType::class);
+        $builder->add('depart')
+                ->add('destination')
+            ->add('dateCourse')
+            ->add('prix')->add('client')
+            ->add('partenaire')->add('Reserver',SubmitType::class);
     }/**
      * {@inheritdoc}
      */

@@ -17,6 +17,20 @@
 {% block body %}
     <h1 style=" position: relative; right: -30px">  liste des réservations traitées </h1>
     <br>
+    {% for message in app.flashes('success') %}
+        <div class="alert-success text-center" style="height: 70px">
+            <br>
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert-danger text-center" style="height: 70px">
+            <br>
+            {{ message }}
+        </div>
+    {% endfor %}
+    <br>
+    <br>
     {% if reservations is empty %}
     <div class="alert alert-warning" role="alert">
         Vous n'avez pas de reservation traitée ..

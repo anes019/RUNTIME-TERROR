@@ -63,6 +63,12 @@ inventaire_paye:
 commission_read:
   path:     admin/readCommission/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Commission:read }
+
+comission_pdf:
+  path:     admin/pdfCommission/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Commission:pdf }
+
+
 inventaireR_read:
   path:     admin/readInventaireR
   defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:read }
@@ -70,7 +76,10 @@ inventaireR_read:
 commissionR_read:
   path:     admin/readCommissionR/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:CommissionR:read }
+commissionR_pdf:
+  path:    admin/pdfComm/{id}
 
+  defaults: { _controller: UtilisateursUtilisateursBundle:CommissionR:pdf }
 
 
 

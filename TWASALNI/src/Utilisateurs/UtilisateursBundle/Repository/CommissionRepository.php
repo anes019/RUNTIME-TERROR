@@ -29,4 +29,7 @@ WHERE i.course=$id");
 WHERE i.inventairec=$id");
         return $query->getResult();
     }
+
+
+
 }

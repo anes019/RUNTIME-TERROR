@@ -8,6 +8,8 @@ use Utilisateurs\UtilisateursBundle\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Utilisateurs\UtilisateursBundle\Entity\Utilisateurs;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * Reservation controller.
@@ -35,6 +37,8 @@ class ReservationController extends Controller
             'reservations' => $result,
         ));
     }
+
+
     public function listarchiveAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -64,6 +68,8 @@ class ReservationController extends Controller
         $inventaire= new InventaireR();
 
         $reservation->setPrix(20);
+//        $reservation->setpointAchat('');
+//        $reservation->setdestination('');
         $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\ReservationType', $reservation);
         $table=$em->getRepository(Utilisateurs::class)->findrole();
         $form->handleRequest($request);
@@ -72,10 +78,27 @@ class ReservationController extends Controller
             $id=$request->get('partenaire');
             $arrayinv=$em->getRepository(InventaireR::class)->findInventaireR($id);
             $em = $this->getDoctrine()->getManager();
-
+            $from = $request->get('from');
+            $to = $request->get('to');
+            $latitude_view2 = $request->get('latitude_view2');
+            $latitude_view= $request->get('latitude_view');
+            $longitude_view = $request->get('longitude_view');
+            $longitude_view2 = $request->get('longitude_view2');
+            $distance=sqrt(pow($longitude_view- $longitude_view2,2)-  pow($latitude_view2-$latitude_view,2));
+            $reservation->setpointAchat($from);
+            $reservation->setdestination($to);
             $part=$em->getRepository(Utilisateurs::class)->find($id);
-            $reservation->setPrix(100);
+
+            $reservation->setPrix($distance);
             $reservation->setPartenaire($part);
+
+
+            $securityContext = $this->container->get('security.authorization_checker');
+            if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
+            {
+                echo"<script>alert('You have to login first')</script>";
+                return $this->redirectToRoute('fos_user_security_login');
+            }
 
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
@@ -199,8 +222,9 @@ class ReservationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $reservation->setEtat('non traite');
             $em->flush();
+            $this->addFlash('success','reservation restauré ');
         }
-        return $this->redirectToRoute('reservation_index');
+        return $this->redirectToRoute('reservation_archive');
     }
 
     public function rejetAction(Request $request, Reservation $reservation,$id)
@@ -212,6 +236,7 @@ class ReservationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $reservation->setEtat('refusé');
             $em->flush();
+
         }
         return $this->redirectToRoute('reservation_index');
     }
@@ -232,14 +257,27 @@ class ReservationController extends Controller
             $commission=$em->getRepository(CommissionR::class)->findCommissionbyReservation($id);
             $inventaire=$em->getRepository(InventaireR::class)->find($commission[0]->getInventaireR()->getId());
             $inventaire->setMontant($inventaire->getMontant()-$r->getPrix()*$commission[0]->getPourcentage());
+            $montant=$inventaire->getMontant();
+            if($montant=0)
+            {
+                $com=$commission[0];
+                $em->remove($com);
+                $em->remove($inventaire);
+                $em->remove($reservation);
+                $em->flush();
+                $this->addFlash('error','reservation supprimé');
+            }
+            else {
             $com=$commission[0];
             $em->remove($com);
             $em->persist($inventaire);
             $em->remove($reservation);
             $em->flush();
-        }
+            $this->addFlash('error','reservation supprimé');
+        } }
 
-        return $this->redirectToRoute('reservation_index');
+
+        return $this->redirectToRoute('reservation_archive');
     }
 
     /**

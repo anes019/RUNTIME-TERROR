@@ -98,7 +98,7 @@ class CoursesController extends Controller
             $msg = (new \Swift_Message('Reservation de taxi '))
                 ->setFrom('noreply@twasalni.tn')
                 ->setTo('arbi.saidi8@gmail.com')
-                ->setBody('Merci pour votre reservation');
+                ->setBody('Merci pour votre reservation ');
 
             $mailer->send($msg);
 

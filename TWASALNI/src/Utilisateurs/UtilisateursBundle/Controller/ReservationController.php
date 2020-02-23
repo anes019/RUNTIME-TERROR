@@ -68,24 +68,30 @@ class ReservationController extends Controller
         $inventaire= new InventaireR();
 
         $reservation->setPrix(20);
-//        $reservation->setpointAchat('');
-//        $reservation->setdestination('');
+        $reservation->setpointAchat('');
+        $reservation->setdestination('');
+        $reservation->setListAchats('');
         $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\ReservationType', $reservation);
         $table=$em->getRepository(Utilisateurs::class)->findrole();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            $dater=$reservation->getDate();
+//            $time = new \DateTime();
+//            if(($dater>$time))
             $id=$request->get('partenaire');
             $arrayinv=$em->getRepository(InventaireR::class)->findInventaireR($id);
             $em = $this->getDoctrine()->getManager();
-            $from = $request->get('from');
+            $from = $request->get('point_vente');
             $to = $request->get('to');
+            $listeAchats = $request->get('produit');
             $latitude_view2 = $request->get('latitude_view2');
             $latitude_view= $request->get('latitude_view');
             $longitude_view = $request->get('longitude_view');
             $longitude_view2 = $request->get('longitude_view2');
             $distance=sqrt(pow($longitude_view- $longitude_view2,2)-  pow($latitude_view2-$latitude_view,2));
             $reservation->setpointAchat($from);
+            $reservation->setListAchats($listeAchats);
             $reservation->setdestination($to);
             $part=$em->getRepository(Utilisateurs::class)->find($id);
 
@@ -190,15 +196,25 @@ class ReservationController extends Controller
         if ($reservation) {
             $em = $this->getDoctrine()->getManager();
             $reservation->setEtat('traite');
+            $client=  $reservation->getClient();
+            $email=$client->getEmail();
             $list=$reservation->getListAchats();
             $rem=$reservation->getRemarques();
             $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
             $client =new \Nexmo\Client($basic);
-//            $message = $client->message()->send([
-//                'to' => '21652715563',
-//                'from' => 'Twasalni?',
-//                'text' => 'Votre reservation est confirmé , liste achats:  '.$list.'  remarques:   '.$rem.'',
-//            ]);
+            $message = $client->message()->send([
+                'to' => '21652715563',
+                'from' => 'Twasalni?',
+                'text' => 'Votre reservation est confirmé , liste achats:  '.$list.'  remarques:   '.$rem.'',
+            ]);
+
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Votre reservation est confirmé'))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo($email)
+                ->setBody('Votre reservation est confirmé , liste achats:  '.$list.'  remarques:   '.$rem.'');
+
+            $mailer->send($msg);
             $em->flush();
             $this->addFlash('success','reservation acceptée , votre client est notifié');
         }

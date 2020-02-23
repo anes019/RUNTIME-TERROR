@@ -4,6 +4,11 @@ admin:
 utilisateurs_utilisateurs:
     resource: "@UtilisateursUtilisateursBundle/Resources/config/routing.yml"
     prefix:   /
+
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix:   /message
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

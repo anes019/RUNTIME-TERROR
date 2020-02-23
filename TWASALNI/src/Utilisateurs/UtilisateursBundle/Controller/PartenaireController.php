@@ -20,14 +20,22 @@ class PartenaireController extends Controller
      * @Route("/", name="admin_partenaire_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $partenaires = $em->getRepository('UtilisateursUtilisateursBundle:Partenaire')->findAll();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $partenaires, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            4/*limit per page*/
+        );
 
         return $this->render('partenaire/index.html.twig', array(
             'partenaires' => $partenaires,
+            'pagination' => $pagination
         ));
     }
 
@@ -45,9 +53,16 @@ class PartenaireController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $email=$partenaire->getMail();
             $em->persist($partenaire);
             $em->flush();
-
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo($email )
+                //->setSubject('Bienvenu à Twasalni!')
+                ->setBody('Bienvenu à Twasalni!');
+            $mailer->send($msg);
             return $this->redirectToRoute('partenaire_show', array('id' => $partenaire->getId()));
         }
 

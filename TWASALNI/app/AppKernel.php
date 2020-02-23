@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Utilisateurs\UtilisateursBundle\UtilisateursUtilisateursBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new AdminBundle\AdminBundle(),
 

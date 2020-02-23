@@ -98,6 +98,14 @@ class ReservationController extends Controller
             $reservation->setPrix($distance);
             $reservation->setPartenaire($part);
 
+
+            $securityContext = $this->container->get('security.authorization_checker');
+            if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
+            {
+                echo"<script>alert('You have to login first')</script>";
+                return $this->redirectToRoute('fos_user_security_login');
+            }
+
             $user=$this->container->get('security.token_storage')->getToken()->getUser();
             $client=$em->getRepository(Utilisateurs::class)->find($user->getId());
             $reservation->setClient($client);

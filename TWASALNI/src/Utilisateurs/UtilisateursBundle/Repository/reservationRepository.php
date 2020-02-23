@@ -17,9 +17,6 @@ class reservationRepository extends \Doctrine\ORM\EntityRepository
 WHERE i.etat='non traite'");
         return $query->getResult();
     }
-
-
-
     public function myfindAllarchive()
     {
         $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:Reservation i 

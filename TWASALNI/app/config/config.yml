@@ -128,4 +128,4 @@ knp_paginator:
 fos_message:
     db_driver: orm
     thread_class: Utilisateurs\UtilisateursBundle\Entity\Thread
-    message_class: Utilisateurs\UtilisateursBundle\Entity\Message
+message_class: Utilisateurs\UtilisateursBundle\Entity\Message

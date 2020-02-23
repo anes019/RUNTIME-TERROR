@@ -38,7 +38,7 @@ class Courses
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_course", type="date")
+     * @ORM\Column(name="date_course", type="datetime")
      */
     private $dateCourse;
 
@@ -168,5 +168,52 @@ class Courses
     {
         return $this->prix;
     }
-}
 
+    /**
+     * Set client
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $client
+     *
+     * @return Courses
+     */
+    public function setClient(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $client = null)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Set partenaire
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $partenaire
+     *
+     * @return Courses
+     */
+    public function setPartenaire(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $partenaire = null)
+    {
+        $this->partenaire = $partenaire;
+
+        return $this;
+    }
+
+    /**
+     * Get partenaire
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs
+     */
+    public function getPartenaire()
+    {
+        return $this->partenaire;
+    }
+}

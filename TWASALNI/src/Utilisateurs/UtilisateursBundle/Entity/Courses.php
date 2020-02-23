@@ -38,7 +38,7 @@ class Courses
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_course", type="date")
+     * @ORM\Column(name="date_course", type="datetime")
      */
     private $dateCourse;
 

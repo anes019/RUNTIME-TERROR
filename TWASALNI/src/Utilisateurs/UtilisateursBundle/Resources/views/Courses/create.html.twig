@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
    {% block content %}
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDUNjdbNO6RKsAp4pC9r8HyWUuEun6X3vA"></script>
        <br>
        <br>
        <div  style="width: 400px ; position: relative ; right: -30%"  >
            {% block body %}
-               <h1>Reservation de taxi creation</h1>
+               <h1>Reservation de taxi </h1>
 
                {{ form_start(form) }}
                <div><label>Partenaire</label><select class="form-control" name="partenaire">
@@ -13,10 +15,44 @@
 
                        {% endfor %}
                    </select></div>
+
+           <br>
+
+           <!-- Autocomplete location search input -->
+           <div class="form-group">
+               <label>Depart:</label>
+               <input type="text" class="form-control" id="search_input" name="from" placeholder="depart" />
+               <input type="hidden" id="loc_lat" />
+               <input type="hidden" id="loc_long" />
+               <label>Destination:</label>
+               <input type="text" class="form-control" id="search_input2" name="to" placeholder="destination" />
+               <input type="hidden" id="loc_lat2" />
+               <input type="hidden" id="loc_long2" />
+           </div>
+
+           <!-- Display latitude and longitude -->
+           <div class="latlong-view"  >
+               <p><b>Latitude:</b> <input id="latitude_view" name="latitude_view"></p>
+               <p><b>Longitude:</b> <input id="longitude_view" name="longitude_view"></p>
+               <br>
+               <br>
+               <br>
+               <p><b>Latitude 2:</b> <input id="latitude_view2" name="latitude_view2"></p>
+               <p><b>Longitude 2:</b> <input id="longitude_view2" name="longitude_view2"></p>
+
+
+           </div>
+
+       </div>
+
+       <div hidden="hidden">{{ form_widget(form.destination)}}</div>
+       <div hidden="hidden">{{ form_widget(form.depart)}}</div>
                <div hidden="hidden">{{ form_widget(form.prix)}}</div>
                <div hidden="hidden">{{ form_widget(form.client)}}</div>
                <div hidden="hidden">{{ form_widget(form.partenaire)}}</div>
+             
                {{ form_widget(form) }}
+       <div id="map"></div>
                {{ form_end(form) }}
 
 
@@ -24,4 +60,68 @@
        </div>
        <br>
        <br>
+       <script type="text/javascript">
+           var searchInput = 'search_input';
+           var searchInput2 = 'search_input2';
+
+           $(document).ready(function () {
+               var autocomplete;
+               autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                   types: ['geocode'],
+               });
+
+               var autocomplete2;
+               autocomplete2 = new google.maps.places.Autocomplete((document.getElementById(searchInput2)), {
+                   types: ['geocode'],
+               });
+
+
+               google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                   var near_place = autocomplete.getPlace();
+                   document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+                   document.getElementById('loc_long').value = near_place.geometry.location.lng();
+
+
+                   document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+                   document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+
+               });
+
+               google.maps.event.addListener(autocomplete2, 'place_changed', function () {
+                   var near_place = autocomplete.getPlace();
+
+                   document.getElementById('loc_lat2').value = near_place.geometry.location.lat();
+                   document.getElementById('loc_long2').value = near_place.geometry.location.lng();
+
+
+                   document.getElementById('latitude_view2').innerHTML = near_place.geometry.location.lat();
+                   document.getElementById('longitude_view2').innerHTML = near_place.geometry.location.lng();
+               });
+
+
+
+
+           });
+           $(document).on('change', '#'+searchInput, function () {
+               document.getElementById('latitude_input').value = '';
+               document.getElementById('longitude_input').value = '';
+
+
+               document.getElementById('latitude_view').innerHTML = '';
+               document.getElementById('longitude_view').innerHTML = '';
+
+           });
+           $(document).on('change', '#'+searchInput2, function () {
+
+               document.getElementById('latitude_input2').value = '';
+               document.getElementById('longitude_input2').value = '';
+
+
+               document.getElementById('latitude_view2').innerHTML = '';
+               document.getElementById('longitude_view2').innerHTML = '';
+           });
+
+
+
+       </script>
    {% endblock %}

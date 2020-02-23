@@ -29,6 +29,13 @@ WHERE i.partenaire=$id");
 WHERE i.done=0");
         return $query->getResult();
     }
+
+    public function somme($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireR i 
+WHERE i.partenaire=$id");
+        return $query->getResult();
+    }
     public function findInventairePaye()
     {
         $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireR i 

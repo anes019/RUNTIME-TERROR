@@ -44,6 +44,13 @@ class TaxiController extends Controller
             $em->persist($taxi);
             $em->flush();
 
+
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo('arbi.saidi8@gmail.com')
+                ->setBody('Merci pour votre reservation');
+            $mailer->send($msg);
             return $this->redirectToRoute('taxi_index');
         }
 

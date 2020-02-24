@@ -129,3 +129,4 @@ fos_message:
     db_driver: orm
     thread_class: Utilisateurs\UtilisateursBundle\Entity\Thread
     message_class: Utilisateurs\UtilisateursBundle\Entity\Message
+

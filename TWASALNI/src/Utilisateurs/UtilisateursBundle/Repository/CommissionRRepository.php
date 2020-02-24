@@ -29,4 +29,8 @@ WHERE i.partenaire=$id");
 WHERE i.inventaireR=$id");
         return $query->getResult();
     }
+
+
+
+
 }

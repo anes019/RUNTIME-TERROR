@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Utilisateurs\UtilisateursBundle\UtilisateursUtilisateursBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
+
 
             new AdminBundle\AdminBundle(),
 
@@ -30,7 +32,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-           // $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+            // $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
 
             if ('dev' === $this->getEnvironment()) {
                 $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();

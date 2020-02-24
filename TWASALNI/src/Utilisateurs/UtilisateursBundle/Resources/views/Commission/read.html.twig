@@ -16,6 +16,7 @@
        <br>
        {% block body %}
            <h1 style=" position: relative; right: -30px">  liste des Commission pour Mr/Mme {{ inventaire.partenaire.nom }}  {{ inventaire.partenaire.prenom }}</h1>
+
            <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
            <br>
            <table class="table table-bordered table-striped">
@@ -55,7 +56,7 @@
                {% endfor %}
                </tbody>
            </table>
-
+            <a href="{{ path('comission_pdf',{'id':app.request.get('id')}) }}">Génerer une facture pour {{ inventaire.partenaire.nom }}  {{ inventaire.partenaire.prenom }}</a><br>
            <a href="{{ path('inventaire_read')}}"><button>Voir inventaire des courses</button></a>
 
        {% endblock %}

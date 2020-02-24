@@ -1,29 +1,153 @@
 {% extends 'base.html.twig' %}
    {% block content %}
-       <br>
-       <br>
-       <div  style="width: 400px ; position: relative ; right: -30%"  >
-{% block body %}
-    <h1>Reservation creation</h1>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+       <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 
-    {{ form_start(form) }}
-    <div><label>Partenaire</label><select class="form-control" name="partenaire">
-                    {% for i in table %}
-                        <option value="{{ i.id }}"> {{ i.nom }}</option>
+<div  style="width: 400px ; position: relative ; right: -30%"  >
+        <h1>Reservation creation</h1>
+        {{ form_start(form) }}
+        <div><label>Partenaire</label><select class="form-control" name="partenaire">
+                {% for i in table %}
+                    <option value="{{ i.id }}"> {{ i.nom }}</option>
 
-                    {% endfor %}
-                </select></div>
-    <div hidden="hidden">{{ form_widget(form.prix)}}</div>
-    <div hidden="hidden">{{ form_widget(form.client)}}</div>
-    <div hidden="hidden">{{ form_widget(form.partenaire)}}</div>
+                {% endfor %}
+            </select>
+            <!-- Autocomplete location search input -->
+            <div class="form-group">
+                <label>Region:</label>
+                <select name="region" id="region" class="js-example-basic-single form-control input-lg">
+                    <option value="">Choisir votre region</option>
+                </select>
+                <label>point d'Achat:</label>
+                <select name="point_vente" id="point_vente" class="js-example-basic-single  form-control input-lg">
+                    <option value="">Choisir un point d'achat</option>
+                </select>
+                <label>destination:</label>
+                <input type="text" class="form-control" id="search_input2" name="to" placeholder="destination" />
+                <label>List d'achats:</label>
+                <select name="produit" id="produit" class=" js-example-basic-single  form-control input-lg">
+                    <option value="">Choisir votre produit</option>
+                </select>
+            </div>
+            <!-- Display latitude and longitude -->
+            <div class="latlong-view"   >
+                <p><b>Latitude:</b> <input id="latitude_view" name="latitude_view"></p>
+                <p><b>Longitude:</b> <input id="longitude_view" name="longitude_view"></p>
+                <p><b>Latitude 2:</b> <input id="latitude_view2" name="latitude_view2"></p>
+                <p><b>Longitude 2:</b> <input id="longitude_view2" name="longitude_view2"></p>
+            </div>
+        </div>
+        <div hidden="hidden">{{ form_widget(form.prix)}}</div>
+        <div hidden="hidden">{{ form_widget(form.client)}}</div>
+        <div hidden="hidden">{{ form_widget(form.partenaire)}}</div>
+
         {{ form_widget(form) }}
         <input  class="btn btn-info" type="submit" value="Confirmer" />
-    {{ form_end(form) }}
+        <div id="map"></div>
+        {{ form_end(form) }}
 
 
-{% endblock %}
-       </div>
-       <br>
-       <br>
 
+    </div>
+    <br>
+    <br>
+
+    </body>
+    </html>
+
+       <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDqkMjY2kfjUW41cnfsrrCxCN1Wi_S1x5o" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
+       <script type="text/javascript">
+           function initialize() {
+               var input2 = document.getElementById('search_input2');
+               var autocomplete2 = new google.maps.places.Autocomplete(input2);
+               google.maps.event.addListener(autocomplete2, 'place_changed', function () {
+                   var place2 = autocomplete2.getPlace();
+                   var latitude2 = place2.geometry.location.lat();
+                   var longitude2 = place2.geometry.location.lng();
+
+                   document.getElementById('latitude_view2').value = latitude2;
+                   document.getElementById('longitude_view2').value = longitude2;
+                   console.log(place.geometry.location.lng());
+                   console.log(place.geometry.location.lat());
+               });
+           }
+           google.maps.event.addDomListener(window, 'load', initialize);
+       </script>
+<script>
+
+    $(document).ready(function(){
+
+        load_json_data('region');
+
+        function load_json_data(id, parent_id)
+        {
+            var html_code = '';
+            $.getJSON("{{ asset('templates/frontoffice/assets/js/info.json') }}", function(data){
+
+                html_code += '<option value="">Choisir '+id+'</option>';
+                $.each(data, function(key, value){
+                    if(id == 'region')
+                    {
+                        if(value.parent_id == '0')
+                        {
+                            html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+
+                        }
+                    }
+                    else
+                    {
+                        if(value.parent_id == parent_id)
+                        {
+                            html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+
+                        }
+                    }
+                });
+                $('#'+id).html(html_code);
+            });
+
+        }
+
+        $(document).on('change', '#region', function(){
+            var region_id = $(this).val();
+            if(region_id != '')
+            {
+                load_json_data('point_vente', region_id);
+
+            }
+            else
+            {
+                $('#point_vente').html('<option value="">Choisir un point de vente</option>');
+                $('#produit').html('<option value="">Choisir un produit</option>');
+            }
+        });
+        $(document).on('change', '#point_vente', function(){
+            var ptVente_id = $(this).val();
+            if(ptVente_id != '')
+            {
+                load_json_data('produit', ptVente_id);
+            }
+            else
+            {
+                $('#produit').html('<option value="">Choisir un produit</option>');
+            }
+        });
+    });
+
+
+</script>
    {% endblock %}
+
+
+
+
+
+
+
+

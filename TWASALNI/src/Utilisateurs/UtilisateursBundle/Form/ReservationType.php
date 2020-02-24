@@ -23,6 +23,10 @@ class ReservationType extends AbstractType
             ->add('remarques',TextareaType::class)->add('client')
             ->add('partenaire');
     }/**
+ $builder->add('date', DateTimeType::class ,array(
+            'widget' => 'single_text'))->add('prix')->add('remarques',TextareaType::class)->add('client')->add('partenaire');
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

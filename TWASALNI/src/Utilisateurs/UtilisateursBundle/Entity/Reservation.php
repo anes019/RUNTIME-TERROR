@@ -253,7 +253,11 @@ class Reservation
     {
         $this->etat = $etat;
     }
-
+    public function __construct()
+    {
+        $dates = new \DateTime('@'.strtotime('now'));
+        $this->date = $dates;
+    }
 
 
 }

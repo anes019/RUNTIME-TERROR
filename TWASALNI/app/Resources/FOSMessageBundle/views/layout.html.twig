@@ -19,6 +19,9 @@
 
         <h1>{% trans from 'FOSMessageBundle' %}messenger{% endtrans %}</h1>
 
+    <a href="{{ url('fos_message_thread_new') }}"><p data-placement="top" data-toggle="tooltip" title="Envoyer un message"><button class="btn btn-secondary btn-s" data-title="New" data-toggle="modal" data-target="#new" ><span class="glyphicon glyphicon-plus"></span></button></p></a></a>
+    <br>
+
         <ul>
             <li><a href="{{ url('fos_message_inbox') }}">{% trans from 'FOSMessageBundle' %}inbox{% endtrans %}</a></li>
             <li><a href="{{ url('fos_message_sent') }}">{% trans from 'FOSMessageBundle' %}sent{% endtrans %}</a></li>

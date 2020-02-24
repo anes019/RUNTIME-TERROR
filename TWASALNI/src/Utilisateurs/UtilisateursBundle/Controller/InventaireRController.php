@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Utilisateurs\UtilisateursBundle\Entity\CommissionR;
 use Utilisateurs\UtilisateursBundle\Entity\InventaireR;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 
 class InventaireRController extends Controller
 {
@@ -18,14 +19,46 @@ class InventaireRController extends Controller
             $request->query->getInt('page',1),
             $request->query->getInt('limit',1));
 
+
+        $data= array();
+        $stat=['inventaire','montant'];
+        $nb=0;
+        array_push($data,$stat);
+        foreach ($liste as $row)
+        {
+            $stat=array();
+//            array_push($stat,$row->getPartenaire()->getNom(),(($row->getMontant())*100)/$montantTotal);
+//            $nb=($row->getMontant()*100)/$montantTotal;
+
+            array_push($stat,$row->getPartenaire()->getNom(),$row->getMontant());
+
+            $nb=$row->getMontant();
+
+            $stat=[$row->getPartenaire()->getNom()." ".$row->getPartenaire()->getPrenom(),$nb];
+            array_push($data,$stat);
+        }
+
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable($data);
+        $pieChart->getOptions()->setTitle('Montant à payer par chaque partenaire');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(1125);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#f47684');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
         return $this->render('@UtilisateursUtilisateurs/InventaireR/read.html.twig',array(
-            "liste"=>$result
+            "liste"=>$result,"piechart"=>$pieChart
         ));
     }
     public function doneAction($id)
     {
         $em=$this->getDoctrine()->getManager();
         $inventaire=$em->getRepository(InventaireR::class)->find($id);
+        $commission=$em->getRepository(CommissionR::class)->find($id);
+
         $inventaire->setDone(1);
         $em->persist($inventaire);
         $em->flush();

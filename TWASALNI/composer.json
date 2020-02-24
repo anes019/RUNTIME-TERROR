@@ -20,7 +20,7 @@
         "doctrine/orm": "^2.5",
 
         "dompdf/dompdf": "^0.8.5",
-        "dompdf/dompdf": "^0.8.4",
+
 
         "friendsofsymfony/message-bundle": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0",

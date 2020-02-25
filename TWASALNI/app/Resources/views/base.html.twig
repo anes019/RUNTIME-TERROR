@@ -101,7 +101,7 @@
                                     <li><a href="faq.html">Mannuel </a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="{{ path('feed_back_homepage') }}">Contact</a></li>
                             <li><a href="#">Profile</a>
                                 <ul>
                                     <li><a href="{{ path('reservation_index')}}">Admins</a></li>
@@ -121,9 +121,11 @@
 </header>
 <!--== Header Area End ==-->
 
-<section id="slideslow-bg">
+{% block slide %}
+    <section id="slideslow-bg">
 
-</section>
+    </section>
+{% endblock %}
 
 {% for message in app.flashes('success') %}
 <div class="alert-success text-center" style="height: 70px">

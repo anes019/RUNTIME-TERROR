@@ -1,6 +1,6 @@
 feed_back:
     resource: "@FeedBackBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /feedback
 
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"

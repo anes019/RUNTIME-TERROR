@@ -5,7 +5,9 @@ namespace Utilisateurs\UtilisateursBundle\Controller;
 use Utilisateurs\UtilisateursBundle\Entity\Partenaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 
 /**
  * Partenaire controller.
@@ -26,6 +28,38 @@ class PartenaireController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $partenaires = $em->getRepository('UtilisateursUtilisateursBundle:Partenaire')->findAll();
+        $nbTotal=0;
+        foreach ($partenaires as $row)
+        {
+            $nbTotal+=$row->getNb();
+        }
+        $data= array();
+        $stat=['inventaire','montant'];
+        $nb=0;
+        array_push($data,$stat);
+        foreach ($partenaires as $row)
+        {
+            $stat=array();
+//            array_push($stat,$row->getPartenaire()->getNom(),(($row->getMontant())*100)/$montantTotal);
+//            $nb=($row->getMontant()*100)/$montantTotal;
+            array_push($stat,$row->getNom(),$row->getNb());
+            $nb=$row->getNb();
+            $stat=[$row->getNom()." ".$row->getPrenom(),$nb];
+            array_push($data,$stat);
+        }
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable($data);
+        $pieChart->getOptions()->setTitle('Nombre de courses par chaque partenaire');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(1125);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#f47684');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+
+
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $partenaires, /* query NOT result */
@@ -35,7 +69,8 @@ class PartenaireController extends Controller
 
         return $this->render('partenaire/index.html.twig', array(
             'partenaires' => $partenaires,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'piechart'=> $pieChart
         ));
     }
 
@@ -54,6 +89,7 @@ class PartenaireController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $email=$partenaire->getMail();
+            $partenaire->setNb(0);
             $em->persist($partenaire);
             $em->flush();
             $mailer= $this->get('mailer');
@@ -61,7 +97,7 @@ class PartenaireController extends Controller
                 ->setFrom('noreply@twasalni.tn')
                 ->setTo($email )
                 //->setSubject('Bienvenu à Twasalni!')
-                ->setBody('Bienvenu à Twasalni!');
+                ->setBody('http://localhost/RUNTIME-TERROR/TWASALNI/web/app_dev.php/admin/changermdp/'.$partenaire->getId());
             $mailer->send($msg);
             return $this->redirectToRoute('partenaire_show', array('id' => $partenaire->getId()));
         }
@@ -87,6 +123,40 @@ class PartenaireController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+    public function rendermdpAction($id)
+    {
+        return $this->render('partenaire/changeMdp.html.twig', array(
+            'id' => $id
+
+        ));
+    }
+
+
+    public function changermdpAction($id, Request $request)
+    {
+
+        $mdp=$request->get('mdp');
+        $confirm=$request->get('double');
+        if($mdp==$confirm)
+        {
+            $em=$this->getDoctrine()->getManager();
+            $partenaire=$em->getRepository(Partenaire::class)->find($id);
+            $partenaire->setMdp($mdp);
+            $em->persist($partenaire);
+            $em->flush();
+            $deleteForm = $this->createDeleteForm($partenaire);
+
+            return $this->render('partenaire/show.html.twig', array(
+                'partenaire' => $partenaire,
+                'delete_form' => $deleteForm->createView(),
+            ));
+
+        }
+
+
+    }
+
 
     /**
      * Displays a form to edit an existing partenaire entity.

@@ -28,6 +28,21 @@ class TaxiController extends Controller
     }
 
     /**
+     * Lists all taxi entities front.
+     *
+     */
+    public function indexFrontAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $taxis = $em->getRepository('UtilisateursUtilisateursBundle:Taxi')->findAll();
+
+        return $this->render('taxi/indexFront.html.twig', array(
+            'taxis' => $taxis,
+        ));
+    }
+
+    /**
      * Creates a new taxi entity.
      *
      */

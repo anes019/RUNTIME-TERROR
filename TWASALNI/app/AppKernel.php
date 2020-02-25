@@ -26,7 +26,7 @@ class AppKernel extends Kernel
 
 
             new AdminBundle\AdminBundle(),
-
+            new FeedBackBundle\FeedBackBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

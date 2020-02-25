@@ -245,28 +245,4 @@ class Partenaire
     {
         return $this->taxi;
     }
-
-    /**
-     * Set nb.
-     *
-     * @param int $nb
-     *
-     * @return Partenaire
-     */
-    public function setNb($nb)
-    {
-        $this->nb = $nb;
-
-        return $this;
-    }
-
-    /**
-     * Get nb.
-     *
-     * @return int
-     */
-    public function getNb()
-    {
-        return $this->nb;
-    }
 }

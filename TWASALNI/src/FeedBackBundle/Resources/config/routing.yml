@@ -1,0 +1,3 @@
+feed_back_homepage:
+    path:     /
+    defaults: { _controller: FeedBackBundle:Default:index }

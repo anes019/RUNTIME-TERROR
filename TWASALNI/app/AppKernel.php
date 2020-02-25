@@ -24,8 +24,9 @@ class AppKernel extends Kernel
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
 
 
-            new AdminBundle\AdminBundle(),
 
+            new AdminBundle\AdminBundle(),
+            new FeedBackBundle\FeedBackBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

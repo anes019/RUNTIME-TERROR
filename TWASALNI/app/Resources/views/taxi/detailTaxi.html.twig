@@ -62,8 +62,8 @@
 
                             <div class="review-area">
                                 <h3>Que pensez-vous de  “{{ part.nom }}” ?</h3>
-                                <div class="review-star" id="allstar">
-                                    <p class="rating allstar">
+                                <div class="review-star">
+                                    <p class="rating" id="allstar">
                                         {% if rate ==null %}
                                             <i class="fa fa-star unmark" id="star1"></i>
                                             <i class="fa fa-star unmark" id="star2"></i>
@@ -120,161 +120,149 @@
     </section>
 {% endblock %}
 
-<script>
-    $("#star1").click(function () {
-        $.ajax({
-            type:'get',
-            url:"{{ path('feed_back_evaluer',{'id':taxi.matricule } )}}",
-            data:{
-                rate: 1
-            },
-            async: true,
-            success:
-                function (response) {
-                    console.log(response);
-                    $('.allstar').html('');
-                    var e=$(' <i class="fa fa-star" id="star1"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star2"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star3"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star4"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star5"> </i> ');
-                    $('.allstar').append(e);
+{% block jquery %}
+    {{ parent() }}
+    <script>
+        $("#star1").click(function () {
+            var i=0;
+            $.ajax({
+                type:'get',
+                url:"{{ path('feed_back_evaluer',{'id':part.id } )}}",
+                data:{
+                    rate: 1
                 },
-            error:
-                function (response) {
-                    $('#allstar').html('');
-                    var e=$(' <i class="fa fa-star unmark" id="star1"> </i> ');
-                    $('#allstar').append(e);
-                }
-        })
-    });
-    $("#star2").click(function () {
-        $.ajax({
-            type:'get',
-            url:"{{ path('feed_back_evaluer',{'id':taxi.matricule } )}}",
-            data:{
-                rate: 2
-            },
-            async: true,
-            success:
-                function (response) {
-                    console.log(response);
-                    $('.allstar').html('');
-                    var e=$(' <i class="fa fa-star" id="star1"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star2"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star3"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star4"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star5"> </i> ');
-                    $('.allstar').append(e);
+                async: true,
+                success:
+                    function (response) {
+                        $('#allstar').html('');
+                        for(i=1;i<6;i++){
+                            if(i<=response['rate']){
+                                var e=$(' <i class="fa fa-star" id="star'+i+'"> </i> ');
+                            }
+                            else{
+                                var e=$(' <i class="fa fa-star unmark" id="star'+i+'"> </i> ');
+                            }
+                            $('#allstar').append(e);
+                        }
+                    },
+                error:
+                    function (response) {
+                        alert('Une Erreur Technique ');
+                    }
+            })
+        });
+        $("#star2").click(function () {
+            var i=0;
+            $.ajax({
+                type:'get',
+                url:"{{ path('feed_back_evaluer',{'id':part.id } )}}",
+                data:{
+                    rate: 2
                 },
-            error:
-                function (response) {
-                    $('#allstar').html('');
-                    var e=$(' <i class="fa fa-star unmark" id="star1"> </i> ');
-                    $('#allstar').append(e);
-                }
-        })
-    });
-    $("#star3").click(function () {
-        $.ajax({
-            type:'get',
-            url:"{{ path('feed_back_evaluer',{'id':taxi.matricule } )}}",
-            data:{
-                rate: 3
-            },
-            async: true,
-            success:
-                function (response) {
-                    console.log(response);
-                    $('.allstar').html('');
-                    var e=$(' <i class="fa fa-star" id="star1"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star2"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star3"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star4"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star5"> </i> ');
-                    $('.allstar').append(e);
+                async: true,
+                success:
+                    function (response) {
+                        $('#allstar').html('');
+                        for(i=1;i<6;i++){
+                            if(i<=response['rate']){
+                                var e=$(' <i class="fa fa-star" id="star'+i+'"> </i> ');
+                            }
+                            else{
+                                var e=$(' <i class="fa fa-star unmark" id="star'+i+'"> </i> ');
+                            }
+                            $('#allstar').append(e);
+                        }
+                    },
+                error:
+                    function (response) {
+                        alert('Une Erreur Technique ');
+                    }
+            })
+        });
+        $("#star3").click(function () {
+            var i=0;
+            $.ajax({
+                type:'get',
+                url:"{{ path('feed_back_evaluer',{'id':part.id } )}}",
+                data:{
+                    rate: 3
                 },
-            error:
-                function (response) {
-                    $('#allstar').html('');
-                    var e=$(' <i class="fa fa-star unmark" id="star1"> </i> ');
-                    $('#allstar').append(e);
-                }
-        })
-    });
-    $("#star4").click(function () {
-        $.ajax({
-            type:'get',
-            url:"{{ path('feed_back_evaluer',{'id':taxi.matricule } )}}",
-            data:{
-                rate: 4
-            },
-            async: true,
-            success:
-                function (response) {
-                    console.log(response);
-                    $('.allstar').html('');
-                    var e=$(' <i class="fa fa-star" id="star1"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star2"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star3"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star4"> </i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star unmark" id="star5"> </i> ');
-                    $('.allstar').append(e);
+                async: true,
+                success:
+                    function (response) {
+                        $('#allstar').html('');
+                        for(i=1;i<6;i++){
+                            if(i<=response['rate']){
+                                var e=$(' <i class="fa fa-star" id="star'+i+'"> </i> ');
+                            }
+                            else{
+                                var e=$(' <i class="fa fa-star unmark" id="star'+i+'"> </i> ');
+                            }
+                            $('#allstar').append(e);
+                        }
+                    },
+                error:
+                    function (response) {
+                        alert('Une Erreur Technique ');
+                    }
+            })
+        });
+        $("#star4").click(function () {
+            var i=0;
+            $.ajax({
+                type:'get',
+                url:"{{ path('feed_back_evaluer',{'id':part.id } )}}",
+                data:{
+                    rate: 4
                 },
-            error:
-                function (response) {
-                    $('#allstar').html('');
-                    var e=$(' <i class="fa fa-star unmark" id="star1"> </i> ');
-                    $('#allstar').append(e);
-                }
-        })
-    });
-    $("#star5").click(function () {
-        $.ajax({
-            type:'get',
-            url:"{{ path('feed_back_evaluer',{'id':taxi.matricule } )}}",
-            data:{
-                rate: 5
-            },
-            async: true,
-            success:
-                function (response) {
-                    console.log(response);
-                    $('.allstar').html('');
-                    var e=$(' <i class="fa fa-star" id="star1"></i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star2"></i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star3"></i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star4"></i> ');
-                    $('.allstar').append(e);
-                    var e=$(' <i class="fa fa-star" id="star5"></i> ');
-                    $('.allstar').append(e);
+                async: true,
+                success:
+                    function (response) {
+                        $('#allstar').html('');
+                        for(i=1;i<6;i++){
+                            if(i<=response['rate']){
+                                var e=$(' <i class="fa fa-star" id="star'+i+'"> </i> ');
+                            }
+                            else{
+                                var e=$(' <i class="fa fa-star unmark" id="star'+i+'"> </i> ');
+                            }
+                            $('#allstar').append(e);
+                        }
+                    },
+                error:
+                    function (response) {
+                        alert('Une Erreur Technique ');
+                    }
+            })
+        });
+        $("#star5").click(function () {
+            var i=0;
+            $.ajax({
+                type:'get',
+                url:"{{ path('feed_back_evaluer',{'id':part.id } )}}",
+                data:{
+                    rate: 5
                 },
-            error:
-                function (response) {
-                    $('#allstar').html('');
-                    var e=$(' <i class="fa fa-star unmark" id="star1"> </i> ');
-                    $('#allstar').append(e);
-                }
-        })
-    });
-</script>
+                async: true,
+                success:
+                    function (response) {
+                        $('#allstar').html('');
+                        for(i=1;i<6;i++){
+                            if(i<=response['rate']){
+                                var e=$(' <i class="fa fa-star" id="star'+i+'"> </i> ');
+                            }
+                            else{
+                                var e=$(' <i class="fa fa-star unmark" id="star'+i+'"> </i> ');
+                            }
+                            $('#allstar').append(e);
+                        }
+                    },
+                error:
+                    function (response) {
+                        alert('Une Erreur Technique ');
+                    }
+            })
+        });
+    </script>
+{% endblock %}
 

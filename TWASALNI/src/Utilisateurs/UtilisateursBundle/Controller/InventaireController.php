@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Utilisateurs\UtilisateursBundle\Entity\Commission;
 use Utilisateurs\UtilisateursBundle\Entity\InventaireC;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class InventaireController extends Controller
 {
@@ -56,13 +58,35 @@ class InventaireController extends Controller
         ));
     }
 
-    public function payerAction($id)
+    public function payerAction($id,Request $request)
     {
         $em=$this->getDoctrine()->getManager();
         $inventaire=$em->getRepository(InventaireC::class)->find($id);
-        $inventaire->setPaye(1);
-        $em->persist($inventaire);
-        $em->flush();
+        $amount=floor($inventaire->getMontant())*1000;
+
+        if ($request->isMethod("GET")) {
+            $inventaire->setPaye(1);
+            $em->persist($inventaire);
+            $em->flush();
+
+            \Stripe\Stripe::setApiKey("sk_test_20u9a1vhbiijZzdUsFvnxgaT00Xr4NPWPh");
+
+
+            //dump($amount);
+            // Token is created using Checkout or Elements!
+            // Get the payment token ID submitted by the form:
+            $charge = \Stripe\Charge::create([
+                'amount' => $amount,
+                'currency' => 'usd',
+                'description' => 'Example charge',
+                'source' => 'tok_visa',
+            ]);
+            return $this->render('@UtilisateursUtilisateurs/Inventaire/paiement.html.twig', array('id'=>$id));
+
+        }
+
+
+
         return $this->redirectToRoute('inventaire_read');
 
     }

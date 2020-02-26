@@ -94,22 +94,16 @@ class CoursesController extends Controller
             $em->persist($course);
 
             $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
-            $client =new \Nexmo\Client($basic);
+            $client = new \Nexmo\Client($basic);
 
 
 
           /* $message = $client->message()->send([
-                'to' => '21622842875',
+                'to' => '21698604435',
                 'from' => 'Arbi',
                 'text' => 'Merci pour votre validation'
             ]);*/
-            $mailer= $this->get('mailer');
-            $msg = (new \Swift_Message('Reservation de taxi '))
-                ->setFrom('noreply@twasalni.tn')
-                ->setTo('arbi.saidi8@gmail.com')
-                ->setBody('Merci pour votre reservation');
 
-            $mailer->send($msg);
 
             $em->flush();
             $this->addFlash('success','Votre Reservation de taxi a été prise en charge');

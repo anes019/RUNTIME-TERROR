@@ -2,6 +2,7 @@
 
 namespace Utilisateurs\UtilisateursBundle\Form;
 
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,7 +21,13 @@ class CoursesType extends AbstractType
 
         $builder->add('depart')->add('destination')->add('dateCourse', DateTimeType::class ,array(
 
-            'widget' => 'single_text'))->add('prix')->add('client')->add('partenaire')->add('Reserver',SubmitType::class);
+            'widget' => 'single_text'))->add('prix')->add('client')->add('partenaire')
+            ->add('captcha',CaptchaType::class, array(
+                'width' => 200,
+                'height' => 50,
+                'length' => 5,
+            ))
+            ->add('Reserver',SubmitType::class);
     }/**
      * {@inheritdoc}
      */

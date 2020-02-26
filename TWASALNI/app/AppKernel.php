@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Utilisateurs\UtilisateursBundle\UtilisateursUtilisateursBundle(),
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new AdminBundle\AdminBundle(),
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
 
         ];
 

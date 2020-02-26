@@ -10,4 +10,12 @@ namespace FeedBackBundle\Repository;
  */
 class RatingRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function isRating($client , $part){
+        $Query=$this->getEntityManager()->createQuery(
+            "select A from FeedBackBundle:Rating A where A.client=:client and A.part=:part"
+        )
+            ->setParameter('part',$part)
+            ->setParameter('client',$client);
+        return $Query->getResult();
+    }
 }

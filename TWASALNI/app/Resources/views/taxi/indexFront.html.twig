@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
     {# Image du body #}
+
     {% block slide %}
         <section id="page-title-area" class="section-padding overlay">
             <div class="container">
@@ -17,6 +18,7 @@
             </div>
         </section>
     {% endblock %}
+
     {# Liste des Taxis #}
 
     {% block content %}
@@ -26,7 +28,38 @@
                     <!-- Car List Content Start -->
                     <div class="col-lg-8">
                         <div class="car-list-content">
+                            {% for p in taxis  %}
+                                <div class="single-car-wrap">
+                                    <div class="row">
+                                        <!-- Single Car Thumbnail -->
+                                        <div class="col-lg-5">
+                                            <div class="car-list-thumb car-thumb-1"></div>
+                                        </div>
+                                        <!-- Single Car Thumbnail -->
 
+                                        <!-- Single Car Info -->
+                                        <div class="col-lg-7">
+                                            <div class="display-table">
+                                                <div class="display-table-cell">
+                                                    <div class="car-list-info">
+                                                        <h2><a href="#">{{p.nom}} : {{ p.taxi.marque }}</a></h2>
+                                                        <h5>5DT + Compteur </h5>
+                                                        <p>{{ p.taxi.etat }}</p>
+                                                        <ul class="car-info-list">
+                                                            <li>{{p.taxi.image}}</li>
+                                                            <li>{{p.nb}}</li>
+                                                            <li>Note Generale :
+                                                            </li>
+                                                        </ul>
+                                                        <a href="{{ path('taxi_detailTaxi',{'id':p.id} )}}" class="rent-btn">Voir plus</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Car info -->
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

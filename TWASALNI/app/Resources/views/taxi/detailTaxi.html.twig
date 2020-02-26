@@ -1,6 +1,77 @@
 {% extends 'base.html.twig' %}
     {# Image du body #}
+{% block style %}
+    <style>
+        :root {
+            --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --msger-bg: #fff;
+            --border: 2px solid #ddd;
+            --left-msg-bg: #ececec;
+            --right-msg-bg: darkorange;
+        }
 
+        .msg {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+        .msg:last-of-type {
+            margin: 0;
+        }
+        .msg-img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            background: #ddd;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            border-radius: 50%;
+        }
+        .msg-bubble {
+            max-width: 450px;
+            padding: 5px;
+            border-radius: 15px;
+            background: var(--left-msg-bg);
+        }
+        .msg-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+        .msg-info-name {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .msg-info-time {
+            font-size: 0.85em;
+        }
+
+        .left-msg .msg-bubble {
+            border-bottom-left-radius: 0;
+        }
+
+        .right-msg {
+            flex-direction: row-reverse;
+        }
+        .right-msg .msg-bubble {
+            background: var(--right-msg-bg);
+            color: #000;
+            border-bottom-right-radius: 0;
+        }
+        .right-msg .msg-img {
+            margin: 0 0 0 10px;
+        }
+        .msger-inputarea * {
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 1em;
+        }
+
+    </style>
+{% endblock %}
 {% block slide %}
     <section id="page-title-area" class="section-padding overlay">
             <div class="container">
@@ -82,17 +153,54 @@
                                         {% endif %}
                                     </p>
                                 </div>
+
                                 <div class="review-form">
-                                    <form action="index.html">
+                                    <form>
                                         <div class="message-input">
-                                            <textarea name="review" cols="5" rows="5" placeholder="Write Your Feedback Here!"></textarea>
+                                            <textarea name="review" cols="5" rows="5" placeholder="Redigez votre Commentaire" id="comment"></textarea>
                                         </div>
 
                                         <div class="input-submit">
-                                            <button type="submit" id="envoie">Envoyer </button>
+                                            <button type="button" id="envoie">Envoyer </button>
                                             <button type="reset">Annuler</button>
                                         </div>
                                     </form>
+                                </div>
+                                <div class="review-area" id="ListeC">
+                                    <div class="msg left-msg">
+                                        <div class="msg-img"
+                                             style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)">
+                                        </div>
+
+                                        <div class="msg-bubble">
+                                            <div class="msg-info">
+                                                <div class="msg-info-name" id="name_other"></div>
+                                                <div class="msg-info-time" id="time_other"></div>
+                                            </div>
+
+                                            <div class="msg-text" id="info_other">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="msg right-msg">
+                                        <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>
+
+                                        <div class="msg-bubble">
+                                            <div class="msg-info">
+                                                <div class="msg-info-name" id="name">
+
+                                                </div>
+                                                <div class="msg-info-time" id="time">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="msg-text" id="info">
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -123,6 +231,8 @@
 {% block jquery %}
     {{ parent() }}
     <script>
+        $('.left-msg').hide();
+        $('.right-msg').hide();
         $("#star1").click(function () {
             var i=0;
             $.ajax({
@@ -260,6 +370,72 @@
                 error:
                     function (response) {
                         alert('Une Erreur Technique ');
+                    }
+            })
+        });
+        $('#envoie').click(function () {
+            $.ajax({
+                type: 'get',
+                url: "{{ path('feed_back_commenter_part',{'id': part.id })}}",
+                data: {
+                    commentaire: $('#comment').val()
+                },
+                async: true,
+                success:
+                    function (response) {
+                        $('#ListeC').html('');
+                        var e='<div class="msg right-msg">' +
+                                '<div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>' +
+                                    '<div class="msg-bubble">\n' +
+                                        '<div class="msg-info">\n' +
+                                            '<div class="msg-info-name nameC">' +response['commentaire'][2]+'  '+response['commentaire'][3]+
+                                            '</div>' +
+                                            '<div class="msg-info-time timeC">' +response['commentaire'][1]['date']+
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="msg-text infoC">' +response['commentaire'][0]+
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>';
+                        $('#ListeC').append(e);
+                        for(i=0;i<response['tabC'].length;i++){
+                            if(response['tabC'][i][4]=='oui'){
+                                var e='<div class="msg right-msg">' +
+                                        '<div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>' +
+                                            '<div class="msg-bubble">' +
+                                                '<div class="msg-info">' +
+                                                    '<div class="msg-info-name nameC">' +response['tabC'][i][2]+'  '+response['tabC'][i][3]+
+                                                    '</div>' +
+                                                    '<div class="msg-info-time timeC">' +response['tabC'][i][1]['date']+
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="msg-text infoC">' +response['tabC'][i][0]+
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>';
+                                $('#ListeC').append(e);
+                            }
+                            else {
+                                var e='<div class="msg left-msg">' +
+                                        '<div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>' +
+                                            '<div class="msg-bubble">' +
+                                                '<div class="msg-info">' +
+                                                    '<div class="msg-info-name nameC">' +response['tabC'][i][2]+'  '+response['tabC'][i][3]+
+                                                    '</div>' +
+                                                    '<div class="msg-info-time timeC">' +response['tabC'][i][1]['date']+
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="msg-text infoC">' +response['tabC'][i][0]+
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>';
+                                $('#ListeC').append(e);
+                            }
+                        }
+                        console.log(response);
                     }
             })
         });

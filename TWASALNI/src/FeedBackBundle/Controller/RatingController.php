@@ -2,6 +2,7 @@
 
 namespace FeedBackBundle\Controller;
 
+use FeedBackBundle\Entity\Commentaires;
 use FeedBackBundle\Entity\Rating;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,5 +46,56 @@ class RatingController extends Controller
             'rate'=>$rate->getRate(),
             'message'=>$part->getNom()
         ],200);
+    }
+
+    public function CommenterAction($id,Request $request){
+        $i=0;
+        $tab=array();
+        $tabC=array();
+        $co=array();
+        $commentaire=new Commentaires();
+        $em=$this->getDoctrine()->getManager();
+        if($request->isXmlHttpRequest()){
+            $commentaire->setCommentaire($request->get('commentaire'));
+            $part=$em->getRepository(Partenaire::class)->find($id);
+            $commentaire->setDate(new \DateTime());
+            $user=$em->getRepository(Utilisateurs::class)->findOneBy([
+                'username'=>$this->getUser()->getUsername()
+            ]);
+            $commentaire->setClient($user);
+            $commentaire->setPart($part);
+            array_push($tab,$commentaire->getCommentaire());
+            array_push($tab,$commentaire->getDate());
+            array_push($tab,$user->getUsername());
+            array_push($tab,$user->getPrenom());
+            $com=$em->getRepository(Commentaires::class)->findBy(
+                [
+                    'part'=>$part,
+                ],[
+                    'id'=>'DESC'
+                ]
+            );
+            foreach ($com as $c){
+                if($i<5){
+                    $etat='non';
+                    if ($this->getUser()->getUsername() == $c->getClient()->getUsername()) {
+                        $etat='oui';
+                    }
+                    $co=array($c->getCommentaire(),$c->getDate(),$c->getClient()->getUsername(),$c->getClient()->getPrenom(),$etat);
+                    array_push($tabC,$co);
+                }
+                $i++;
+            }
+            $em->persist($commentaire);
+            $em->flush();
+            return $this->json([
+                'commentaire' => $tab,
+                'tabC'=>$tabC
+            ],200);
+
+        }
+        return $this->json([
+            'message'=>'ok'
+        ],500);
     }
 }

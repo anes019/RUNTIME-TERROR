@@ -24,11 +24,6 @@ class AppKernel extends Kernel
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new AdminBundle\AdminBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
-
-
-
-
-            new AdminBundle\AdminBundle(),
             new FeedBackBundle\FeedBackBundle(),
         ];
 

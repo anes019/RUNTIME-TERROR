@@ -98,4 +98,15 @@ class RatingController extends Controller
             'message'=>'ok'
         ],500);
     }
+
+    public function  ListeEvaluationAction(){
+        $em=$this->getDoctrine()->getManager();
+        $listC=$em->getRepository(Commentaires::class)->findAll();
+        $listR=$em->getRepository(Rating::class)->findAll();
+        return $this->render('@FeedBack/Admin/Evaluation.html.twig',
+            array(
+                'listC' => $listC,
+                'listR' =>$listR
+            ));
+    }
 }

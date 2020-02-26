@@ -111,6 +111,7 @@ class RatingController extends Controller
     }
 
     public function FindByStarAction(Request $request){
+
         $tab=array();
         $em=$this->getDoctrine()->getManager();
         if($request->get('rate') == 0){

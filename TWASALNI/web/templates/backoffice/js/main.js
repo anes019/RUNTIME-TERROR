@@ -1109,21 +1109,22 @@
 
     //pie chart
     var ctx = document.getElementById("pieChart");
+    var nbr = document.getElementById("nbr");
+    var nbe = document.getElementById("nbe");
+    var nba = document.getElementById("nba");
     if (ctx) {
       ctx.height = 200;
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
           datasets: [{
-            data: [45, 25, 20, 10],
+            data: [ nbe.value, nbr.value, nba.value],
             backgroundColor: [
-              "rgba(0, 123, 255,0.9)",
               "rgba(0, 123, 255,0.7)",
               "rgba(0, 123, 255,0.5)",
               "rgba(0,0,0,0.07)"
             ],
             hoverBackgroundColor: [
-              "rgba(0, 123, 255,0.9)",
               "rgba(0, 123, 255,0.7)",
               "rgba(0, 123, 255,0.5)",
               "rgba(0,0,0,0.07)"
@@ -1131,9 +1132,9 @@
 
           }],
           labels: [
-            "Green",
-            "Green",
-            "Green"
+            "Envoye",
+            "Repondu",
+            "En Attente"
           ]
         },
         options: {

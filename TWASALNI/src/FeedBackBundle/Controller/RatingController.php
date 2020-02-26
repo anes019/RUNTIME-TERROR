@@ -109,4 +109,30 @@ class RatingController extends Controller
                 'listR' =>$listR
             ));
     }
+
+    public function FindByStarAction(Request $request){
+        $tab=array();
+        $em=$this->getDoctrine()->getManager();
+        if($request->get('rate') == 0){
+            $tabR=$em->getRepository(Rating::class)->findBy([],
+                ['id'=>'DESC']
+            );
+        }
+        else{
+            $tabR=$em->getRepository(Rating::class)->findBy(
+                [
+                    'rate'=>$request->get('rate')
+                ],[
+                    'id'=>'DESC'
+                ]
+            );
+        }
+        foreach ($tabR as $r){
+            $ra=array($r->getId(),$r->getRate(),$r->getClient()->getUsername(),$r->getClient()->getPrenom(),$r->getPart()->getNom(),$r->getPart()->getPrenom());
+            array_push($tab,$ra);
+        }
+        return $this->json([
+            'rates'=>$tab
+        ],200);
+    }
 }

@@ -57,4 +57,30 @@
         </div>
     </div>
 
+    <script language="JavaScript">
+        document.forms[0].addEventListener("submit",function (event) {
+            var regEmail = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
+            if(document.getElementById('email').value ===''){
+                event.preventDefault();
+                document.getElementById('error_email').textContent="L'Email ne peut pas etre vide ";
+                document.getElementById('error_email').style.color='crimson';
+            }
+            else if(!(regEmail.test(document.getElementById('email').value))){
+                event.preventDefault();
+                document.getElementById('error_email').textContent='Email incorrect (ex: username@gmail.com)';
+                document.getElementById('error_email').style.color='darkorange';
+            }
+            if(document.getElementById('sujet').value ===''){
+                event.preventDefault();
+                document.getElementById('error_sujet').textContent='Le Sujet ne peut pas etre vide ';
+                document.getElementById('error_sujet').style.color='crimson';
+            }
+            if(document.getElementById('message').value ===''){
+                event.preventDefault();
+                document.getElementById('error_message').textContent='Le Sujet ne peut pas etre vide ';
+                document.getElementById('error_message').style.color='crimson';
+            }
+        })
+    </script>
+
 {% endblock%}

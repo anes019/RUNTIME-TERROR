@@ -35,7 +35,8 @@ class TaxiController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $taxis = $em->getRepository('UtilisateursUtilisateursBundle:Taxi')->findAll();
+        $taxis = $em->getRepository('UtilisateursUtilisateursBundle:Partenaire')->findAll();
+
 
         return $this->render('taxi/indexFront.html.twig', array(
             'taxis' => $taxis,

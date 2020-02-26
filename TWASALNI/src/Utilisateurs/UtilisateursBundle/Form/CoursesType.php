@@ -4,11 +4,9 @@ namespace Utilisateurs\UtilisateursBundle\Form;
 
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 
 class CoursesType extends AbstractType
 {
@@ -28,6 +26,11 @@ class CoursesType extends AbstractType
                 'length' => 5,
             ))
             ->add('Reserver',SubmitType::class);
+        $builder->add('depart')
+                ->add('destination')
+            ->add('dateCourse')
+            ->add('prix')->add('client')
+            ->add('partenaire')->add('Reserver',SubmitType::class);
     }/**
      * {@inheritdoc}
      */

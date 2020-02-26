@@ -3,6 +3,16 @@ taxi_index:
     defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:index" }
     methods:  GET
 
+taxi_indexFront:
+    path:     /taxiFront
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:indexFront" }
+    methods:  GET
+
+taxi_detailTaxi:
+    path:     /taxi/detail/{id}
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:detailTaxiFront" }
+    methods:  GET
+
 taxi_show:
     path:     /{id}/show
     defaults: { _controller: "UtilisateursUtilisateursBundle:Taxi:show" }

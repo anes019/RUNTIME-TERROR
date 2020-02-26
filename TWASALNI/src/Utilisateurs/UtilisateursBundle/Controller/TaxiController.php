@@ -2,9 +2,12 @@
 
 namespace Utilisateurs\UtilisateursBundle\Controller;
 
+use FeedBackBundle\Entity\Rating;
+use Utilisateurs\UtilisateursBundle\Entity\Partenaire;
 use Utilisateurs\UtilisateursBundle\Entity\Taxi;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Utilisateurs\UtilisateursBundle\Entity\Utilisateurs;
 
 /**
  * Taxi controller.
@@ -28,6 +31,40 @@ class TaxiController extends Controller
     }
 
     /**
+     * Lists all taxi entities front.
+     *
+     */
+    public function indexFrontAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $taxis = $em->getRepository('UtilisateursUtilisateursBundle:Partenaire')->findAll();
+        $rate=$em->getRepository(Rating::class)->findAll();
+        return $this->render('taxi/indexFront.html.twig', array(
+            'taxis' => $taxis,
+        ));
+    }
+
+    /**
+     *  Detail des Taxis dans le front
+     */
+
+    public  function detailTaxiFrontAction($id,Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $user=$this->getUser();
+        $client=$em->getRepository(Utilisateurs::class)->findOneBy(
+            ['username'=>$this->getUser()->getUsername()]
+        );
+        $part=$em->getRepository(Partenaire::class)->find($id);
+        $tabRate=$em->getRepository('FeedBackBundle:Rating')->isRating($user , $part);
+        return $this->render('taxi/detailTaxi.html.twig',
+            array(
+                'part' => $part,
+                'rate' => $tabRate
+            ));
+    }
+
+    /**
      * Creates a new taxi entity.
      *
      */
@@ -44,6 +81,13 @@ class TaxiController extends Controller
             $em->persist($taxi);
             $em->flush();
 
+
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo('arbi.saidi8@gmail.com')
+                ->setBody('Merci pour votre reservation');
+            $mailer->send($msg);
             return $this->redirectToRoute('taxi_index');
         }
 

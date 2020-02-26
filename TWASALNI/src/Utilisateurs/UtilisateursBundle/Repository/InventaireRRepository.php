@@ -10,6 +10,8 @@ namespace Utilisateurs\UtilisateursBundle\Repository;
  */
 class InventaireRRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
     public function findInventaireR($id)
     {
         $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireR i 
@@ -34,6 +36,13 @@ WHERE i.done=0");
     {
         $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:InventaireR i 
 WHERE i.partenaire=$id");
+        return $query->getResult();
+    }
+
+    public function findbyname($name)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM ClubBundle:competition i 
+WHERE i.competition=$name");
         return $query->getResult();
     }
     public function findInventairePaye()

@@ -34,7 +34,7 @@
                </tr>
                </thead>
                <tbody id="myTable">
-               {% for partenaire in partenaires %}
+               {% for partenaire in pagination %}
                    <tr>
 
                        <td>{{ partenaire.id }}</td>
@@ -59,7 +59,16 @@
                {% endfor %}
                </tbody>
            </table>
+    <dir>
+        {{ knp_pagination_render(pagination) }}
+    </dir>
 
+
+           <div id="div_chart"></div>
+           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+           <script type="text/javascript">
+               {{ gc_draw(piechart, 'div_chart') }}
+           </script>
 
        {% endblock %}
 

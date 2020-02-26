@@ -82,6 +82,17 @@ commissionR_pdf:
   defaults: { _controller: UtilisateursUtilisateursBundle:CommissionR:pdf }
 
 
+changer_mdp:
+  path:    admin/changermdp/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Partenaire:rendermdp }
+
+confirm_mdp:
+  path:    admin/confirmmdp/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Partenaire:changermdp }
+
+
+
+
 
 
 

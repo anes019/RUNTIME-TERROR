@@ -4,6 +4,7 @@ namespace Utilisateurs\UtilisateursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Partenaire
  *
@@ -61,6 +62,14 @@ class Partenaire
      * @ORM\JoinColumn(name="taxi_id",referencedColumnName="matricule")
      */
     private $taxi;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nb", type="integer")
+     */
+    private $nb;
 
 
 
@@ -235,5 +244,29 @@ class Partenaire
     public function getTaxi()
     {
         return $this->taxi;
+    }
+
+    /**
+     * Set nb.
+     *
+     * @param int $nb
+     *
+     * @return Partenaire
+     */
+    public function setNb($nb)
+    {
+        $this->nb = $nb;
+
+        return $this;
+    }
+
+    /**
+     * Get nb.
+     *
+     * @return int
+     */
+    public function getNb()
+    {
+        return $this->nb;
     }
 }

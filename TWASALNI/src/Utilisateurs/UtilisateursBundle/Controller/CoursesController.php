@@ -104,6 +104,12 @@ class CoursesController extends Controller
                 'text' => 'Merci pour votre validation'
             ]);*/
 
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo('arbi.saidi8@gmail.com')
+                ->setBody('Merci pour votre reservation ');
+
 
             $em->flush();
             $this->addFlash('success','Votre Reservation de taxi a été prise en charge');

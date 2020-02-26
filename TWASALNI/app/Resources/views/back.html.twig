@@ -173,14 +173,13 @@
                     </li>
 
                     <li>
+                        <a href="{{ path('admin_partenaire_index') }}">
+                            <i class="fas fa-user-circle"></i>Gestion des Partenaires</a>
+                    </li>
 
-                           <li>
-                               <a href="{{ path('reservation_index')}}">
-                                   <i class="fas fa-taxi"></i>Gestion des reservations</a>
-                           </li>
-
-
-
+                    <li>
+                        <a href="{{ path('reservation_index')}}">
+                            <i class="fas fa-taxi"></i>Gestion des reservations</a>
                     </li>
                     <li>
                         <a href="{{ path('course_read')}}">
@@ -305,7 +304,7 @@
                                             </div>
                                         </div>
                                         <div class="mess__footer">
-                                            <a href="#">View all messages</a>
+                                            <a href="{{ url('fos_message_inbox') }}">View all messages</a>
                                         </div>
                                     </div>
                                 </div>

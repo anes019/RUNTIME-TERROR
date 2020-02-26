@@ -19,8 +19,7 @@ class TaxiType extends AbstractType
                 'choices' => array('en service' => 'en_service',
                     'hors service' => 'hors_service'),
                 'required' => true, 'multiple' => false ,))
-
-            ->add('marque');
+                ->add('marque');
     }/**
      * {@inheritdoc}
      */

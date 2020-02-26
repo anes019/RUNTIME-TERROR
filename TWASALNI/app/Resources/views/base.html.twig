@@ -101,12 +101,12 @@
                                     <li><a href="faq.html">Mannuel </a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="{{ path('feed_back_homepage') }}">Contact</a></li>
                             <li><a href="#">Profile</a>
                                 <ul>
-                                    <li><a href="login.html">Admins</a></li>
+                                    <li><a href="{{ path('reservation_index')}}">Admins</a></li>
                                     <li><a href="register.html">Partenaires</a></li>
-                                    <li><a href="register.html">Clients</a></li>
+                                    <li><a href="{{ path('fos_user_security_login')}}">Clients</a></li>
                                 </ul>
                             </li>
                             <li></li>
@@ -121,9 +121,11 @@
 </header>
 <!--== Header Area End ==-->
 
-<section id="slideslow-bg">
+{% block slide %}
+    <section id="slideslow-bg">
 
-</section>
+    </section>
+{% endblock %}
 
 {% for message in app.flashes('success') %}
 <div class="alert-success text-center" style="height: 70px">
@@ -210,7 +212,9 @@
     <img src="{{ asset('templates/frontoffice/assets/img/scroll-top.png') }}" alt="JSOFT">
 </div>
 <!--== Scroll Top Area End ==-->
+{% block jquery %}
 
+{% endblock %}
 <!--=======================Javascript============================-->
 <!--=== Jquery Min Js ===-->
 <script src="{{ asset('templates/frontoffice/assets/js/jquery-3.2.1.min.js') }}"></script>
@@ -240,7 +244,7 @@
 <script src="{{ asset('templates/frontoffice/assets/js/plugins/slicknav.min.js') }}"></script>
 
 <!--=== Mian Js ===-->
-<script src="{{ asset('templates/frontoffice/assets/js/main.js') }}"></script>
+<script src=""></script>
 <script>
     $("#slideslow-bg").vegas({
         overlay: true,

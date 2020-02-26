@@ -15,9 +15,19 @@ class ReservationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('date', DateTimeType::class ,array(
-            'widget' => 'single_text'))->add('prix')->add('listAchats',TextareaType::class)->add('remarques',TextareaType::class)->add('client')->add('partenaire');
+        $builder
+
+            ->add('date', DateTimeType::class ,array('widget' => 'single_text'))
+            ->add('prix')
+
+            ->add('remarques',TextareaType::class, [
+                'required'   => false])->add('client')
+            ->add('partenaire');
     }/**
+ $builder->add('date', DateTimeType::class ,array(
+            'widget' => 'single_text'))->add('prix')->add('remarques',TextareaType::class)->add('client')->add('partenaire');
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

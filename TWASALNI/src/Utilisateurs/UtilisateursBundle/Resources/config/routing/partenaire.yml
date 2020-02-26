@@ -22,3 +22,8 @@ partenaire_delete:
     path:     /{id}/delete
     defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:delete" }
     methods:  DELETE
+
+partenaire_mdp:
+    path:     /{id}/mdp
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:changeMdp" }
+    methods:  [GET, POST]

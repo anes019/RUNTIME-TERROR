@@ -8,7 +8,9 @@
     <link rel="shortcut icon" href="{{ asset('templates/frontoffice/logo3_opt.png') }}" type="image/x-icon" />
 
     <title>Twasalni.tn</title>
+    {% block style %}
 
+    {% endblock %}
     <!--=== Bootstrap CSS ===-->
     <link href="{{ asset('templates/frontoffice/assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <!--=== Vegas Min CSS ===-->
@@ -92,7 +94,7 @@
                     <nav class="mainmenu alignright">
                         <ul>
                             <li><a href="index2.html">Acceuil</a></li>
-                            <li><a href="car-right-sidebar.html">Taxi</a></li>
+                            <li><a href="{{path('taxi_indexFront')}}">Taxi</a></li>
                             <li><a href="driver.html">Taxiste</a></li>
                             <li> <a href="#"> A propos</a>
                                 <ul>
@@ -213,8 +215,6 @@
 </div>
 <!--== Scroll Top Area End ==-->
 {% block jquery %}
-
-{% endblock %}
 <!--=======================Javascript============================-->
 <!--=== Jquery Min Js ===-->
 <script src="{{ asset('templates/frontoffice/assets/js/jquery-3.2.1.min.js') }}"></script>
@@ -242,7 +242,7 @@
 <script src="{{ asset('templates/frontoffice/assets/js/plugins/magnific-popup.min.js') }}"></script>
 <!--=== Slicknav Min Js ===-->
 <script src="{{ asset('templates/frontoffice/assets/js/plugins/slicknav.min.js') }}"></script>
-
+{% endblock %}
 <!--=== Mian Js ===-->
 <script src=""></script>
 <script>

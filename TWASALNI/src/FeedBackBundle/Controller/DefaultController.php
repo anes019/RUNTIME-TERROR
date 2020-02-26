@@ -150,5 +150,12 @@ class DefaultController extends Controller
         ]);
     }
 
+     public function StatistiquesAction(Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $reclammation=$em->getRepository("FeedBackBundle:Reclammations")->findAll();
+        return $this->render('@FeedBack/Admin/statistiques.html.twig',array(
+            'reclammation' =>$reclammation));
+    }
+
 
 }

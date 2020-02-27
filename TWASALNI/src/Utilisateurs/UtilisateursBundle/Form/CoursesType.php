@@ -2,6 +2,7 @@
 
 namespace Utilisateurs\UtilisateursBundle\Form;
 
+use Doctrine\DBAL\Types\DateTimeType;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

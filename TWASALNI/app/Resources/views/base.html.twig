@@ -83,7 +83,7 @@
             <div class="row">
                 <!--== Logo Start ==-->
                 <div class="col-lg-4">
-                    <a href="index2.html" class="logo">
+                    <a href="" class="logo">
                         <img src="{{ asset('templates/frontoffice/assets/img/logo3.png') }}" alt="JSOFT" width="200" height="70">
                     </a>
                 </div>
@@ -106,8 +106,8 @@
                             <li><a href="{{ path('feed_back_homepage') }}">Contact</a></li>
                             <li><a href="#">Profile</a>
                                 <ul>
-                                    <li><a href="{{ path('reservation_index')}}">Admins</a></li>
-                                    <li><a href="register.html">Partenaires</a></li>
+                                    <li><a href="admin/index">Admins</a></li>
+                                    <li><a href="{{ path('fos_user_security_login')}}">Partenaires</a></li>
                                     <li><a href="{{ path('fos_user_security_login')}}">Clients</a></li>
                                 </ul>
                             </li>

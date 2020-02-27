@@ -3,6 +3,7 @@
 namespace Utilisateurs\UtilisateursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Taxi
@@ -18,8 +19,10 @@ class Taxi
      *
      * @ORM\Column(name="matricule", type="integer")
      * @ORM\Id
-     *
-     *
+     * @Assert\GreaterThan(
+     * value="99",
+     * message="Le numéro de la matricule doit etre composé minimum de 3 chiffres"
+     * )
      */
     private $matricul;
 

@@ -53,11 +53,11 @@ inventaire_done:
   path:     admin/payerInventaire/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:done }
 inventaire_nonpaye:
-  path:     admin/nonpayerInventaire/{id}/{partenaire_id}
-  defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:Notdone }
+  path:     admin/nonpayerInventaires/{id}/{partenaire_id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:nonpayer }
 
 inventaire_paye:
-  path:     admin/payerInventaire/{id}
+  path:     admin/payerInventaires/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:payer }
 
 commission_read:

@@ -23,9 +23,7 @@ class AppKernel extends Kernel
             new FOS\MessageBundle\FOSMessageBundle(),
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new AbonnementBundle\AbonnementBundle(),
-
-
-
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new AdminBundle\AdminBundle(),
             new FeedBackBundle\FeedBackBundle(),
         ];

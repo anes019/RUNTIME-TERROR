@@ -3,6 +3,7 @@
 namespace Utilisateurs\UtilisateursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -26,6 +27,8 @@ class Partenaire
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=2)
      */
     private $nom;
 
@@ -33,6 +36,8 @@ class Partenaire
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=2)
      */
     private $prenom;
 
@@ -40,6 +45,7 @@ class Partenaire
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255)
+     * @Assert\Email
      */
     private $mail;
 

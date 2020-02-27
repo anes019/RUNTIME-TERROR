@@ -15,7 +15,7 @@ class PartenaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('prenom')->add('mail')
+        $builder->add('nom')->add('prenom') ->add('mail')
           //  ->add('mdp')
             ->add('tel')
             ->add('taxi',EntityType::class,array('class'=>Taxi::class,'choice_label'=>'matricul','multiple'=>false));

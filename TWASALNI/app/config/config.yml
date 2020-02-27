@@ -126,6 +126,9 @@ knp_paginator:
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
 
+
+
+gregwar_captcha: ~
 fos_message:
     db_driver: orm
     thread_class: Utilisateurs\UtilisateursBundle\Entity\Thread

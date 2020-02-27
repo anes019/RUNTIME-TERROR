@@ -1,26 +1,26 @@
 <html>
-<head></head>
+<head>
+    <style>
+        body {background-color: powderblue;}
+        h1   {color: blue;}
+        p    {color: black;}
+    </style>
+</head>
 <body>
 
-
+<h1>Bienvenu à Twasalni!</h1>
+<p>veuillez entrer votre mot de passe</p>
 
 <form method="get" action="{{ path('confirm_mdp',{'id':id }) }}">
 
-
-    Nouveau MDP<input type="password" name="mdp"><br>
+<tr>
+    Nouveau MDP<input type="password" name="mdp" required="password"><br>
     Confirmer nouveau MDP <input type="password" name="double"><br>
+    </tr>
+
     <input type="submit" value="Confirm">
 </form>
 
-
-
-
-
-
 </body>
-
-
-
-
 
 </html>

@@ -209,6 +209,66 @@
                     async: true,
                     success:
                         function (response) {
+                            var i=0;
+                            var j=0;
+                            var r='';
+                            $('#myTable').html('');
+                            for(i=0;i<response['tab'].length;i++){
+                                var url="{{ path('feed_back_delete_reclammation',{'id':'value'}) }}";
+                                var url2="{{ path('feed_back_reponse_reclammation',{'id':'value'}) }}";
+                                url=url.replace('value',''+response['tab'][i][0]+'');
+                                url2=url2.replace('value',''+response['tab'][i][0]+'');
+                                url='href="'+url+'"';
+                                url2='href="'+url2+'"';
+                                console.log(url);
+                                if(response['tab'][i][6]=='En Attente'){
+                                    var e=$('<tr> <td id="id"></td> <td id="nom"></td>' +
+                                        ' <td id="prenom"></td> <td id="email"></td>' +
+                                        '<td id="sujet"></td>' +
+                                        '<td id="contenu"></td>' +
+                                        '<td id="etat"><span class="status--denied"> </span></td>' +
+                                        '<td id="actions"></td> </tr>');
+                                }
+                                else if(response['tab'][i][6]=='Repondu'){
+                                    var e=$('<tr> <td id="id"></td> <td id="nom"></td>' +
+                                        ' <td id="prenom"></td> <td id="email"></td>' +
+                                        '<td id="sujet"></td>' +
+                                        '<td id="contenu"></td>' +
+                                        '<td id="etat"><span class="status--warning">  </span></td>' +
+                                        '<td id="actions"></td> </tr>');
+                                }
+                                else{
+                                    var e=$('<tr> <td id="id"></td> <td id="nom"></td>' +
+                                        ' <td id="prenom"></td> <td id="email"></td>' +
+                                        '<td id="sujet"></td>' +
+                                        '<td id="contenu"></td>' +
+                                        '<td id="etat"><span class="status--success"> </span></td>' +
+                                        '<td id="actions"></td> </tr>');
+                                }
+                                $('#id',e).html(response['tab'][i][0]);
+                                $('#nom',e).html(response['tab'][i][1]);
+                                $('#prenom',e).html(response['tab'][i][2]);
+                                $('#email',e).html(response['tab'][i][3]);
+                                $('#sujet',e).html(response['tab'][i][4]);
+                                $('#contenu',e).html(response['tab'][i][5]);
+                                $('#etat',e).html(response['tab'][i][6]);
+                                $('#actions',e).html(
+                                    '<td> <div style=" display: flex; align-content: space-between;">' +
+                                    '<a class="text-sm-center " '+url2+'>' +
+                                    '<p data-placement="top" data-toggle="tooltip" title="Repondre">' +
+                                    '<button class="btn btn-success btn-s" data-title="edit" data-toggle="modal" data-target="#edit" >' +
+                                    '<span class="glyphicon glyphicon-edit"></span>' +
+                                    '</button>' +
+                                    '</p>' +
+                                    '</a>' +
+                                    '<a class="text-sm-right" '+url+'>'+
+                                    '<p data-placement="top" data-toggle="tooltip" title="Delete">' +
+                                    '<button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" >' +
+                                    '<span class="glyphicon glyphicon-trash"></span>' +
+                                    '</buton></p></a></div></td>');
+                                $('#myTable').append(e);
+                                var r='';
+                            }
                             console.log(response);
                         }
                 })

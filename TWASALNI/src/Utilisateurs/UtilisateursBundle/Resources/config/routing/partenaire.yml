@@ -31,3 +31,7 @@ partenaire_mdp:
 partenaire_liste_Front:
     path:     /liste
     defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:ListeFront" }
+
+partenaire_detail:
+    path:     /partenaire/{id}
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:DetailPartenaire" }

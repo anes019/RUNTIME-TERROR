@@ -23,21 +23,23 @@
         <div class="container">
             <div class="row">
                 <!-- Single Driver Start-->
+                {% for p in partenaire %}
                 <div class="col-lg-4 col-md-6">
                     <div class="single-driver-member">
                         {% set image=random(1, 6) %}
                         <img src="{{ asset('templates/frontoffice/assets/img/driver/driver-'~image~'.jpg') }}" alt="Raju Ahammad">
                         <div class="driver-mem-info">
                             <div class="driver-mem-sicons">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-dribbble"></i></a>
-                                <a href="#"><i class="fa fa-plus"></i></a>
+                                <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram" title="Instagram"></i></a>
+                                <a href="{{ path('partenaire_detail',{'id':p.id}) }}"><i class="fa fa-plus" title="Voir Plus"></i></a>
                             </div>
-                            <h4>Angelica <span>Limousine driver</span></h4>
+                            <h4>{{ p.nom~' '~p.prenom }} <span>Taxi : {{p.taxi.matricul}}</span></h4>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </section>

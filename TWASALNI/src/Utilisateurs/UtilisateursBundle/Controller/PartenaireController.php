@@ -224,6 +224,20 @@ class PartenaireController extends Controller
      *  Affiche La liste des Partenaires Dans le form
      */
     public function ListeFrontAction(){
-        return $this->render('partenaire/listeFront.html.twig');
+        $em=$this->getDoctrine()->getManager();
+        $part=$em->getRepository(Partenaire::class)->findAll();
+        return $this->render('partenaire/listeFront.html.twig',[
+            'partenaire'=>$part
+        ]);
+    }
+
+    public function DetailPartenaireAction($id){
+        $em=$this->getDoctrine()->getManager();
+        $tabP=$em->getRepository(Partenaire::class)->findBy([],[],3);
+        $part=$em->getRepository(Partenaire::class)->find($id);
+        return $this->render('partenaire/DetailTaxi.html.twig',[
+            'tabP'=>$tabP,
+            'part'=>$part,
+        ]);
     }
 }

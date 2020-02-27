@@ -129,11 +129,27 @@ class RatingController extends Controller
             );
         }
         foreach ($tabR as $r){
-            $ra=array($r->getId(),$r->getRate(),$r->getClient()->getUsername(),$r->getClient()->getPrenom(),$r->getPart()->getNom(),$r->getPart()->getPrenom());
+            $ra=array($r->getId(),$r->getRate(),$r->getClient()->getUsername(),$r->getClient()->getPrenom(),$r->getPart()->getNom(),$r->getPart()->getPrenom(),$r->getId());
             array_push($tab,$ra);
         }
         return $this->json([
             'rates'=>$tab
         ],200);
+    }
+
+    public  function DeleteRateAction($id,Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $rating=$em->getRepository(Rating::class)->find($id);
+        $em->remove($rating);
+        $em->flush();
+        return $this->redirectToRoute('feed_back_liste_rating');
+    }
+
+    public  function DeleteCommentaireAction($id,Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $rating=$em->getRepository(Commentaires::class)->find($id);
+        $em->remove($rating);
+        $em->flush();
+        return $this->redirectToRoute('feed_back_liste_rating');
     }
 }

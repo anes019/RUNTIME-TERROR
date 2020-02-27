@@ -218,4 +218,12 @@ class PartenaireController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     *  Affiche La liste des Partenaires Dans le form
+     */
+    public function ListeFrontAction(){
+        return $this->render('partenaire/listeFront.html.twig');
+    }
 }

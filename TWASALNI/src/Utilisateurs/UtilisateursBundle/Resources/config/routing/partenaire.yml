@@ -27,3 +27,7 @@ partenaire_mdp:
     path:     /{id}/mdp
     defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:changeMdp" }
     methods:  [GET, POST]
+
+partenaire_liste_Front:
+    path:     /liste
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Partenaire:ListeFront" }

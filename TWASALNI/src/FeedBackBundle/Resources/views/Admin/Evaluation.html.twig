@@ -118,12 +118,13 @@
 
                        <td>
                            <div style=" display: flex; align-content: space-between;">
-
-                               <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                   <button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" id="delete_rate">
-                                       <span class="glyphicon glyphicon-trash"></span>
-                                   </button>
-                               </p>
+                                <a href="{{ path('feed_back_delete_rate',{'id':e.id}) }}">
+                                    <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                        <button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" id="delete_rate">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </p>
+                                </a>
                            </div>
                        </td>
 
@@ -163,6 +164,10 @@
                            console.log(response);
                            $('#TabE').html('');
                            for(i=0;i<response['rates'].length;i++){
+                               var url="{{ path('feed_back_delete_rate',{'id':'value'}) }}";
+                              url=url.replace('value',''+response['rates'][i][6]+'');
+                              url='href="'+url+'"';
+                               console.log(url);
                                var e=$('<tr> <td id="id"></td> <td id="user"></td>' +
                                    ' <td id="part"></td> <td id="note"></td>' +
                                    '<td id="actions"></td> </tr>');
@@ -175,7 +180,7 @@
                                $('#note',e).html(r);
 
                                $('#actions',e).html('<td> <div style=" display: flex; align-content: space-between;">' +
-                                   '<a class="text-sm-right" href="#">'+
+                                   '<a class="text-sm-right" '+url+'>'+
                                    '<p data-placement="top" data-toggle="tooltip" title="Delete">' +
                                    '<button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" >' +
                                    '<span class="glyphicon glyphicon-trash"></span>' +

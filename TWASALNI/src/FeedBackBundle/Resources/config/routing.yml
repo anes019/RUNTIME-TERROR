@@ -58,6 +58,10 @@ feed_back_delete_commentaire:
     path:     /rating/commentaire/delete/{id}
     defaults: { _controller: FeedBackBundle:Rating:DeleteCommentaire }
 
+feed_back_delete_rate:
+    path:     /rating/rate/delete/{id}
+    defaults: { _controller: FeedBackBundle:Rating:DeleteRate }
+
 feed_back_rate_star:
     path:     /rating/trie
     defaults: { _controller: FeedBackBundle:Rating:FindByStar }

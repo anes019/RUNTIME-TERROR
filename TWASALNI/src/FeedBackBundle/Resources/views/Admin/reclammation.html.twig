@@ -22,15 +22,15 @@
                        <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
                        <div class="table-data__tool-right">
                            <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                               <select class="js-select2" name="type" >
-                                   <option selected="selected">Tout</option>
-                                   <option selected="selected">Envoye</option>
-                                   <option selected="selected">En Attente</option>
-                                   <option selected="selected">Repondu</option>
+                               <select class="js-select2" name="type" id="etat">
+                                   <option selected="selected" id="Tout">Tout</option>
+                                   <option selected="selected" id="Envoye">Envoye</option>
+                                   <option selected="selected" id="Attente">En Attente</option>
+                                   <option selected="selected" id="Repondu">Repondu</option>
                                </select>
                                <div class="dropDownSelect2"></div>
                            </div>
-                               <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                               <button class="au-btn au-btn-icon au-btn--green au-btn--small" id="trier">
                                    <i class="zmdi zmdi-refresh"></i>Trier
                                </button>
                        </div>
@@ -198,6 +198,20 @@
                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                    });
                });
+           });
+           $('#trier').click(function () {
+                $.ajax({
+                    type:'get',
+                    url:"{{ path('feed_back_reclammation_etat')}}",
+                    data:{
+                        etat: $('#etat').val()
+                    },
+                    async: true,
+                    success:
+                        function (response) {
+                            console.log(response);
+                        }
+                })
            });
        </script>
    {% endblock %}

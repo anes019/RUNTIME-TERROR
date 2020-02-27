@@ -70,14 +70,14 @@
                 document.getElementById('error_email').textContent='Email incorrect (ex: username@gmail.com)';
                 document.getElementById('error_email').style.color='darkorange';
             }
-            if(document.getElementById('sujet').value ===''){
+            if(document.getElementById('sujet').value.length < 2){
                 event.preventDefault();
-                document.getElementById('error_sujet').textContent='Le Sujet ne peut pas etre vide ';
+                document.getElementById('error_sujet').textContent='Le Sujet est trop court ';
                 document.getElementById('error_sujet').style.color='crimson';
             }
-            if(document.getElementById('message').value ===''){
+            if(document.getElementById('message').value.length < 5){
                 event.preventDefault();
-                document.getElementById('error_message').textContent='Le Sujet ne peut pas etre vide ';
+                document.getElementById('error_message').textContent='Le Message doit contenir 5 caracters min';
                 document.getElementById('error_message').style.color='crimson';
             }
         })

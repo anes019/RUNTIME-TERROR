@@ -157,5 +157,25 @@ class DefaultController extends Controller
             'reclammation' =>$reclammation));
     }
 
+    public function TrierParEtatAction(Request $request){
+        $tab=array();
+        $em=$this->getDoctrine()->getManager();
+        if($request->get('etat')=='Tout'){
+            $tabR=$em->getRepository(Reclammations::class)->findAll();
+        }
+        else if(($request->get('etat')=='Attente')){
+            $tabR=$em->getRepository(Reclammations::class)->findBy(['etat'=>'En Attente'],['id'=>'DESC']);
+        }
+        else{
+            $tabR=$em->getRepository(Reclammations::class)->findBy(['etat'=>$request->get('etat')],['id'=>'DESC']);
+        }
+        foreach ($tabR as $r){
+            $ra=array($r->getId(),$r->getClient()->getUsername(),$r->getClient()->getPrenom(),$r->getClient()->getemail(),$r->getSujet(),$r->getContenu(),$r->getEtat());
+            array_push($tab,$ra);
+        }
+        return $this->json([
+            'message'=>$tab
+        ],200);
+    }
 
 }

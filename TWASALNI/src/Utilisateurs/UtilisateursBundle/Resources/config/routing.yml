@@ -9,10 +9,12 @@ utilisateurs_utilisateurs_partenaire:
 utilisateurs_utilisateurs_taxi:
   resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/taxi.yml"
   prefix:   admin/taxi
+
 reservation_new:
-  path:     /reservationnew
+  path:     /reservation/new
   defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:new" }
   methods:  [GET, POST]
+
 utilisateurs_utilisateurs_homepage:
   path:     /
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }
@@ -42,9 +44,11 @@ inventaire_read:
 inventaire_readArchive:
   path:     admin/readInventaireArchive
   defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:archive }
+
 inventaire_readArchivereservation:
   path:     admin/readInventaireReservationArchive
   defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:archive }
+
 inventaire_notdone:
   path:     admin/nonpayerInventaire/{id}/{partenaire_id}
   defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:Notdone }
@@ -52,6 +56,7 @@ inventaire_notdone:
 inventaire_done:
   path:     admin/payerInventaire/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:InventaireR:done }
+
 inventaire_nonpaye:
   path:     admin/nonpayerInventaires/{id}/{partenaire_id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Inventaire:nonpayer }

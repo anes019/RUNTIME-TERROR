@@ -47,7 +47,7 @@ class AbonnementController extends Controller
                     ->setTo($email);
             $mailer->send($msg);
 
-            return $this->redirectToRoute('_read_abonnement');
+            return $this->redirectToRoute('homepage');
         }
         return $this->render('@Abonnement/Abonnement/create_abonnement.html.twig', array(
             'form'=>$form->createView()

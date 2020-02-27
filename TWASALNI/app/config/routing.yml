@@ -5,9 +5,13 @@ feed_back:
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
     prefix:   /admin
+
+
 utilisateurs_utilisateurs:
     resource: "@UtilisateursUtilisateursBundle/Resources/config/routing.yml"
     prefix:   /
+
+
 abonnement:
     resource: "@AbonnementBundle/Resources/config/routing.yml"
     prefix:   /abonnement

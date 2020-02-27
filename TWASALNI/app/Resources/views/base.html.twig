@@ -96,21 +96,19 @@
                             <li><a href="index2.html">Acceuil</a></li>
                             <li><a href="{{path('taxi_indexFront')}}">Taxi</a></li>
                             <li><a href="{{path('partenaire_liste_Front')}}">Taxiste</a></li>
-                            <li> <a href="#"> A propos</a>
-                                <ul>
-                                    <li><a href="services.html">services</a></li>
-                                    <li><a href="package.html">Pricing</a></li>
-                                    <li><a href="faq.html">Mannuel </a></li>
-                                </ul>
-                            </li>
+                            <li> <a href="{{ path('_create_abonnement') }}"> S'abonner </a></li>
                             <li><a href="{{ path('feed_back_homepage') }}">Contact</a></li>
-                            <li><a href="#">Profile</a>
-                                <ul>
-                                    <li><a href="admin/index">Admins</a></li>
-                                    <li><a href="{{ path('fos_user_security_login')}}">Partenaires</a></li>
-                                    <li><a href="{{ path('fos_user_security_login')}}">Clients</a></li>
-                                </ul>
-                            </li>
+                            {% if app.user.username == null %}
+                                <li><a href="#">Profile</a>
+                                    <ul>
+                                        <li><a href="admin/index">Admins</a></li>
+                                        <li><a href="{{ path('fos_user_security_login')}}">Partenaires</a></li>
+                                        <li><a href="{{ path('fos_user_security_login')}}">Clients</a></li>
+                                    </ul>
+                                </li>
+                                {% else %}
+                                    <li><a href="{{ path('fos_user_profile_show') }}">Profile</a></li>
+                            {% endif %}
                             <li></li>
                         </ul>
                     </nav>

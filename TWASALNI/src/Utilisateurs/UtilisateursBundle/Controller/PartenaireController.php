@@ -146,8 +146,9 @@ class PartenaireController extends Controller
             $em->persist($partenaire);
             $em->flush();
             $deleteForm = $this->createDeleteForm($partenaire);
+            $this->addFlash('success','Votre mot de passe à été modifié avec succès');
 
-            return $this->render('partenaire/show.html.twig', array(
+            return $this->render('@UtilisateursUtilisateurs/Default/index.html.twig', array(
                 'partenaire' => $partenaire,
                 'delete_form' => $deleteForm->createView(),
             ));

@@ -62,6 +62,10 @@ feed_back_delete_rate:
     path:     /rating/rate/delete/{id}
     defaults: { _controller: FeedBackBundle:Rating:DeleteRate }
 
+feed_back_reclammation_etat:
+    path:     /reclammation/trietat
+    defaults: { _controller: FeedBackBundle:Default:TrierParEtat }
+
 feed_back_rate_star:
     path:     /rating/trie
     defaults: { _controller: FeedBackBundle:Rating:FindByStar }

@@ -93,9 +93,10 @@
                 <div class="col-lg-8 d-none d-xl-block">
                     <nav class="mainmenu alignright">
                         <ul>
-                            <li><a href="index2.html">Acceuil</a></li>
-                            <li><a href="{{path('taxi_indexFront')}}">Taxi</a></li>
-                            <li><a href="{{path('partenaire_liste_Front')}}">Taxiste</a></li>
+                            <li><a href="/">Acceuil</a></li>
+                            <li><a href="{{ path('reservation_new') }}">Reservation livraison</a></li>
+                            <li><a href="{{ path('course_create') }}">Reservation taxi</a></li>
+                            <li><a href="{{ path('fos_message_inbox') }}">Messagerie</a></li>
                             <li> <a href="{{ path('_create_abonnement') }}"> S'abonner </a></li>
                             <li><a href="{{ path('feed_back_homepage') }}">Contact</a></li>
                             {% if app.user.username == null %}

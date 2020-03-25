@@ -28,6 +28,7 @@
                   </ImageView>
                   <Text fill="WHITE" layoutX="21.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Twasalni ?" textAlignment="RIGHT" wrappingWidth="67.5911425203085" />
                   <Hyperlink fx:id="admin" layoutX="12.0" layoutY="303.0" prefHeight="26.0" prefWidth="88.0" text="Admin Page" textFill="WHITE" />
+                  <Hyperlink fx:id="stat" layoutX="12.0" layoutY="344.0" prefHeight="26.0" prefWidth="88.0" text="Statistiques " textFill="WHITE" />
                </children>
             </Pane>
             <JFXTextField fx:id="Region" focusColor="#48a5ea" layoutX="133.0" layoutY="139.0" prefHeight="25.0" prefWidth="217.0" promptText="Region" />

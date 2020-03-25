@@ -17,6 +17,9 @@ public class InventaireR {
     private Date date_inventaire;
     private int done;
 
+    public InventaireR() {
+       
+    }
     public InventaireR(int id, int partenaire_id, float montant, Date date_inventaire, int done) {
         this.id = id;
         this.partenaire_id = partenaire_id;
@@ -24,6 +27,7 @@ public class InventaireR {
         this.date_inventaire = date_inventaire;
         this.done = done;
     }
+
 
     public int getId() {
         return id;

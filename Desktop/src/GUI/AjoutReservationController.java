@@ -72,6 +72,8 @@ public class AjoutReservationController implements Initializable {
     private Label error;
     @FXML
     private Hyperlink admin;
+    @FXML
+    private Hyperlink stat;
 
     /**
      * Initializes the controller class.
@@ -128,7 +130,20 @@ partenaire_ajout.setCellFactory(cellFactory);
             }
 
         });   
-        
+                  stat.setOnAction((ActionEvent event) -> {
+            Parent page2;
+            try {
+                page2 = FXMLLoader.load(getClass().getResource("/GUI/Statistique.fxml"));
+                Scene scene2 = new Scene(page2);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene2);
+                window.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });   
     }    
 
     @FXML
@@ -171,13 +186,13 @@ partenaire_ajout.setCellFactory(cellFactory);
       
         ServiceReservation RV=new ServiceReservation();
    
-        if(RV.ajouter(r)==1)
+       RV.ajouter(r);
         {success.setText("Reservation ajoutée avec succes");
   Reset();
         }
         
         
-        else    {error.setText("Reservation echoué");}
+ 
        
         
     }

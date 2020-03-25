@@ -41,15 +41,6 @@ public class ServiceReservation {
         con = DataBase.getInstance().getConnection();
     }
 
-    public int countNottraited() throws SQLException {
-        String req = "select count(*) AS total from reservation where etat ='non traite'";
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery(req);
-        rs.next();
-        int count = rs.getInt(1);
-        System.out.println(count);
-        return count;
-    }
 
     public void Accept(int id) throws SQLException {
         pre = con.prepareStatement("update `pidev`.`reservation` set etat='accepté' where id =(?)");
@@ -67,18 +58,15 @@ public class ServiceReservation {
 
     }
 
-    public int counttraited() throws SQLException {
-        String req = "select count(*) AS total from reservation where etat !='non traite'";
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery(req);
-        rs.next();
-        int count = rs.getInt(1);
-        System.out.println(count);
-        return count;
-    }
 
-    public int ajouter(reservation R) throws SQLException {
-     java.sql.Date sqlDate = java.sql.Date.valueOf(R.getDate_reservation().toLocalDate());
+    
+    
+     public void ajouter(reservation R) throws SQLException
+    {
+        List<Integer> idinv = new ArrayList<>();
+        List<Integer> idRes = new ArrayList<>();
+        List<Float> montantinv = new ArrayList<>();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(R.getDate_reservation().toLocalDate());
         pre = con.prepareStatement("INSERT INTO `pidev`.`reservation` ( `client_id`,`partenaire_id`,`pointAchat`,`destination`,`date`,`prix`,`listAchats`,`remarques`) VALUES ( ?, ?,?,?,?,?,?,?);");
     pre.setInt(1, R.getClient_id());
     pre.setInt(2, R.getPartenaire_id());
@@ -89,12 +77,110 @@ public class ServiceReservation {
        pre.setString(7, R.getListAchats());
     pre.setString(8, R.getRemarques());
         
-
-
-       return( pre.executeUpdate());
-
-
+    pre.executeUpdate();
+    //creation de la commission
+    commissionR com=new commissionR();
+    com.setReservation(R);
+    com.setPourcentage((float) 0.15);
+    com.setDate_commission(R.getDate_reservation());
+    
+    
+    
+    //creation de l'inventaire
+    int x=0;
+    List<InventaireR> inventaires=new ArrayList<>();
+    InventaireR i=new InventaireR();
+    PreparedStatement pre_inv=con.prepareStatement("select * from inventaire_r where partenaire_id=? and done=0 ");
+               pre_inv.setInt(1,R.getPartenaire_id());
+               ResultSet rs_inv=pre_inv.executeQuery();
+               while(rs_inv.next())
+               {
+                   x++;
+               }
+    if(x==0)
+    {
+        i.setPartenaire_id(R.getPartenaire_id());
+        i.setMontant((float) (R.getPrix()*0.15));
+        i.setDate_inventaire(R.getDate_reservation());
+        i.setDone(0);
+        PreparedStatement preinsInv=con.prepareStatement("INSERT INTO `inventaire_r` ( `id`, `partenaire_id`,`montant`, `date_i`,`done`) VALUES ( null,?,?,?,0);");
+        preinsInv.setInt(1, R.getPartenaire_id());
+        preinsInv.setFloat(2, (float) (R.getPrix()*0.15));
+        preinsInv.setDate(3, sqlDate);
+        preinsInv.executeUpdate();
+        
+        PreparedStatement pre_inv2=con.prepareStatement("select id from inventaire_r where partenaire_id=? and done=0");
+               pre_inv2.setInt(1,R.getPartenaire_id());
+               ResultSet rs_inv2=pre_inv2.executeQuery();
+               while(rs_inv2.next())
+               {
+                   int id=rs_inv2.getInt("id");
+                   idinv.add(id);
+                   
+               }
+        
+        
     }
+    else
+    {
+
+            PreparedStatement re_inv = con.prepareStatement("select * from inventaire_r where partenaire_id=? and done=0 ");
+            
+               pre_inv.setInt(1,R.getPartenaire_id());
+                rs_inv=pre_inv.executeQuery();
+                
+               while(rs_inv.next())
+               {
+                   int id=rs_inv.getInt("id");
+                   float montant=rs_inv.getFloat("montant");
+                   idinv.add(id);
+                   montantinv.add(montant);
+                   /*Date date_inv_notdone=rs_inv.getDate("date_i");
+                   Timestamp timestamp = new Timestamp(date_inv_notdone.getTime());
+                   timestamp.toLocalDateTime();
+                   
+                   Inventaire inv=new Inventaire(id,u.getPartenaire(),montant,timestamp.toLocalDateTime(),0);
+                   inventaires.add(inv);*/
+               }
+              // i=inventaires.get(0);
+              PreparedStatement preupdate=con.prepareStatement("UPDATE  `inventaire_r` SET montant=? WHERE id=? ;");
+                 preupdate.setFloat(1,montantinv.get(0)+200);
+                 preupdate.setInt(2,idinv.get(0));
+                 preupdate.executeUpdate();   
+             
+               
+     }
+    //recuperation du courses ajouté pour l id
+    PreparedStatement cour= con.prepareStatement("select * from reservation ORDER BY id DESC LIMIT 1 ");
+            
+               
+               ResultSet rs_cour=cour.executeQuery();
+               while(rs_cour.next())
+               {
+                    int id=rs_cour.getInt("id");
+                     idRes.add(id);
+                    
+               }
+               System.out.println( idRes.get(0));
+    //Ajout de commission
+    PreparedStatement preComm=con.prepareStatement("INSERT INTO `commission_r` ( `id`, `partenaire_id`,`reservation_id`, `pourcentage`,`date_commission`,`inventaireR_id`) VALUES ( null,?,?,?,?,?);");
+        preComm.setInt(1, R.getPartenaire_id());
+        preComm.setInt(2, idRes.get(0));
+        preComm.setFloat(3,com.getPourcentage());
+        preComm.setDate(4, sqlDate);
+        preComm.setInt(5,idinv.get(0));
+        preComm.executeUpdate();
+  
+   
+    
+    
+    }
+      
+      
+      
+    
+    
+
 
     public boolean delete(float montant, int id, int id_r) throws SQLException {
 
@@ -262,6 +348,54 @@ public class ServiceReservation {
         return false;
  
     }
-    
-    
+          public int TotalAccepted() {
+       int nb=0;
+       String req = "SELECT count(id) from reservation where etat='accepté'";
+       PreparedStatement preparedStatement;
+        try {
+            preparedStatement = con.prepareStatement(req);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            nb=resultSet.getInt(1);
+        } catch (SQLException ex) {
+                 Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  nb;
+    }
+           public int TotalRefused() {
+       int nb=0;
+       String req = "SELECT count(id) from reservation where etat='refusé'";
+       PreparedStatement preparedStatement;
+        try {
+            preparedStatement = con.prepareStatement(req);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            nb=resultSet.getInt(1);
+        } catch (SQLException ex) {
+                      Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  nb;
+    }
+           
+               public int counttraited() throws SQLException {
+        String req = "select count(*) AS total from reservation where etat !='non traite'";
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery(req);
+        rs.next();
+        int count = rs.getInt(1);
+        System.out.println(count);
+        return count;
+    }
+               
+               
+    public int countNottraited() throws SQLException {
+        String req = "select count(*) AS total from reservation where etat ='non traite'";
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery(req);
+        rs.next();
+        int count = rs.getInt(1);
+        System.out.println(count);
+        return count;
+    }
+
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package desktop.Entite;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 /**
@@ -19,12 +20,12 @@ public class reservation {
     private String listAchats;
     private String remarques;
     private float prix;
-    private Date date_reservation;
+    private java.sql.Date  date_reservation;
     private String etat;
     
 
-    public reservation(int id,int client_id, int partenaire_id,  String pointAchat, String destination, Date date_reservation ,float prix , String listAchats, String remarques,  String etat) {
-        this.id = id;
+    public reservation(int id,int client_id, int partenaire_id,  String pointAchat, String destination, java.sql.Date  date_reservation ,float prix , String listAchats, String remarques,String etat) {
+         this.id=id;
         this.partenaire_id = partenaire_id;
         this.client_id = client_id;
         this.pointAchat = pointAchat;
@@ -33,8 +34,18 @@ public class reservation {
         this.remarques = remarques;
         this.prix = prix;
         this.date_reservation = date_reservation;
-        this.etat = etat;
+      
     }
+
+
+
+
+
+
+
+
+
+
 
 
     public int getId() {
@@ -101,11 +112,11 @@ public class reservation {
         this.prix = prix;
     }
 
-    public Date getDate_reservation() {
+    public java.sql.Date  getDate_reservation() {
         return date_reservation;
     }
 
-    public void setDate_reservation(Date date_reservation) {
+    public void setDate_reservation(java.sql.Date  date_reservation) {
         this.date_reservation = date_reservation;
     }
 

@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package GUI;
+ 
 
+ 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +30,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -142,6 +148,28 @@ public class ReservationTraitedController implements Initializable {
         }
     }
 
+   private Label label;
+ 
+   private void showConfirmation() {
+ 
+      Alert alert = new Alert(AlertType.CONFIRMATION);
+      alert.setTitle("Delete File");
+      alert.setHeaderText("Are you sure want to move this file to the Recycle Bin?");
+      alert.setContentText("C:/MyFile.txt");
+ 
+      // option != null.
+      Optional<ButtonType> option = alert.showAndWait();
+ 
+      if (option.get() == null) {
+         this.label.setText("No selection!");
+      } else if (option.get() == ButtonType.OK) {
+      
+      } else if (option.get() == ButtonType.CANCEL) {
+         this.label.setText("Cancelled!");
+      } else {
+         this.label.setText("-");
+      }
+   }
     public void displayAll() throws SQLException {
 
         ServiceReservation sr = new ServiceReservation();
@@ -203,21 +231,25 @@ public class ReservationTraitedController implements Initializable {
                         delete.setMaxSize(10, 10);
                         restaurer.setMaxSize(10, 10);
                         details.setMaxSize(10, 10);
+                       
+                        
                         delete.setOnAction((ActionEvent event) -> {
-                            ServiceReservation sr = new ServiceReservation();
-                            reservation reserv = getTableView().getItems().get(getIndex());
-                            System.out.println(reserv);
-                            try {
-
-                                sr.refuse(reserv.getId());
-                                displayAll();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            
+     
+                            
+                     
 
                         });
 
                         restaurer.setOnAction((ActionEvent event) -> {
+                                                        
+      Alert alert = new Alert(AlertType.CONFIRMATION);
+      alert.setTitle("Restaurer réservation");
+      alert.setHeaderText("Voulez-vous vraiment restaurer cette réservation?");
+      Optional<ButtonType> option = alert.showAndWait();
+ if (option.get() == ButtonType.OK) {
+                            
+                          
                             ServiceReservation sr = new ServiceReservation();
                             reservation reserv = getTableView().getItems().get(getIndex());
                             System.out.println(reserv);
@@ -228,9 +260,30 @@ public class ReservationTraitedController implements Initializable {
                             } catch (SQLException ex) {
                                 Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
                             }
-
+ }
                         });
                         delete.setOnAction((ActionEvent event) -> {
+                            
+                            
+                             Alert alert = new Alert(AlertType.CONFIRMATION);
+      alert.setTitle("suppression");
+      alert.setHeaderText("Voulez-vous vraiment supprimer cette réservation?");
+      Optional<ButtonType> option = alert.showAndWait();
+
+ if (option.get() == ButtonType.OK) {
+              
+                            ServiceReservation sr = new ServiceReservation();
+                            reservation reserv = getTableView().getItems().get(getIndex());
+                            System.out.println(reserv);
+                            try {
+
+                                sr.refuse(reserv.getId());
+                                displayAll();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+      } 
+                            
                             ServiceReservation sr = new ServiceReservation();
                             reservation reserv = getTableView().getItems().get(getIndex());
                             System.out.println(reserv);

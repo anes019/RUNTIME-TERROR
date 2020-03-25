@@ -71,21 +71,22 @@ public class ServiceReservation {
         return count;
     }
 
-    public void ajouter() throws SQLException {
-
+    public int ajouter(reservation R) throws SQLException {
+     java.sql.Date sqlDate = java.sql.Date.valueOf(R.getDate_reservation().toLocalDate());
         pre = con.prepareStatement("INSERT INTO `pidev`.`reservation` ( `client_id`,`partenaire_id`,`pointAchat`,`destination`,`date`,`prix`,`listAchats`,`remarques`) VALUES ( ?, ?,?,?,?,?,?,?);");
-        pre.setInt(1, 2);
-        pre.setInt(2, 24);
-        pre.setString(3, "hafood");
-        pre.setString(4, "korba");
+    pre.setInt(1, R.getClient_id());
+    pre.setInt(2, R.getPartenaire_id());
+    pre.setString(3, R.getPointAchat());
+    pre.setString(4, R.getDestination());
+    pre.setDate(5, sqlDate);
+    pre.setFloat(6, R.getPrix()); 
+       pre.setString(7, R.getListAchats());
+    pre.setString(8, R.getRemarques());
+        
 
-        pre.setDate(5, new Date(2018 - 1900, 1, 1));
-        pre.setDouble(6, 3.66);
-        pre.setString(7, "ma9loub");
-        pre.setString(8, "chay");
 
-        pre.executeUpdate();
-        System.out.println("ajout valide");
+       return( pre.executeUpdate());
+
 
     }
 
@@ -129,8 +130,8 @@ public class ServiceReservation {
             ste = con.createStatement();
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
-
-                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+   java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(6).toLocalDate());
+                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),  sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
 
             }
         } catch (SQLException ex) {
@@ -148,8 +149,8 @@ public class ServiceReservation {
             ste = con.createStatement();
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
-
-                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+   java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(6).toLocalDate());
+                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
 
             }
         } catch (SQLException ex) {

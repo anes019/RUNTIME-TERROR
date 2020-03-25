@@ -49,6 +49,24 @@ public class ServiceUtilisateur {
           
       }
     
+          public User finduser(Integer id) throws SQLException
+      {
+          User u=null;
+    ste=con.createStatement();
+    ResultSet rs=ste.executeQuery("select * from utilisateurs where id='" + id + "' ");
+     while (rs.next()) {                
+             
+               String nom=rs.getString("nom");
+               String prenom=rs.getString("prenom");
+               String email=rs.getString("email");
+               String username=rs.getString("username");
+               String role=rs.getString("roles");
+               
+                u=new User(id,username,email,role,nom,prenom);
     
+     }
+    return u;
+          
+      }
     
 }

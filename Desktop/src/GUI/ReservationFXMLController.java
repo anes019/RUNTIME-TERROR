@@ -8,9 +8,11 @@ package GUI;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import desktop.Entite.User;
 import desktop.Entite.reservation;
 import desktop.Service.ReservationSession;
 import desktop.Service.ServiceReservation;
+import desktop.Service.ServiceUtilisateur;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -206,12 +208,18 @@ public class ReservationFXMLController implements Initializable {
 
                         accept.setOnAction((ActionEvent event) -> {
                             ServiceReservation sr = new ServiceReservation();
+                             ServiceUtilisateur su = new ServiceUtilisateur();
                             reservation reserv = getTableView().getItems().get(getIndex());
                             System.out.println(reserv);
                             try {
-
+                              Integer id_client=reserv.getClient_id();
+                              User u =su.finduser(id_client);
+                              String mail= u.getEmail();
+     if(sr.envoyerMail("twasalni?", mail))
+        {
                                 sr.Accept(reserv.getId());
-                                displayAll();
+                                displayAll(); }
+     
                             } catch (SQLException ex) {
                                 Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
                             }

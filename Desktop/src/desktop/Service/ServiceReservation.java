@@ -17,8 +17,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import static javax.swing.UIManager.getInt;
 
 /**
@@ -206,4 +212,56 @@ public class ServiceReservation {
         System.out.println("ok");
 
     }
+    
+    public boolean envoyerMail(String fromMail ,String toMail)
+    {
+        
+        try{
+            String host ="smtp.gmail.com" ;
+            String user = "twasalniapp@gmail.com";
+            String pass = "twasalni123";
+            String to = toMail;
+            String from = "Twasalni?";
+            String subject = "Reservation Taxi";
+            String messageText ="Votre Reservation est confirmé , merci ";
+            boolean sessionDebug = false;
+
+            Properties props = System.getProperties();
+
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", host);
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.required", "true");
+
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            Session mailSession = Session.getDefaultInstance(props, null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(from));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subject); msg.setSentDate(new java.util.Date());
+            msg.setText(messageText);
+
+           Transport transport=mailSession.getTransport("smtp");
+           transport.connect(host, user, pass);
+           
+           transport.sendMessage(msg, msg.getAllRecipients());
+           System.out.println("message send successfully");
+     
+       //    transport.close();
+         return   transport.isConnected();
+       
+        
+        }catch(Exception ex)
+        {
+            System.out.println(ex);
+        }
+        
+        return false;
+ 
+    }
+    
+    
 }

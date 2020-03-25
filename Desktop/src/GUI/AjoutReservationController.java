@@ -155,6 +155,7 @@ partenaire_ajout.setCellFactory(cellFactory);
      User Partenaire= partenaire_ajout.getValue();
        
         Integer id=Partenaire.getId();
+          String mail=Partenaire.getEmail();
         String depart= Region.getText();
         String destination= Destination.getText();
          String produits= Produit.getText();
@@ -169,10 +170,12 @@ partenaire_ajout.setCellFactory(cellFactory);
      
       
         ServiceReservation RV=new ServiceReservation();
+   
         if(RV.ajouter(r)==1)
         {success.setText("Reservation ajoutée avec succes");
   Reset();
         }
+        
         
         else    {error.setText("Reservation echoué");}
        

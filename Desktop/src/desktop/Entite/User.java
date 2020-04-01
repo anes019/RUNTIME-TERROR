@@ -5,10 +5,7 @@
  */
 package desktop.Entite;
 
-/**
- *
- * @author Arbi
- */
+
 public class User {
     private int id;
     private String username;
@@ -16,6 +13,8 @@ public class User {
     private String role;
     private String nom;
     private String prenom;
+    private String password;
+    private String telephone;
 
     public User(int id,String username, String email, String role, String nom, String prenom) {
         this.id = id;
@@ -24,6 +23,8 @@ public class User {
         this.role = role;
         this.nom = nom;
         this.prenom = prenom;
+        this.password = password;
+        this.telephone = telephone;
     }
 
   
@@ -75,7 +76,27 @@ public class User {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
     
-    
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", role=" + role + ", nom=" + nom + ", prenom=" + prenom + ", password=" + password + '}';
+    }
+        
     
 }

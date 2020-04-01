@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class ServiceUtilisateur {
     private Connection con;
+    
     private Statement ste;
     
       public ServiceUtilisateur() {

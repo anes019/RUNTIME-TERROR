@@ -14,11 +14,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -53,6 +55,18 @@ public class GestionProfileController implements Initializable {
     private Label checkuser;
     @FXML
     private Label checktel;
+    @FXML
+    private Hyperlink admin;
+    @FXML
+    private Hyperlink Accueil;
+    @FXML
+    private Hyperlink profil;
+    @FXML
+    private Hyperlink reservation;
+    @FXML
+    private Hyperlink course;
+    @FXML
+    private Hyperlink abonnement;
 
     /**
      * Initializes the controller class.
@@ -128,7 +142,6 @@ public class GestionProfileController implements Initializable {
         
     }
 
-    @FXML
     private void goToAffProfile(MouseEvent event) throws IOException {
                      Node node = (Node) event.getSource();
                     Stage stage = (Stage) node.getScene().getWindow();
@@ -137,6 +150,10 @@ public class GestionProfileController implements Initializable {
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AffProfile.fxml")));
                     stage.setScene(scene);
                     stage.show();
+    }
+
+    @FXML
+    private void goToAcceuil(ActionEvent event) {
     }
     
 }

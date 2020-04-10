@@ -73,7 +73,18 @@ public class AjoutReservationController implements Initializable {
     @FXML
     private Hyperlink admin;
     @FXML
-    private Hyperlink stat;
+    private Hyperlink Accueil;
+    @FXML
+    private Hyperlink profil;
+    @FXML
+    private Hyperlink reservation;
+    @FXML
+    private Hyperlink course;
+    @FXML
+    private Hyperlink abonnement;
+    @FXML
+    private Hyperlink login;
+
 
     /**
      * Initializes the controller class.
@@ -130,20 +141,7 @@ partenaire_ajout.setCellFactory(cellFactory);
             }
 
         });   
-                  stat.setOnAction((ActionEvent event) -> {
-            Parent page2;
-            try {
-                page2 = FXMLLoader.load(getClass().getResource("/GUI/Statistique.fxml"));
-                Scene scene2 = new Scene(page2);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(scene2);
-                window.show();
-
-            } catch (IOException ex) {
-                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        });   
+                    
     }    
 
     @FXML
@@ -197,4 +195,45 @@ partenaire_ajout.setCellFactory(cellFactory);
         
     }
     }
+
+    @FXML
+    private void goToAcceuil(ActionEvent event) {
+    }
+
+          
+          @FXML
+    private void Profil(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("GestionProfile.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+    
+        
+          @FXML
+    private void Reservation(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AjoutReservation.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+  
+        
+          @FXML
+    private void Login(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+  
 }

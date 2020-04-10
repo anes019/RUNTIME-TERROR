@@ -184,6 +184,7 @@
                      </font>
                   </Label>
                   <Hyperlink fx:id="linkTotraited" layoutX="320.0" layoutY="493.0" text="Voir les reservations traitées" />
+                  <Hyperlink fx:id="stat" layoutX="320.0" layoutY="519.0" text="Voir les statistiques" />
                </children>
             </Pane>
          </children>

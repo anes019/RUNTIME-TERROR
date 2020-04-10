@@ -27,6 +27,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import static javax.swing.UIManager.getInt;
 
+
 /**
  *
  * @author anest

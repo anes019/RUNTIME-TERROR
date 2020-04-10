@@ -97,6 +97,8 @@ public class ReservationFXMLController implements Initializable {
     private Label total_not_traited;
     @FXML
     private Hyperlink linkTotraited;
+    @FXML
+    private Hyperlink stat;
 
     /**
      * Initializes the controller class.
@@ -134,7 +136,7 @@ public class ReservationFXMLController implements Initializable {
         ServiceReservation sr = new ServiceReservation();
         List listcs = sr.readNottraited();
         int number = sr.countNottraited();
-        //listcs.forEach(System.out::println);
+     
 
         ObservableList listReserv = FXCollections.observableArrayList(listcs);
 
@@ -149,6 +151,22 @@ public class ReservationFXMLController implements Initializable {
             Parent page2;
             try {
                 page2 = FXMLLoader.load(getClass().getResource("/GUI/ReservationTraited.fxml"));
+                Scene scene2 = new Scene(page2);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene2);
+                window.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+        
+        
+             stat.setOnAction((ActionEvent event) -> {
+            Parent page2;
+            try {
+                page2 = FXMLLoader.load(getClass().getResource("/GUI/Statistique.fxml"));
                 Scene scene2 = new Scene(page2);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(scene2);

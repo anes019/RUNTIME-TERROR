@@ -19,18 +19,6 @@
    <children>
       <AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="700.0">
          <children>
-            <Pane prefHeight="417.0" prefWidth="110.0" style="-fx-background-color: #48A5EA;">
-               <children>
-                  <ImageView fitHeight="116.0" fitWidth="116.0" layoutX="-3.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons/logo3.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="WHITE" layoutX="21.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Twasalni ?" textAlignment="RIGHT" wrappingWidth="67.5911425203085" />
-                  <Hyperlink fx:id="admin" layoutX="12.0" layoutY="303.0" prefHeight="26.0" prefWidth="88.0" text="Admin Page" textFill="WHITE" />
-                  <Hyperlink fx:id="stat" layoutX="12.0" layoutY="344.0" prefHeight="26.0" prefWidth="88.0" text="Statistiques " textFill="WHITE" />
-               </children>
-            </Pane>
             <JFXTextField fx:id="Region" focusColor="#48a5ea" layoutX="133.0" layoutY="139.0" prefHeight="25.0" prefWidth="217.0" promptText="Region" />
             <JFXTextField fx:id="Produit" focusColor="#48a5ea" layoutX="133.0" layoutY="271.0" prefHeight="25.0" prefWidth="217.0" promptText="Produit" />
             <Label layoutX="133.0" layoutY="31.0" text="Ajouter une Reservation" textFill="#48a5ea">
@@ -63,6 +51,23 @@
                </font>
             </Label>
             <Text layoutX="133.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir un partenaire" />
+            <Pane prefHeight="417.0" prefWidth="110.0" style="-fx-background-color: #48A5EA;">
+               <children>
+                  <ImageView fitHeight="116.0" fitWidth="116.0" layoutX="-3.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/logo3.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="19.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Twasalni ?" textAlignment="RIGHT" wrappingWidth="67.5911425203085" />
+                  <Hyperlink fx:id="admin" layoutX="12.0" layoutY="346.0" prefHeight="26.0" prefWidth="88.0" text="Admin Page" textFill="WHITE" />
+                  <Hyperlink fx:id="Accueil" layoutX="11.0" layoutY="140.0" onAction="#goToAcceuil" prefHeight="26.0" prefWidth="88.0" text="Accueil" textFill="WHITE" />
+                  <Hyperlink fx:id="profil" layoutX="11.0" layoutY="175.0" onAction="#Profil" prefHeight="26.0" prefWidth="88.0" text="Profil" textFill="WHITE" />
+                  <Hyperlink fx:id="reservation" layoutX="13.0" layoutY="206.0" onAction="#Reservation" prefHeight="26.0" prefWidth="88.0" text="Reservation" textFill="WHITE" />
+                  <Hyperlink fx:id="course" layoutX="16.0" layoutY="240.0" prefHeight="26.0" prefWidth="88.0" text="Course" textFill="WHITE" />
+                  <Hyperlink fx:id="abonnement" layoutX="16.0" layoutY="272.0" prefHeight="26.0" prefWidth="88.0" text="Abonnement" textFill="WHITE" />
+                  <Hyperlink fx:id="login" layoutX="16.0" layoutY="311.0" onAction="#Login" prefHeight="26.0" prefWidth="88.0" text="Login" textFill="WHITE" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

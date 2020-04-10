@@ -14,12 +14,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -63,6 +65,20 @@ public class InscriptionController implements Initializable {
     private ToggleGroup Roles;
     @FXML
     private TextField userName;
+    @FXML
+    private Hyperlink admin;
+    @FXML
+    private Hyperlink Accueil;
+    @FXML
+    private Hyperlink profil;
+    @FXML
+    private Hyperlink reservation;
+    @FXML
+    private Hyperlink course;
+    @FXML
+    private Hyperlink abonnement;
+    @FXML
+    private Hyperlink login1;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,5 +142,43 @@ public class InscriptionController implements Initializable {
         
         
     }
+
+    @FXML
+    private void goToAcceuil(ActionEvent event) {
+    }
+          
+          @FXML
+    private void Profil(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("GestionProfile.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
     
+        
+          @FXML
+    private void Reservation(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AjoutReservation.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+  
+        
+          @FXML
+    private void Login(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
 }

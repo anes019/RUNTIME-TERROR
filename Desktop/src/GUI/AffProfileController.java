@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.jfoenix.controls.JFXButton;
 import desktop.Service.Session;
 import desktop.Utils.DataBase;
 import java.io.IOException;
@@ -15,11 +16,13 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -39,6 +42,22 @@ public class AffProfileController implements Initializable {
     private Label labelUserName;
     @FXML
     private Label labelTel;
+    @FXML
+    private Hyperlink admin;
+    @FXML
+    private Hyperlink Accueil;
+    @FXML
+    private Hyperlink profil;
+    @FXML
+    private Hyperlink reservation;
+    @FXML
+    private Hyperlink course;
+    @FXML
+    private Hyperlink abonnement;
+    @FXML
+    private JFXButton edit;
+    @FXML
+    private Hyperlink login;
 
     /**
      * Initializes the controller class.
@@ -78,7 +97,6 @@ public class AffProfileController implements Initializable {
                      labelNom.setText(fullName);               
     }
 
-    @FXML
     private void goToAcceuil(MouseEvent event) throws SQLException, IOException {
         String role="";
          String request0 ="SELECT * from `utilisateurs` WHERE `utilisateurs`.`id` = "+Session.getIdSession()+";";
@@ -110,7 +128,6 @@ public class AffProfileController implements Initializable {
         
     }
 
-    @FXML
     private void goToEditProfile(MouseEvent event) throws IOException {
          Node node = (Node) event.getSource();
                     Stage stage = (Stage) node.getScene().getWindow();
@@ -120,5 +137,47 @@ public class AffProfileController implements Initializable {
                     stage.setScene(scene);
                     stage.show();
     }
+
+    @FXML
+    private void goToAcceuil(ActionEvent event) {
+    }
+
+    @FXML
+    private void goToEditProfile(ActionEvent event) {
+    }
+          
+          @FXML
+    private void Profil(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("GestionProfile.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
     
+        
+          @FXML
+    private void Reservation(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AjoutReservation.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+  
+        
+          @FXML
+    private void Login(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
 }

@@ -6,6 +6,7 @@
 package GUI;
 
 import desktop.Service.ServiceReservation;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -13,11 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -39,6 +45,8 @@ public class StatistiqueController implements Initializable {
     private Pane pane2;
     @FXML
     private Text nb;
+    @FXML
+    private Hyperlink retour;
 
     /**
      * Initializes the controller class.
@@ -132,7 +140,20 @@ nb.setText((Integer.toString(Total)));
         }
    
          
-    
+        retour.setOnAction((ActionEvent event) -> {
+            Parent page2;
+            try {
+                page2 = FXMLLoader.load(getClass().getResource("/GUI/ReservationFXML.fxml"));
+                Scene scene2 = new Scene(page2);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene2);
+                window.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
     
     }
     

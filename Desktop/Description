@@ -1,8 +1,0 @@
-Scene builder 8.5
-NetBeans 8.2
-bibliothèques utilisées :
--jfoenix-8.0.7.jar
--fontawesomefx-8.9.jar
--fontawesomefx-8.1.jar 
--mysql ( s'ajoute a partir de netbeans , clique droite sur libraries add librarie -> mysql driver  ) 
-

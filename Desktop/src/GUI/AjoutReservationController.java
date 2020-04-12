@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -42,6 +44,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import sun.util.calendar.LocalGregorianCalendar.Date;
 
 /**
  * FXML Controller class
@@ -91,7 +94,84 @@ public class AjoutReservationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   
+        ajout.setDisable(true);
+        date_reservation.setValue(LocalDate.now());
+date_reservation.setDayCellFactory(picker -> new DateCell() {
+        public void updateItem(LocalDate date, boolean empty) {
+            super.updateItem(date, empty);
+            LocalDate today = LocalDate.now();
+
+            setDisable(empty || date.compareTo(today) < 0 );
+        }
+    });
+
+Destination.setOnMouseClicked(new EventHandler<MouseEvent>()
+            {
+                @Override
+                public void handle(MouseEvent event) {
+                    if(Destination.getText().length()==0)
+        {
+                     Destination.setPromptText("remplir le champ destination");
+                 
+        }
+                
+                }
+              
+            });
+Destination.setOnMouseMoved(new EventHandler<MouseEvent>()
+            {
+                @Override
+                public void handle(MouseEvent event) {
+                    if(Destination.getText().length()==0)
+        {
+                     Destination.setPromptText("destination");
+                 
+        }
+                
+                }
+              
+            });
+
+
+              Destination.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\sa-zA-Z*")) {
+            Destination.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            
+        }
+             if(Destination.getText().length()==0 || partenaire_ajout.getValue()==null || date_reservation.getValue()==null )
+                      {
+           ajout.setDisable(true);
+                      }
+              else {  ajout.setDisable(false);}
+    });
+    partenaire_ajout.valueProperty().addListener((ov, oldValue, newValue) -> {
+                 if(newValue==null || Destination.getText().length()==0 ||date_reservation.getValue()==null)
+                 {
+                     ajout.setDisable(true);
+                }
+                 
+                
+                  
+                 else
+                 ajout.setDisable(false);
+                
+            
+        });
+            date_reservation.valueProperty().addListener((ov, oldValue, newValue) -> {
+                 if(date_reservation.getValue()==null||newValue==null || Destination.getText().length()==0)
+                 {
+                     ajout.setDisable(true);
+                }
+                 
+                
+             
+                 else
+                 ajout.setDisable(false);
+                
+            
+        });
+                    
+              
      Callback<ListView<User>, ListCell<User>> cellFactory = new Callback<ListView<User>, ListCell<User>>() {
 
     @Override
@@ -153,7 +233,7 @@ partenaire_ajout.setCellFactory(cellFactory);
     Destination.setText(null);
     Produit.setText(null);
     Remarques.setText(null);
-    date_reservation.setValue(null);
+     date_reservation.setValue(LocalDate.now());
 }
     
     @FXML

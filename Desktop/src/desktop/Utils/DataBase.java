@@ -23,6 +23,7 @@ public class DataBase {
              con=DriverManager.getConnection(url, login, pwd);
              System.out.println("connexion etablie");
          } catch (SQLException ex) {
+             System.out.println("connexion  Non etablie");
              System.out.println(ex);
          }
     }

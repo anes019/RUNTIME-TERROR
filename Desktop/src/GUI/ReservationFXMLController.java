@@ -16,12 +16,15 @@ import desktop.Service.ServiceUtilisateur;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -99,7 +102,9 @@ public class ReservationFXMLController implements Initializable {
     private Hyperlink linkTotraited;
     @FXML
     private Hyperlink stat;
-
+ObservableList <reservation> data =FXCollections.observableArrayList();
+    @FXML
+    private TextField rechercher;
     /**
      * Initializes the controller class.
      */
@@ -180,8 +185,30 @@ public class ReservationFXMLController implements Initializable {
     }
 
     @FXML
-    private void handleClicks(ActionEvent event) {
+   void rechercher(ActionEvent event) throws SQLException {
+        ServiceReservation cs = new ServiceReservation();
+        ArrayList listcs = (ArrayList) cs.readTraited2();
+        ObservableList OReservation = FXCollections.observableArrayList(listcs);
+        FilteredList<reservation> filteredData = new FilteredList<>(OReservation, p -> true);
+        rechercher.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(myObject -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(myObject.getDestination()).toLowerCase().contains(lowerCaseFilter)|| String.valueOf(myObject.getPointAchat()).toLowerCase().contains(lowerCaseFilter)||String.valueOf(myObject.getPrix()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+
+                }
+                return false;
+            });
+        });
+        SortedList<reservation> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableview.comparatorProperty());
+        tableview.setItems(sortedData);
     }
+
 
     private void addButtonToTable() throws SQLException {
         TableColumn actionCol = new TableColumn("Action");
@@ -279,4 +306,8 @@ public class ReservationFXMLController implements Initializable {
 
     }
 
+    @FXML
+    private void handleClicks(ActionEvent event) {
+    }
+  
 }

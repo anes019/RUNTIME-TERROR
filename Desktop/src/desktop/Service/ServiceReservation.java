@@ -198,7 +198,7 @@ public class ServiceReservation {
     }
 
     public boolean chercher(int id) throws SQLException {
-        String req = "select * from reservation";
+        String req = "select * from reservation where etat ='non traite'";
         List<Integer> list = new ArrayList<>();
 
         try {
@@ -214,9 +214,28 @@ public class ServiceReservation {
 
         return list.contains(id);
     }
-
-    public List<reservation> readTraited() throws SQLException {
+    public boolean chercher2(int id) throws SQLException {
         String req = "select * from reservation where etat!='non traite'";
+        List<Integer> list = new ArrayList<>();
+
+        try {
+            ste = con.createStatement();
+            ResultSet rs = ste.executeQuery(req);
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list.contains(id);
+    }
+    public List<reservation> readTraited(int from, int to) throws SQLException {
+                System.out.println("The total pay is " + from + to);
+        String req = "select * from reservation where etat!='non traite' limit " + from + ", " + to + " " ;
+    
+     
         List<reservation> list = new ArrayList<>();
 
         try {
@@ -233,7 +252,27 @@ public class ServiceReservation {
 
         return list;
     }
+    public List<reservation> readTraited2() throws SQLException {
+              
+        String req = "select * from reservation where etat!='non traite'  " ;
+    
+     
+        List<reservation> list = new ArrayList<>();
 
+        try {
+            ste = con.createStatement();
+            ResultSet rs = ste.executeQuery(req);
+            while (rs.next()) {
+   java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(6).toLocalDate());
+                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),  sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
     public List<reservation> readNottraited() throws SQLException {
         String req = "select * from reservation where etat ='non traite'";
         List<reservation> list = new ArrayList<>();
@@ -378,14 +417,19 @@ public class ServiceReservation {
         return  nb;
     }
            
-               public int counttraited() throws SQLException {
-        String req = "select count(*) AS total from reservation where etat !='non traite'";
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery(req);
-        rs.next();
-        int count = rs.getInt(1);
-        System.out.println(count);
-        return count;
+               public int counttraited()  {
+        try {
+            String req = "select count(*) AS total from reservation where etat !='non traite'";
+            ste = con.createStatement();
+            ResultSet rs = ste.executeQuery(req);
+            rs.next();
+            int count = rs.getInt(1);
+            System.out.println(count);
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
                
                
@@ -398,5 +442,7 @@ public class ServiceReservation {
         System.out.println(count);
         return count;
     }
+
+
 
 }

@@ -16,6 +16,7 @@ import desktop.Service.ServiceReservation;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -23,6 +24,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,9 +39,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -66,15 +71,14 @@ public class ReservationTraitedController implements Initializable {
     @FXML
     private VBox pnItems;
     @FXML
-    private TableView<?> tableview;
+    private TableView<reservation> tableview;
     @FXML
-    private TableColumn<?, ?> pointA;
+    private TableColumn<reservation, String> pointA;
     @FXML
-    private TableColumn<?, ?> Destination;
+    private TableColumn<reservation, String> Destination;
     @FXML
-    private TableColumn<?, ?> Date;
-    @FXML
-    private TableColumn<?, ?> etat;
+     private TableColumn<reservation, String> Date;
+
     @FXML
     private JFXHamburger hamburger;
     private Label total_not_traited;
@@ -103,13 +107,35 @@ public class ReservationTraitedController implements Initializable {
     @FXML
     private Hyperlink linkTonottraited;
 
+    
+    ObservableList <reservation> data =FXCollections.observableArrayList();
+    @FXML
+    private Pagination pagination;
+    
+  int from =0, to=0;
+  int itemPerPage=6;
+    @FXML
+    private Hyperlink stat;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        draw.setSidePane(vbox);
+        
+            
+        pointA.setCellValueFactory(new PropertyValueFactory<>("pointAchat"));
+        Destination.setCellValueFactory(new PropertyValueFactory<>("destination"));
+        Date.setCellValueFactory(new PropertyValueFactory<>("date_reservation"));
+       
+        int count =0;
+ ServiceReservation sr = new ServiceReservation();
+         count = sr.counttraited();
+         int pageCount=(count/itemPerPage)+1;
+         pagination.setPageCount(pageCount);
+         System.out.println( "page count"+ pageCount);
+         pagination.setPageFactory(this::page);
+            draw.setSidePane(vbox);
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
@@ -126,7 +152,7 @@ public class ReservationTraitedController implements Initializable {
             }
         });
         try {
-            displayAll();
+           // displayAll();
             addButtonToTable();
             linkTonottraited.setOnAction((ActionEvent event) -> {
                 Parent page2;
@@ -142,6 +168,21 @@ public class ReservationTraitedController implements Initializable {
                 }
 
             });
+            
+                   stat.setOnAction((ActionEvent event) -> {
+            Parent page2;
+            try {
+                page2 = FXMLLoader.load(getClass().getResource("/GUI/Statistique.fxml"));
+                Scene scene2 = new Scene(page2);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene2);
+                window.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
             // TODO
         } catch (SQLException ex) {
             Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,28 +211,35 @@ public class ReservationTraitedController implements Initializable {
          this.label.setText("-");
       }
    }
-    public void displayAll() throws SQLException {
+    public List displayAll()  {
 
-        ServiceReservation sr = new ServiceReservation();
-        List listcs = sr.readTraited();
-        int number = sr.counttraited();
-        //listcs.forEach(System.out::println);
+        try {
+            ServiceReservation sr = new ServiceReservation();
+            List listcs = sr.readTraited(from,to);
+            int number = sr.counttraited();
+            listcs.forEach(System.out::println);
+    
+              // listcs.forEach(System.out::println);
+            total_traited.setText(Integer.toString(number));
+            return listcs;
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationTraitedController.class.getName()).log(Level.SEVERE, null, ex);
+               return null;
+        }
 
-        ObservableList listReserv = FXCollections.observableArrayList(listcs);
-
+    }
+    
+       public Node page( int pageIndex)   {
+        
+    from = pageIndex * itemPerPage;
+    to = itemPerPage;
+       System.out.println("test" + from +" "+ pageIndex);
+        ObservableList listReserv = FXCollections.observableArrayList(displayAll() );
         tableview.setItems(listReserv);
-        total_traited.setText(Integer.toString(number));
-
-        pointA.setCellValueFactory(new PropertyValueFactory<>("pointAchat"));
-        Destination.setCellValueFactory(new PropertyValueFactory<>("destination"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("date_reservation"));
-        etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
-
+  
+return tableview;
     }
-
-    @FXML
-    private void handleClicks(ActionEvent event) {
-    }
+  
 
     private void addButtonToTable() throws SQLException {
         TableColumn actionCol = new TableColumn("Action");
@@ -329,6 +377,10 @@ public class ReservationTraitedController implements Initializable {
 
         tableview.getColumns().add(actionCol);
 
+    }
+
+    @FXML
+    private void handleClicks(ActionEvent event) {
     }
 
 }

@@ -1,0 +1,17 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div align="center"  >
+    <br>
+    <br>
+    <img style="width: 300px" src="{{ asset('templates/backoffice/images/icon/logo3.png')}}">
+    <div class="formgroup" style="width: 270px">
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+    {{ form_widget(form) }}
+    </div>
+    <div>
+        <input  class="btn btn-info" type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+    <br>
+    <a style="color: whitesmoke" href="{{ path('fos_user_security_login') }}" for="Vous avez deja un compte ? se connecter">{{ 'Vous avez deja un compte ? se connecter '|trans }}</a>
+</div>
+{{ form_end(form) }}

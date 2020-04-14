@@ -1,0 +1,25 @@
+feed_back:
+    resource: "@FeedBackBundle/Resources/config/routing.yml"
+    prefix:   /feedback
+
+admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+
+utilisateurs_utilisateurs:
+    resource: "@UtilisateursUtilisateursBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+abonnement:
+    resource: "@AbonnementBundle/Resources/config/routing.yml"
+    prefix:   /abonnement
+
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix:   /message
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

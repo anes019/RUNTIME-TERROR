@@ -1,0 +1,35 @@
+abonnement_homepage:
+    path:     /
+    defaults: { _controller: AbonnementBundle:Default:index }
+
+_create_abonnement:
+    path:     /CreateAbonnement
+    defaults: { _controller: AbonnementBundle:Abonnement:CreateAbonnement }
+
+_read_abonnement:
+    path:     /ReadAbonnement
+    defaults: { _controller: AbonnementBundle:Abonnement:ReadAbonnement }
+
+_update_abonnement:
+    path:     /UpdateAbonnement/{id}
+    defaults: { _controller: AbonnementBundle:Abonnement:UpdateAbonnement }
+
+_delete_abonnement:
+    path:     /DeleteAbonnement/{id}
+    defaults: { _controller: AbonnementBundle:Abonnement:DeleteAbonnement }
+
+_create_promotion:
+    path:     /CreatePromotion
+    defaults: { _controller: AbonnementBundle:Promotion:CreatePromotion }
+
+_update_promotion:
+    path:     /UpdatePromotion/{id}
+    defaults: { _controller: AbonnementBundle:Promotion:UpdatePromotion }
+
+_delete_promotion:
+    path:     /DeletePromotion/{id}
+    defaults: { _controller: AbonnementBundle:Promotion:DeletePromotion }
+
+_read_promotion:
+    path:     /ReadPromotion
+    defaults: { _controller: AbonnementBundle:Promotion:ReadPromotion }

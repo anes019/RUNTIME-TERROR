@@ -1,0 +1,56 @@
+
+       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+       <!------ Include the above in your HEAD tag ---------->
+
+       <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+       <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+       <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
+
+       <br>
+       <br>
+
+           <h1 style=" position: relative; right: -30px">  liste des courses pour {{ liste[0].partenaire.nom }} à partir de la date {{ inventaire.dateI|date }} </h1> <br/>
+           <br>
+           <table class="table table-bordered table-striped">
+               <thead>
+               <tr>
+
+                   <th class="th-sm">Id</th>
+                   {#<th class="th-sm">Client</th>#}
+                   {#<th class="th-sm">Partenaire</th>#}
+                   <th class="th-sm">Depart</th>
+                   <th class="th-sm">Destination</th>
+                   <th class="th-sm">Pourcentage</th>
+                   <th class="th-sm">Prix</th>
+
+
+               </tr>
+               </thead>
+               <tbody id="myTable">
+               {% for i in liste %}
+                   <tr>
+
+                       <td>{{i.id}}</td>
+                       {#<td>{{ i.client.nom }}</td>#}
+                       {#<td>{{ i.partenaire.nom }}</td>#}
+                       <td>{{ i.course.depart }}</td>
+                       <td>{{ i.course.destination }}</td>
+                       <td>{{ i.pourcentage*100 }}</td>
+                       <td>{{ i.course.prix }}</td>
+
+
+
+                   </tr>
+               {% endfor %}
+               </tbody>
+           </table>
+
+       <h1>Montant total : {{ inventaire.montant }}</h1>
+
+
+

@@ -1,0 +1,25 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<head>
+
+    <meta http-equiv="refresh" content="8; url='../login'">
+</head>
+<div align="center"  >
+
+    <br>
+    <br>
+
+    <img style="width: 300px" src="{{ asset('templates/backoffice/images/icon/logo3.png')}}">
+    <div style="background-color: whitesmoke">
+        <br>
+
+        <H4 style="color: #00aced">
+{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
+</h4>
+        <br>
+    </div>
+</div>
+{% endblock %}

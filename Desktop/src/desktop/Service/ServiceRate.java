@@ -6,6 +6,7 @@
 package desktop.Service;
 
 import desktop.Entite.Rating;
+import desktop.Entite.Reclammations;
 import desktop.Entite.Taxi;
 import desktop.Utils.DataBase;
 import java.sql.Connection;
@@ -95,5 +96,20 @@ public class ServiceRate {
             System.err.println(ex.getMessage());
         }
     }
-    
+    public ArrayList<Rating> FindAll(){
+        ArrayList<Rating> list = new ArrayList<>();
+
+        try {
+            String requete = "SELECT * FROM rating";
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                list.add(new Rating(rs.getInt("id"), rs.getInt("user"), rs.getInt("part"), rs.getInt("rate"), rs.getDate("date")));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return list;
+    }
 }

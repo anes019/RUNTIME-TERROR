@@ -1,0 +1,44 @@
+{% extends "back.html.twig" %}
+   {% block content %}
+
+{% block body %}
+    <h1>Taxi</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ taxi.matricul }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ taxi.etat }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ taxi.marque }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('templates/backoffice/images/')~taxi.image }}" width="50"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('taxi_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('taxi_edit', { 'id': taxi.matricul }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
+
+   {% endblock %}
+

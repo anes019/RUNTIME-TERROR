@@ -1,0 +1,41 @@
+reservation_index:
+    path:     /
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:index" }
+    methods:  GET
+reservation_archive:
+    path:     /archive
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:listarchive" }
+    methods:  GET
+
+reservation_show:
+    path:     /{id}/show
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:show" }
+    methods:  GET
+reservation_showarchive:
+  path:     /{id}/showarchive
+  defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:showarchive" }
+  methods:  GET
+
+
+reservation_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:edit" }
+    methods:  [GET, POST]
+
+reservation_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:delete" }
+    methods:  GET
+reservation_rejet:
+  path:     /{id}/rejet
+  defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:rejet" }
+  methods:  GET
+
+reservation_archiver:
+  path:     /{id}/archiver
+  defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:archive" }
+  methods:  GET
+reservation_restaurer:
+    path:     /{id}/restaurer
+    defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:restore" }
+    methods:  GET

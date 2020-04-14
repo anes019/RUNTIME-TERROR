@@ -1,0 +1,49 @@
+
+
+       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+       <!------ Include the above in your HEAD tag ---------->
+
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+       <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+       <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
+
+       <br>
+<br>
+
+
+    <h1 style=" position: relative; right: -30px">  liste des réservations non traitées </h1>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(reservations, 'Pointachat', 'reservation.pointAchat') }}</th>
+            <th{% if reservations.isSorted('reservation.destination') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(reservations, 'Destination', 'reservation.destination') }}
+            </th>
+            <th{% if reservations.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(reservations, 'Date', ['a.date', 'a.time']) }}
+            </th>
+
+        </tr>
+
+        <tbody id="myTable">
+
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.pointAchat }}</td>
+                <td>{{ reservation.destination }}</td>
+                <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d / h:m') }}{% endif %}</td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+

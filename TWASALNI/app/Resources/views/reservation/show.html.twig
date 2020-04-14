@@ -1,0 +1,108 @@
+{% extends 'back.html.twig' %}
+   {% block content %}
+       <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+       <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <!------ Include the above in your HEAD tag ---------->
+<br>
+<br>
+{% block body %}
+    <h1 style="text-align: center">Reservation</h1>
+    <!-- Card -->
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+       <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+       <!------ Include the above in your HEAD tag ---------->
+
+       <div class="container">
+           <div class="row">
+               <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                   <div class="row">
+                       <div class="col-xs-6 col-sm-6 col-md-6">
+                           <address>
+                               <strong>Client details </strong>
+                               <br>
+                               Nom :{{ reservation.client }}
+                               <br>
+                               Prenom :{{ reservation.id }}
+                               <br>
+                               Adresse : {{ reservation.id }}
+                               <br>
+                               <abbr title="Phone">Mobile:</abbr>{{ reservation.id }}
+                           </address>
+                       </div>
+                       <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                           <p>
+                               <em>Date: {% if reservation.date %}{{ reservation.date|date('Y-m-d') }}{% endif %}</em>
+                           </p>
+
+                       </div>
+                   </div>
+                   <div class="row">
+
+                       </span>
+                       <table class="table table-hover">
+                           <thead>
+                           <tr>
+                               <th>Product</th>
+                               <th>Point d'achat</th>
+                               <th class="text-center">Destination</th>
+                               <th class="text-center">Remarques</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           <tr>
+                               <td class="col-md-9"><em>{{ reservation.listAchats }}</em></h4></td>
+                               <td class="col-md-1" style="text-align: center"> {{ reservation.pointAchat }} </td>
+                               <td class="col-md-1 text-center">{{ reservation.destination }}</td>
+                               <td class="col-md-1 text-center">{{ reservation.remarques }}</td>
+                           </tr>
+
+                           <tr>
+                               <td>   </td>
+                               <td>   </td>
+                               <td class="text-right">
+                                   <p>
+                                       <strong> frais de livraison: </strong>
+                                   </p>
+                              </td>
+                               <td class="text-center">
+                                   <p>
+                                       <strong>{{ reservation.prix }} DT</strong>
+                                   </p>
+                              </td>
+                           </tr>
+                           <tr>
+                               <td>   </td>
+                               <td>   </td>
+                               <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                               <td class="text-center text-danger"><h4><strong>{{ reservation.prix }} DT  <h4 style="color: red"> +prix de commande</h4></strong></h4></td>
+                           </tr>
+                           </tbody>
+                       </table>
+                      <center>
+
+                      <a href="{{ path('reservation_archiver', { 'id': reservation.id }) }}"> <button type="button" class="btn btn-success btn-lg btn-block " style="width: 470px">
+                          Accepter commande    <span class="glyphicon glyphicon-ok-sign"></span>
+                       </button></a>
+                          <a href="{{ path('reservation_rejet', { 'id': reservation.id }) }}"> <button type="button" class="btn btn-danger btn-lg btn-block " style="width: 470px">
+                                  Refuser commande    <span class="glyphicon glyphicon-ok-sign"></span>
+                              </button></a>
+                      </center>
+                       </td>
+
+                   </div>
+                   <br>
+
+                   <a href="{{ path('reservation_index') }}">Retourner au liste des reservations</a>
+
+               </div>
+           </div>
+
+
+</div>
+{% endblock %}
+       <br>
+       <br>
+   {% endblock %}

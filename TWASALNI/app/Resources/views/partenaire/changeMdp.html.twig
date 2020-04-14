@@ -1,0 +1,37 @@
+<html>
+<head>
+    <style>
+        body {background-color: gray;}
+        h1   {color: #7ea2ff;}
+        p    {color: black;}
+        .mel{
+            padding: 70px 0;
+            border: 3px #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div align="center" class="mel">
+<h1>Bienvenu à Twasalni!</h1>
+    <img class="img1" src="/RUNTIME-TERROR/TWASALNI/web/templates/backoffice/images/icon/logo3.png" alt="Twasalni" width="120">
+    <p>Vuillez entrer un mot de passe!</p>
+    <p>Entrer un mot de passe facile dont vou vous souviendrez toujours!</p>
+
+<form method="get" action="{{ path('confirm_mdp',{'id':id }) }}">
+<table>
+    <tr>
+    <td>Nouveau MDP</td>
+        <td><input type="password" name="mdp" required="password"></td>
+    </tr><tr>
+        <td>Confirmer nouveau MDP</td>
+        <td><input type="password" name="double"></td>
+
+    </tr>
+</table>
+    <br>
+    <input type="submit" value="Confirm">
+</form>
+</div>
+</body>
+
+</html>

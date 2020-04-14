@@ -1,0 +1,85 @@
+{% extends 'back.html.twig' %}
+   {% block content %}
+       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+       <!------ Include the above in your HEAD tag ---------->
+
+       <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+       <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
+
+       <br>
+       <br>
+       {% block body %}
+           <h1 style=" position: relative; right: -30px">  Details des commisions  pour Mr/Mme {{ inventaire.partenaire.nom }}  {{ inventaire.partenaire.prenom }}</h1>
+           <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
+           <br>
+           <div class="count">
+               <h4> Nombre total des livraisons effectués : {{ liste.getTotalItemCount }}  </h4>
+
+
+           </div>
+
+
+           <table class="table table-bordered table-striped">
+               <tr>
+                   {# sorting of properties based on query components #}
+                   <th>{{ knp_pagination_sortable(liste, 'Depart', 'liste.reservation.pointAchat') }}</th>
+                   <th{% if liste.isSorted('liste.reservation.destination') %} class="sorted"{% endif %}>
+                       {{ knp_pagination_sortable(liste, 'Destination', 'liste.reservation.destination') }}
+                   </th>
+                   <th{% if liste.isSorted('liste.reservation.prix') %} class="sorted"{% endif %}>
+                       {{ knp_pagination_sortable(liste, 'Prix', 'liste.reservation.prix') }}
+                   </th>
+                   <th >Pourcentage</th>
+               </tr>
+
+               <tbody id="myTable">
+               {% for i in liste %}
+                   <tr>
+
+                       <td>{{ i.reservation.pointAchat }}</td>
+                       <td>{{ i.reservation.destination }}</td>
+                       <td>{{ i.reservation.prix }}</td>
+                       <td>{{ i.pourcentage*100 }}%</td>
+
+
+                       <div style=" display: flex;
+  align-content: space-between;">
+
+                           {#<a class="text-sm-center " href="{{ path('course_update', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="modifier"><button class="btn btn-success btn-s" data-title="edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-edit"></span></button></p></a>#}
+                           {#<a class="text-sm-right" href="{{ path('course_delete', { 'id': i.id }) }}"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-s" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></a>#}
+                       </div>
+                       </td>
+
+                   </tr>
+               {% endfor %}
+               </tbody>
+           </table>
+           <a href="{{ path('commissionR_pdf', { 'id': app.request.get('id') })}}"><button><h4 >gener une facture pour {{ inventaire.partenaire.nom }}  {{ inventaire.partenaire.prenom }} <i class="material-icons">file_download</i> </h4> </button></a>
+          <br>
+           <a href="{{ path('inventaireR_read')}}"><button>Voir inventaire des Reservations</button></a>
+           <br>
+
+           <div class="navigation">
+               {{ knp_pagination_render(liste) }}
+           </div>
+
+       {% endblock %}
+
+       <script>
+           $(document).ready(function(){
+               $("#myInput").on("keyup", function() {
+                   var value = $(this).val().toLowerCase();
+                   $("#myTable tr").filter(function() {
+                       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                   });
+               });
+           });
+       </script>
+
+   {% endblock %}

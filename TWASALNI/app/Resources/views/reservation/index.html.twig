@@ -1,0 +1,110 @@
+{% extends 'back.html.twig' %}
+   {% block content %}
+       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+       <!------ Include the above in your HEAD tag ---------->
+
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
+       <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+       <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+       <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
+
+       <br>
+<br>
+{% block body %}
+    <h1 style=" position: relative; right: -30px">  liste des réservations non traitées </h1>
+    <br>
+       {% for message in app.flashes('success') %}
+       <div class="alert-success text-center" style="height: 70px">
+           <br>
+           {{ message }}
+       </div>
+           {% endfor %}
+           <br>
+           <br>
+
+    {% if reservations is empty %}
+    <div class="alert alert-warning" role="alert">
+        Vous n'avez pas de reservation non traitée ..
+        veuillez consultez l'inventaire des reservation via ce lien
+        <a href="{{ path('inventaireR_read')}}"><button>Retour inventaire de ce mois</button></a>
+        <br>
+        <br>
+        ou consulter l'archive des reservation via ce lien
+        <a href="{{ path('reservation_archive')}}"><button>Voir toutes les reservations traitées</button></a>
+
+    </div>
+    {% else %}
+    <input style="width: 400px" class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <div class="count">
+        <h4> Nombre total des réservation : {{ reservations.getTotalItemCount }}  </h4>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(reservations, 'Pointachat', 'reservation.pointAchat') }}</th>
+            <th{% if reservations.isSorted('reservation.destination') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(reservations, 'Destination', 'reservation.destination') }}
+            </th>
+            <th{% if reservations.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(reservations, 'Date', ['a.date', 'a.time']) }}
+            </th>
+            <th >Actions</th>
+        </tr>
+
+        <tbody id="myTable">
+
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.pointAchat }}</td>
+                <td>{{ reservation.destination }}</td>
+                <td>{% if reservation.date %}{{ reservation.date|date('Y-m-d / h:m') }}{% endif %}</td>
+                <td>
+<div style=" display: flex;
+  align-content: space-between;">
+
+                    <a class="text-sm-left " href="{{ path('reservation_show', { 'id': reservation.id }) }}"> <button data-placement="top" data-toggle="tooltip" title="details">  <i class="material-icons" style="color: green">assignment</i>   </button></a>
+
+{#                <a class="text-sm-center " href="{{ path('reservation_edit', { 'id': reservation.id }) }}"><button data-placement="top" data-toggle="tooltip" title="edit">  <i class="material-icons">edit</i>   </button></a>#}
+                    <a class="text-sm-right" href="{{ path('reservation_archiver', { 'id': reservation.id }) }}"><button data-placement="top" data-toggle="tooltip" title="accepter">  <i class="material-icons" style="color:darkblue">done</i>   </button></a>
+    <a class="text-sm-right" href="{{ path('reservation_rejet', { 'id': reservation.id }) }}"><button data-placement="top" data-toggle="tooltip" title="refuser">  <i class="material-icons" style="color:darkred">close</i>   </button></a>
+</div>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+            <a href="{{ path('reservation_new') }}">Create a new reservation</a>
+            <br>
+            <a href="{{ path('inventaireR_read')}}">Voir inventaire des Reservations</a>
+             <br>
+        <a href="{{ path('reservation_archive')}}">Voir les  Reservations traitées</a>
+
+
+    <div class="navigation">
+        {{ knp_pagination_render(reservations) }}
+    </div>
+    {% endif %}
+{% endblock %}
+
+       <script>
+           $(document).ready(function(){
+               $("#myInput").on("keyup", function() {
+                   var value = $(this).val().toLowerCase();
+                   $("#myTable tr").filter(function() {
+                       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                   });
+               });
+           });
+       </script>
+
+   {% endblock %}

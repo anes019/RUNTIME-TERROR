@@ -1,0 +1,38 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block fos_user_content %}
+
+
+
+    <div align="center"  >
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <div class="formgroup" style="width: 270px">
+            <label for="username">{{ "Nom d'utilisateur"|trans }}</label>
+            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+        </div>
+
+        <div class="formgroup">
+            <label for="password">{{ 'security.login.password'|trans }}</label>
+            <input style="width: 270px" class="form-control" type="password" id="password" name="_password" required="required" />
+            <div>
+                {% if error %}
+                    <div><h4 style="color: red ;> {{ error.messageKey|trans(error.messageData, 'security') }}</h4></div>
+                {% endif %}
+                <div class="checkbox">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+                      <br>  <br>
+                       <a style="color: whitesmoke" href="{{ path('fos_user_registration_register') }}" for="creer un compte">{{ 'créer un compte '|trans }}</a>
+                        <a>|</a>
+                        <a style="color: whitesmoke" href="{{ path('fos_user_resetting_request') }}" for="mot de passe oublié">{{ 'mot de passe oublié'|trans }}</a>
+                    </div>
+<br>
+                <input class="btn btn-info" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </div>
+        </div>
+    </form>
+    </div>
+{% endblock fos_user_content %}

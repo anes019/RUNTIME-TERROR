@@ -1,0 +1,71 @@
+feed_back_homepage:
+    path:     /
+    defaults: { _controller: FeedBackBundle:Default:AddReclammation }
+
+feed_back_Listereclammation:
+    path:     /reclammation/liste
+    defaults: { _controller: FeedBackBundle:Default:ListeReclammation }
+
+feed_back_delete_reclammation:
+    path:     /reclammation/delete/{id}
+    defaults: { _controller: FeedBackBundle:Default:DeleteReclammation }
+
+feed_back_reponse_reclammation:
+    path:     /reclammation/reponse/{id}
+    defaults: { _controller: FeedBackBundle:Default:ReponseReclammation }
+
+feed_back_envoyer_reponse:
+    path:     /reclammation/enoieReponse/{id}
+    defaults: { _controller: FeedBackBundle:Default:EnvoyerRenponse }
+
+feed_back_tri_reclammation:
+    path:     /reclammation/TrierParEtat/{etat}
+    defaults: { _controller: FeedBackBundle:Default:TrierParEtat }
+
+feed_back_ordre_croissant:
+    path:     /reclammation/listeC
+    defaults: { _controller: FeedBackBundle:Default:OrdreCroissant }
+
+feed_back_ordre_decroissant:
+    path:     /reclammation/listeD
+    defaults: { _controller: FeedBackBundle:Default:OrdreDecroissant }
+
+feed_back_statistiques:
+    path:     /statistique
+    defaults: { _controller: FeedBackBundle:Default:Statistiques }
+
+feed_back_taxi:
+    path:     /taxi/liste
+    defaults: { _controller: FeedBackBundle:Rating:listeTaxi }
+
+feed_back_detail_taxi:
+    path:     /taxi/detail/{id}
+    defaults: { _controller: FeedBackBundle:Rating:DetailTaxi }
+
+feed_back_evaluer:
+    path:     /evaluer/{id}
+    defaults: { _controller: FeedBackBundle:Rating:Evaluation }
+
+feed_back_commenter_part:
+    path:     /commenter/{id}
+    defaults: { _controller: FeedBackBundle:Rating:Commenter }
+
+feed_back_liste_rating:
+    path:     /rating/liste
+    defaults: { _controller: FeedBackBundle:Rating:ListeEvaluation }
+
+feed_back_delete_commentaire:
+    path:     /rating/commentaire/delete/{id}
+    defaults: { _controller: FeedBackBundle:Rating:DeleteCommentaire }
+
+feed_back_delete_rate:
+    path:     /rating/rate/delete/{id}
+    defaults: { _controller: FeedBackBundle:Rating:DeleteRate }
+
+feed_back_reclammation_etat:
+    path:     /reclammation/trietat
+    defaults: { _controller: FeedBackBundle:Default:TrierParEtat }
+
+feed_back_rate_star:
+    path:     /rating/trie
+    defaults: { _controller: FeedBackBundle:Rating:FindByStar }

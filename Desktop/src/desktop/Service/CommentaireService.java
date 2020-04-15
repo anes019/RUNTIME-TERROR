@@ -54,4 +54,21 @@ public class CommentaireService {
             System.err.println(e.getMessage());
         }
     }
+    
+    public ArrayList<Commentaires> FindAll(){
+        ArrayList<Commentaires> list = new ArrayList<>();
+
+        try {
+            String requete = "SELECT * FROM commentaires";
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                list.add(new Commentaires(rs.getInt("id"), rs.getInt("user"), rs.getInt("part"), rs.getString("commentaire"), rs.getDate("date")));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return list;
+    }
 }

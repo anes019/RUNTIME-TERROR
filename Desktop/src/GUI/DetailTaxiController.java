@@ -111,7 +111,7 @@ public class DetailTaxiController implements Initializable {
     int general=4;
     public ServiceRate SevRa=new ServiceRate();
     
-    User client = new User(24);
+    User client = new User(24, "username", "email", "role", "nom", "prenom");
     Taxi t = new Taxi(126, "etat", "marque", "image");
     /**
      * Initializes the controller class.
@@ -196,7 +196,8 @@ public class DetailTaxiController implements Initializable {
 
     @FXML
     private void SendComment(MouseEvent event) throws SQLException, IOException {
-        Commentaires c = new Commentaires(1,client.getId(), 1, Text.getText(), new Date());
+        System.out.println(client.getId());
+        Commentaires c = new Commentaires(1,client.getId(),servF.FindPart(t.getMatricule()), Text.getText(), new Date());
         ComS.AddCommentaire(c);
         Text.setText("");
         liste_com.getChildren().clear();

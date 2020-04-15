@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Desktop.jar" size="1236660" download="eager" />
+    <jar href="Desktop.jar" size="1234723" download="eager" />
     <jar href="lib\fontawesomefx-8.1.jar" size="179086" download="eager" />
     <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />
     <jar href="lib\javax.mail.jar" size="659033" download="eager" />

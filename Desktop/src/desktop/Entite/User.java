@@ -27,9 +27,11 @@ public class User {
         this.telephone = telephone;
     }
 
-    public User(int i) {
-        this.id=id;
+    public User(int id) {
+        this.id = id;
     }
+
+    
 
   
 

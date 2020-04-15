@@ -34,7 +34,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="clients1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Accueil" underline="true">
+            <Button fx:id="clients1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="239.0" mnemonicParsing="false" onAction="#goToAcceuil" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Accueil" underline="true">
                <padding>
                   <Insets left="50.0" />
                </padding>
@@ -46,7 +46,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="clients" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Gestion des clients" underline="true">
+            <Button fx:id="clients" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToclients" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Gestion des clients" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="partenaires" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="378.0" stylesheets="@style.css" text="Gestion des partenaires" underline="true">
+            <Button fx:id="partenaires" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToPartenaire" prefHeight="42.0" prefWidth="378.0" stylesheets="@style.css" text="Gestion des partenaires" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -70,7 +70,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="reservations" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Gestion des reservations" underline="true">
+            <Button fx:id="reservations" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToReservation" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Gestion des reservations" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,7 +82,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="reservations1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="341.0" stylesheets="@style.css" text="Gestion des courses" underline="true">
+            <Button fx:id="reservations1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToCourse" prefHeight="42.0" prefWidth="341.0" stylesheets="@style.css" text="Gestion des courses" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -94,7 +94,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="abonnements" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="329.0" stylesheets="@style.css" text="Gestion des abonnements" underline="true">
+            <Button fx:id="abonnements" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToAbonne" prefHeight="42.0" prefWidth="329.0" stylesheets="@style.css" text="Gestion des abonnements" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -106,7 +106,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="feedback" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="328.0" stylesheets="@style.css" text="FeedBack" underline="true">
+            <Button fx:id="feedback" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToFeedBack" prefHeight="42.0" prefWidth="328.0" stylesheets="@style.css" text="FeedBack" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>

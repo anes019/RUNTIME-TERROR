@@ -48,6 +48,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 
 /**
@@ -306,8 +307,69 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
 
     }
 
+
     @FXML
-    private void handleClicks(ActionEvent event) {
+    private void rechercher(InputMethodEvent event) {
     }
+    
+    
+     @FXML
+    private void goToAcceuil(ActionEvent event) {
+        
+    }
+
+          @FXML
+    private void goToclients(ActionEvent event) throws IOException {
+       
+    }
+               @FXML
+    private void goToPartenaire(ActionEvent event) throws IOException {
+       
+    }  
+    
+             @FXML
+    private void goToCourse(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("CoursesAdmin.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+    
+                 @FXML
+    private void goToReservation(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("ReservationFXML.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+      @FXML
+    private void goToAbonne(ActionEvent event) {
+        
+    }
+
+    
+        
+
+               @FXML
+    private void goToFeedBack(ActionEvent event) throws IOException {
+ 
+    }
+    
+    private void goToFront(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+
   
 }

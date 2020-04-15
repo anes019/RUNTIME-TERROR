@@ -174,7 +174,9 @@
                      </font>
                   </Label>
                   <Hyperlink fx:id="linkTonottraited" layoutX="373.0" layoutY="490.0" text="Voir les reservations non traitées" />
-                  <Hyperlink fx:id="stat" layoutX="377.0" layoutY="513.0" text="Voir les statistiques" />
+                  <Hyperlink fx:id="stat" layoutX="869.0" layoutY="111.0" text="Voir les statistiques" />
+                  <Hyperlink fx:id="linkTonottraited1" layoutX="373.0" layoutY="511.0" onAction="#InventairPaid" text="Voir les inventaires payés" />
+                  <Hyperlink fx:id="linkTonottraited11" layoutX="372.0" layoutY="535.0" onAction="#InventairenotPaid" text="Voir  les inventaires non payés" />
                </children>
             </Pane>
          </children>

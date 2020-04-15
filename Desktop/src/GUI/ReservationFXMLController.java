@@ -106,6 +106,10 @@ public class ReservationFXMLController implements Initializable {
 ObservableList <reservation> data =FXCollections.observableArrayList();
     @FXML
     private TextField rechercher;
+    @FXML
+    private Hyperlink linkTonottraited1;
+    @FXML
+    private Hyperlink linkTonottraited11;
     /**
      * Initializes the controller class.
      */
@@ -371,5 +375,24 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
                     stage.show();
     }
 
-  
+               @FXML
+    private void InventairenotPaid(ActionEvent event) throws IOException {
+                Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+            @FXML
+    private void InventairPaid(ActionEvent event) throws IOException {
+                Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR2.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
 }

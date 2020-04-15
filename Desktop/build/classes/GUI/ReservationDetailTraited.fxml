@@ -221,6 +221,8 @@
                   <Label fx:id="prenom" layoutX="374.0" layoutY="209.0" text="prenom" textFill="WHITE" />
                   <Label fx:id="adresse" layoutX="376.0" layoutY="226.0" text="adresse" textFill="WHITE" />
                   <Label fx:id="mobile" layoutX="377.0" layoutY="243.0" text="mobile" textFill="WHITE" />
+                  <Hyperlink fx:id="linkTonottraited1" layoutX="615.0" layoutY="550.0" onAction="#InventairPaid" text="Voir les inventaires payés" />
+                  <Hyperlink fx:id="linkTonottraited11" layoutX="615.0" layoutY="573.0" onAction="#InventairenotPaid" text="Voir  les inventaires non payés" />
                </children>
             </Pane>
          </children>

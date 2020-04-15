@@ -5,12 +5,21 @@
  */
 package desktop.Service;
 
+import desktop.Entite.Inventaire;
+import desktop.Entite.InventaireR;
+import desktop.Entite.User;
+import desktop.Entite.reservation;
 import desktop.Utils.DataBase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -72,5 +81,60 @@ public class ServiceInventaire {
         System.out.println("ok");
         return true;
     }
+    
+    
+    public List<InventaireR> readpaid() throws SQLException {
+              
+          String req = "select * from inventaire_r where done =1";
+    
+     
+        List<InventaireR> list = new ArrayList<>();
+
+        try {
+            ste = con.createStatement();
+            ResultSet rs = ste.executeQuery(req);
+            while (rs.next()) {
+
+                list.add(new InventaireR(rs.getInt(2), rs.getFloat(3),  rs.getDate(4)));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+       public List<InventaireR> readNotpaid() throws SQLException {
+              
+          String req = "select * from inventaire_r where done =0";
+    
+     
+        List<InventaireR> list = new ArrayList<>();
+
+        try {
+            ste = con.createStatement();
+            ResultSet rs = ste.executeQuery(req);
+            while (rs.next()) {
+   java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(4).toLocalDate());
+                list.add(new InventaireR(rs.getInt(2), rs.getFloat(3), rs.getDate(4)));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+
+   public boolean payer( int id) throws SQLException {
+        pre = con.prepareStatement("update inventaire_r set done=1 where partenaire_id='" + id + "'");
+        pre.executeUpdate();
+        System.out.println("ok");
+        return true;
+    }
+    
+    
+
 
 }

@@ -17,6 +17,9 @@ public class commissionR {
     private int inventaire_id;
     private float pourcentage;
     private Date date_commission;
+    private float prix;
+   private String destination;
+    private String depart;
   public commissionR() {
       
     }
@@ -29,7 +32,16 @@ public class commissionR {
         this.date_commission = date_commission;
     }
 
-  
+      public commissionR(int id,reservation R, float pourcentage) {
+        this.reservation = R;
+        this.pourcentage = pourcentage;
+        this.date_commission = date_commission;
+        this.id=id;
+        destination=reservation.getDestination();
+        depart=reservation.getPointAchat();
+        prix=reservation.getPrix()*100;
+       
+    }
 
     public int getId() {
         return id;
@@ -80,19 +92,44 @@ public class commissionR {
         this.date_commission = date_commission;
     }
 
+    public float getPrix() {
+        return prix;
+    }
+
+    public void setPrix(float prix) {
+        this.prix = prix;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + this.partenaire_id;
-        hash = 89 * hash + Objects.hashCode(this.reservation);
-        hash = 89 * hash + this.inventaire_id;
-        hash = 89 * hash + Float.floatToIntBits(this.pourcentage);
-        hash = 89 * hash + Objects.hashCode(this.date_commission);
+        hash = 79 * hash + this.id;
+        hash = 79 * hash + this.partenaire_id;
+        hash = 79 * hash + Objects.hashCode(this.reservation);
+        hash = 79 * hash + this.inventaire_id;
+        hash = 79 * hash + Float.floatToIntBits(this.pourcentage);
+        hash = 79 * hash + Objects.hashCode(this.date_commission);
+        hash = 79 * hash + Float.floatToIntBits(this.prix);
+        hash = 79 * hash + Objects.hashCode(this.destination);
+        hash = 79 * hash + Objects.hashCode(this.depart);
         return hash;
     }
-
-   
 
     @Override
     public boolean equals(Object obj) {
@@ -112,13 +149,22 @@ public class commissionR {
         if (this.partenaire_id != other.partenaire_id) {
             return false;
         }
-        if (this.reservation != other.reservation) {
-            return false;
-        }
         if (this.inventaire_id != other.inventaire_id) {
             return false;
         }
         if (Float.floatToIntBits(this.pourcentage) != Float.floatToIntBits(other.pourcentage)) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.prix) != Float.floatToIntBits(other.prix)) {
+            return false;
+        }
+        if (!Objects.equals(this.destination, other.destination)) {
+            return false;
+        }
+        if (!Objects.equals(this.depart, other.depart)) {
+            return false;
+        }
+        if (!Objects.equals(this.reservation, other.reservation)) {
             return false;
         }
         if (!Objects.equals(this.date_commission, other.date_commission)) {
@@ -129,9 +175,10 @@ public class commissionR {
 
     @Override
     public String toString() {
-        return "commissionR{" + "id=" + id + ", partenaire_id=" + partenaire_id + ", reservation=" + reservation + ", inventaire_id=" + inventaire_id + ", pourcentage=" + pourcentage + ", date_commission=" + date_commission + '}';
+        return "commissionR{" + "id=" + id + ", partenaire_id=" + partenaire_id + ", reservation=" + reservation + ", inventaire_id=" + inventaire_id + ", pourcentage=" + pourcentage + ", date_commission=" + date_commission + ", prix=" + prix + ", destination=" + destination + ", depart=" + depart + '}';
     }
 
+   
 
    
     

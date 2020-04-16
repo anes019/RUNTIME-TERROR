@@ -5,12 +5,17 @@
  */
 package desktop.Service;
 
+import desktop.Entite.User;
+import desktop.Entite.commissionR;
+import desktop.Entite.reservation;
 import desktop.Utils.DataBase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,6 +31,9 @@ public class ServiceCommission {
         con = DataBase.getInstance().getConnection();
     }
 
+    
+    
+    
     public float pourcentage(int id) throws SQLException {
         String req = "select pourcentage  from commission_r  where reservation_id='" + id + "'";
 
@@ -45,5 +53,27 @@ public class ServiceCommission {
         pre.setInt(1, id);
         System.out.println(pre.execute());
         return true;
+    }
+    
+    
+          
+      public List<commissionR> find(int idinventaire) throws SQLException {
+  List<commissionR> arr=new ArrayList<>();
+    List<User>clients= new ArrayList<User>();
+    List<User>partenaires= new ArrayList<User>();
+    ste=con.createStatement();
+    ResultSet rs=ste.executeQuery("select * from commission_r where inventaireR_id="+idinventaire);
+     while (rs.next()) {                
+              int id=rs.getInt("id");
+              float pourcentage=rs.getFloat("pourcentage");
+              ServiceReservation cs= new ServiceReservation();
+             
+              reservation R=cs.details2(rs.getInt("course_id"));
+              commissionR com= new commissionR(id,R,pourcentage);
+                
+              
+     arr.add(com);
+     }
+    return arr;
     }
 }

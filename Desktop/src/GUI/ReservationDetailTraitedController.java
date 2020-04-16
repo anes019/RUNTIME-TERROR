@@ -108,6 +108,10 @@ public class ReservationDetailTraitedController implements Initializable {
 
     private int id_resrvation = 0;
     ReservationSession RS = ReservationSession.getInstance();
+    @FXML
+    private Hyperlink linkTonottraited1;
+    @FXML
+    private Hyperlink linkTonottraited11;
 
     /**
      * Initializes the controller class.
@@ -257,6 +261,27 @@ public class ReservationDetailTraitedController implements Initializable {
                     stage.close();
 
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+    
+                 @FXML
+    private void InventairenotPaid(ActionEvent event) throws IOException {
+                Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+            @FXML
+    private void InventairPaid(ActionEvent event) throws IOException {
+                Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR2.fxml")));
                     stage.setScene(scene);
                     stage.show();
     }

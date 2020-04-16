@@ -16,6 +16,7 @@ public class InventaireR {
     private float montant;
     private Date date_inventaire;
     private int done;
+    private String nompartenaire;
 
     public InventaireR() {
        
@@ -27,6 +28,21 @@ public class InventaireR {
         this.date_inventaire = date_inventaire;
         this.done = done;
     }
+    public InventaireR(int id, int partenaire_id, float montant, Date date_inventaire, int done,String nom) {
+        this.id = id;
+        this.partenaire_id = partenaire_id;
+        this.montant = montant;
+        this.date_inventaire = date_inventaire;
+        this.done = done;
+        this.nompartenaire=nom;
+    }
+
+    public InventaireR( int partenaire_id, float montant, Date date_inventaire) {
+         this.partenaire_id = partenaire_id;
+        this.montant = montant;
+        this.date_inventaire = date_inventaire; //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
     public int getId() {
@@ -69,14 +85,23 @@ public class InventaireR {
         this.done = done;
     }
 
+    public String getNompartenaire() {
+        return nompartenaire;
+    }
+
+    public void setNompartenaire(String nompartenaire) {
+        this.nompartenaire = nompartenaire;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.id;
-        hash = 29 * hash + this.partenaire_id;
-        hash = 29 * hash + Float.floatToIntBits(this.montant);
-        hash = 29 * hash + Objects.hashCode(this.date_inventaire);
-        hash = 29 * hash + this.done;
+        int hash = 7;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + this.partenaire_id;
+        hash = 59 * hash + Float.floatToIntBits(this.montant);
+        hash = 59 * hash + Objects.hashCode(this.date_inventaire);
+        hash = 59 * hash + this.done;
+        hash = 59 * hash + Objects.hashCode(this.nompartenaire);
         return hash;
     }
 
@@ -104,6 +129,9 @@ public class InventaireR {
         if (this.done != other.done) {
             return false;
         }
+        if (!Objects.equals(this.nompartenaire, other.nompartenaire)) {
+            return false;
+        }
         if (!Objects.equals(this.date_inventaire, other.date_inventaire)) {
             return false;
         }
@@ -112,8 +140,9 @@ public class InventaireR {
 
     @Override
     public String toString() {
-        return "InventaireR{" + "id=" + id + ", partenaire_id=" + partenaire_id + ", montant=" + montant + ", date_inventaire=" + date_inventaire + ", done=" + done + '}';
+        return "InventaireR{" + "id=" + id + ", partenaire_id=" + partenaire_id + ", montant=" + montant + ", date_inventaire=" + date_inventaire + ", done=" + done + ", nompartenaire=" + nompartenaire + '}';
     }
+
 
 
     

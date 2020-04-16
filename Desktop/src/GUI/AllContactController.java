@@ -157,9 +157,6 @@ public class AllContactController implements Initializable {
     }
 
     
-    @FXML
-    private void handleClicks(ActionEvent event) {
-    }
 
     @FXML
     private void SearchAll(KeyEvent event) throws SQLException {
@@ -206,6 +203,48 @@ public class AllContactController implements Initializable {
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AllComment.fxml")));
                     stage.setScene(scene);
                     stage.show();
+    }
+
+    @FXML
+    private void goToAcceuil(ActionEvent event) {
+    }
+
+    @FXML
+    private void goToclients(ActionEvent event) {
+    }
+
+    @FXML
+    private void goToPartenaire(ActionEvent event) {
+    }
+
+    @FXML
+    private void goToReservation(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("ReservationFXML.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+
+    @FXML
+    private void goToCourse(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("CoursesAdmin.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+
+    @FXML
+    private void goToAbonne(ActionEvent event) {
+    }
+
+    @FXML
+    private void goToFeedBack(ActionEvent event) {
     }
     
     

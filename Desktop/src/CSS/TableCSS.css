@@ -33,3 +33,15 @@ and open the template in the editor.
 .table-col{
     -fx-background-color: #2990cc;
 }
+
+.Link{
+    -fx-text-fill: #fff;
+    -fx-font-family: 'Yu Gothic Medium';
+    -fx-font-size: 15px;
+}
+.Link:hover{
+    -fx-cursor: hand;
+    -fx-text-fill: #2a73ff;
+    -fx-font-family: 'Yu Gothic Medium';
+    -fx-font-size: 15px;
+}

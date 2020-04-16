@@ -44,7 +44,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import sun.util.calendar.LocalGregorianCalendar.Date;
 
 /**
  * FXML Controller class

@@ -16,6 +16,7 @@ import desktop.Entite.ViewCommentaire;
 import desktop.Entite.ViewRating;
 import desktop.Service.CommentaireService;
 import desktop.Service.ServiceFeedBack;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +27,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -38,6 +42,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -90,12 +95,13 @@ public class AllCommentController implements Initializable {
     private JFXHamburger hamburger;
     @FXML
     private Label total;
-    @FXML
     FontAwesomeIcon f;
     @FXML
     private JFXDrawer draw;
     ServiceFeedBack ServF = new ServiceFeedBack();
     CommentaireService ServC = new CommentaireService();
+    @FXML
+    private FontAwesomeIcon delete;
 
     /**
      * Initializes the controller class.
@@ -178,6 +184,28 @@ public class AllCommentController implements Initializable {
         comment.setCellValueFactory(new PropertyValueFactory<>("commentaire"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         this.total.setText(""+TabB.size());
+    }
+
+    @FXML
+    private void GoToAllRating(MouseEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AllRating.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+
+    @FXML
+    private void GoToAllContact(MouseEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AllContact.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
     }
     
 }

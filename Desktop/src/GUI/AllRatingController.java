@@ -15,6 +15,7 @@ import desktop.Entite.ViewRating;
 import desktop.Entite.ViewReclammation;
 import desktop.Service.ServiceFeedBack;
 import desktop.Service.ServiceRate;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,7 +26,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -36,6 +40,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -172,6 +177,28 @@ public class AllRatingController implements Initializable {
         rate.setCellValueFactory(new PropertyValueFactory<>("rate"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         this.total.setText(""+TabB.size());
+    }
+
+    @FXML
+    private void GoToAllContact(MouseEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AllContact.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
+
+    @FXML
+    private void GoToAllComment(MouseEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AllComment.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
     }
     
 }

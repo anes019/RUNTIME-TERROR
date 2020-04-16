@@ -27,12 +27,6 @@ public class User {
         this.telephone = telephone;
     }
 
-    public User(int id) {
-        this.id = id;
-    }
-
-    
-
   
 
     public int getId() {

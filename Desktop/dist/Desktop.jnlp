@@ -8,10 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Desktop.jar" size="1304100" download="eager" />
+    <jar href="Desktop.jar" size="1305936" download="eager" />
     <jar href="lib\annotations-13.0.jar" size="17536" download="eager" />
     <jar href="lib\client-5.2.1.jar" size="332373" download="eager" />
     <jar href="lib\commons-codec-1.11.jar" size="335042" download="eager" />
+    <jar href="lib\commons-codec-1.4.jar" size="58160" download="eager" />
     <jar href="lib\commons-io-2.5.jar" size="208700" download="eager" />
     <jar href="lib\commons-lang3-3.5.jar" size="479881" download="eager" />
     <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />

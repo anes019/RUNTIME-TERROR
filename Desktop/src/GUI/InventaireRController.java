@@ -278,10 +278,15 @@ public class InventaireRController implements Initializable {
                     stage.setScene(scene);
                     stage.show();
     }
+       @FXML
+    private void goToFeedBack(ActionEvent event) {
+    }
+    
       @FXML
     private void goToAbonne(ActionEvent event) {
         
     }
+    
          @FXML
     private void InventairePaid(ActionEvent event) throws IOException {
                 Node node = (Node) event.getSource();
@@ -293,8 +298,5 @@ public class InventaireRController implements Initializable {
                     stage.show();
     }
 
-    @FXML
-    private void goToFeedBack(ActionEvent event) {
-    }
-    
+ 
 }

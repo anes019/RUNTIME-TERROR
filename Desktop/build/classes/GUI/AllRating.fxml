@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1021.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AllRatingController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1021.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AllRatingController">
    <children>
       <VBox fx:id="vbox" alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="589.0" prefWidth="305.0" style="-fx-background-color: #05071F;" stylesheets="@style.css">
          <children>
@@ -184,10 +185,16 @@
                         <Font name="System Bold" size="26.0" />
                      </font>
                   </Label>
+                  <Label layoutX="374.0" layoutY="501.0" onMouseClicked="#GoToAllContact" styleClass="Link" text="Liste des Reclammations" textFill="WHITE" />
+                  <Label layoutX="588.0" layoutY="501.0" onMouseClicked="#GoToAllComment" prefHeight="19.0" prefWidth="183.0" styleClass="Link" text="Liste Des Commentaires" />
                </children>
             </Pane>
          </children>
       </StackPane>
       <JFXDrawer fx:id="draw" defaultDrawerSize="400.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="117.0" prefHeight="623.0" prefWidth="298.0" />
    </children>
+   <stylesheets>
+      <URL value="@style.css" />
+      <URL value="@../CSS/TableCSS.css" />
+   </stylesheets>
 </AnchorPane>

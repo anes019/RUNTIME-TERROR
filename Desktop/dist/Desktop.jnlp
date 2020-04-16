@@ -8,7 +8,14 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Desktop.jar" size="1234723" download="eager" />
+    <jar href="Desktop.jar" size="1288323" download="eager" />
+    <jar href="lib\annotations-13.0.jar" size="17536" download="eager" />
+    <jar href="lib\client-5.2.1.jar" size="332373" download="eager" />
+    <jar href="lib\commons-codec-1.11.jar" size="335042" download="eager" />
+    <jar href="lib\commons-io-2.5.jar" size="208700" download="eager" />
+    <jar href="lib\commons-lang3-3.5.jar" size="479881" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="lib\controlsfx-8.40.11.jar" size="985420" download="eager" />
     <jar href="lib\fontawesomefx-8.1.jar" size="179086" download="eager" />
     <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />
     <jar href="lib\httpclient-4.5.8.jar" size="772386" download="eager" />

@@ -187,6 +187,8 @@
                      </font>
                   </Label>
                   <FontAwesomeIcon fx:id="delete" layoutX="905.0" layoutY="36.0" />
+                  <Label layoutX="497.0" layoutY="517.0" onMouseClicked="#GoToAllRating" styleClass="Link" text="Liste des Ratings" textFill="WHITE" />
+                  <Label layoutX="677.0" layoutY="517.0" onMouseClicked="#GoToAllContact" prefHeight="19.0" prefWidth="183.0" styleClass="Link" text="Liste Des Reclammations" />
                </children>
             </Pane>
          </children>

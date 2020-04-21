@@ -109,11 +109,9 @@ public class CoursesAdminController implements Initializable {
     private TableColumn<?, String> afficher_courses_destination;
     @FXML
     private TableColumn<?, ?> afficher_courses_prix;
-    @FXML
     private JFXHamburger hamburger;
     @FXML
     private Button delete_course;
-    @FXML
     private JFXDrawer draw;
     @FXML
     private Hyperlink voirInventaire;
@@ -123,21 +121,7 @@ public class CoursesAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-           draw.setSidePane(vbox);
-              HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
 
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
        //Creating custom cell forr combobox
     /* Callback<ListView<User>, ListCell<User>> cellFactory = new Callback<ListView<User>, ListCell<User>>() {
 
@@ -341,9 +325,10 @@ SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
   
 
     
-        @FXML
+
+    @FXML
     private void updateDestination(TableColumn.CellEditEvent<Courses, String> event) throws SQLException {
-                  Courses c=afficher_courses.getSelectionModel().getSelectedItem();
+                      Courses c=afficher_courses.getSelectionModel().getSelectedItem();
          c.setDestination(event.getNewValue());
         CoursesService cl= new CoursesService();
         cl.Update(c.getId(), c.getDestination());
@@ -413,6 +398,7 @@ SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
                     stage.setScene(scene);
                     stage.show();
     }
+
 
 
  

@@ -91,12 +91,9 @@ public class InventaireRController implements Initializable {
 
     @FXML
     private TableColumn<InventaireR, String> Date;
-    @FXML
-    private JFXHamburger hamburger;
 
     @FXML
     private Hyperlink linkTotraited;
-    @FXML
     private JFXDrawer draw;
     @FXML
     private TableColumn<?, ?> PartenaireID;
@@ -113,22 +110,8 @@ public class InventaireRController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        draw.setSidePane(vbox);
+    
 
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
-
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
         try {
             displayAll();
             addButtonToTable();

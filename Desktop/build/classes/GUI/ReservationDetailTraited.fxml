@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXDrawer?>
-<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
@@ -19,7 +17,117 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ReservationDetailTraitedController">
    <children>
-      <VBox fx:id="vbox" alignment="CENTER" prefHeight="633.0" prefWidth="335.0" style="-fx-background-color: #05071F;" stylesheets="@style.css">
+      <StackPane prefHeight="633.0" prefWidth="990.0" style="-fx-background-color: #02030A;" stylesheets="@style.css">
+         <children>
+            <Pane fx:id="pnlCustomer" prefHeight="200.0" prefWidth="973.0" style="-fx-background-color: white;" />
+            <Pane fx:id="pnlOrders" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
+            <Pane fx:id="pnlOverview" prefHeight="633.0" prefWidth="986.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="396.0" layoutY="40.0" stylesheets="@style.css" text="Réservation N°">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="322.0" layoutY="156.0" text="Client details" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink fx:id="linkTotraited" layoutX="384.0" layoutY="550.0" text="Voir les reservations traitées">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Hyperlink>
+                  <Label fx:id="Numero" layoutX="571.0" layoutY="41.0" prefHeight="17.0" prefWidth="35.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink fx:id="linkTonottraited" layoutX="384.0" layoutY="573.0" text="Voir les reservations non traitées">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Hyperlink>
+                  <Label layoutX="350.0" layoutY="186.0" text="Nom:" />
+                  <Label layoutX="350.0" layoutY="204.0" text="Prenom:" />
+                  <Label layoutX="350.0" layoutY="221.0" text="Adresse:" />
+                  <Label layoutX="350.0" layoutY="238.0" text="Mobile:" />
+                  <Label layoutX="761.0" layoutY="151.0" text="Date:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane layoutX="339.0" layoutY="272.0" prefHeight="74.0" prefWidth="637.0" stylesheets="@style.css">
+                     <content>
+                        <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="72.0" prefWidth="634.0" stylesheets="@style.css">
+                           <columns>
+                              <TableColumn fx:id="produit" prefWidth="187.0" text="Produit" />
+                              <TableColumn fx:id="pointA" minWidth="0.0" prefWidth="150.0" text="Point d'achat" />
+                              <TableColumn fx:id="Destination" prefWidth="162.0" text="Destination" />
+                              <TableColumn fx:id="Remarques" prefWidth="152.0" text="Remarques" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+                  <Label layoutX="700.0" layoutY="400.0" text="Frais de livraison:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="700.0" layoutY="433.0" text="Total: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="761.0" layoutY="458.0" text="+ Prix de commande" textFill="RED">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="prix" layoutX="755.0" layoutY="431.0" text="prix">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="803.0" layoutY="433.0" text="DT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="prix1" layoutX="832.0" layoutY="398.0" text="prix1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="879.0" layoutY="399.0" text="DT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="date" layoutX="818.0" layoutY="150.0" text="Label">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nom" layoutX="389.0" layoutY="186.0" text="nom" />
+                  <Label fx:id="prenom" layoutX="400.0" layoutY="204.0" text="prenom" />
+                  <Label fx:id="adresse" layoutX="402.0" layoutY="221.0" text="adresse" />
+                  <Label fx:id="mobile" layoutX="403.0" layoutY="238.0" text="mobile" />
+                  <Hyperlink fx:id="linkTonottraited1" layoutX="672.0" layoutY="550.0" onAction="#InventairPaid" text="Voir les inventaires payés">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="linkTonottraited11" layoutX="672.0" layoutY="573.0" onAction="#InventairenotPaid" text="Voir  les inventaires non payés">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Hyperlink>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+      <VBox fx:id="vbox" alignment="CENTER" prefHeight="633.0" prefWidth="335.0" style="-fx-background-color: #48A5EA;">
          <children>
             <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -29,12 +137,12 @@
                   <Insets bottom="10.0" top="50.0" />
                </VBox.margin>
             </ImageView>
-            <Label text="Anes temani" textFill="#e7e5e5">
+            <Label style="-fx-background-color: #48A5EA;" text="Anes temani" textFill="#e7e5e5">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="clients1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="239.0" mnemonicParsing="false" onAction="#goToAcceuil" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Accueil" underline="true">
+            <Button fx:id="clients1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="239.0" mnemonicParsing="false" onAction="#goToAcceuil" prefHeight="42.0" prefWidth="366.0" style="-fx-background-color: #48A5EA;" text="Accueil" underline="true">
                <padding>
                   <Insets left="50.0" />
                </padding>
@@ -46,7 +154,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="clients" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToclients" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Gestion des clients" underline="true">
+            <Button fx:id="clients" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToclients" prefHeight="42.0" prefWidth="366.0" style="-fx-background-color: #48A5EA;" text="Gestion des clients" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +166,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="partenaires" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToPartenaire" prefHeight="42.0" prefWidth="378.0" stylesheets="@style.css" text="Gestion des partenaires" underline="true">
+            <Button fx:id="partenaires" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToPartenaire" prefHeight="42.0" prefWidth="378.0" style="-fx-background-color: #48A5EA;" text="Gestion des partenaires" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -70,7 +178,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="reservations" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToReservation" prefHeight="42.0" prefWidth="366.0" stylesheets="@style.css" text="Gestion des reservations" underline="true">
+            <Button fx:id="reservations" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToReservation" prefHeight="42.0" prefWidth="366.0" style="-fx-background-color: #48A5EA;" text="Gestion des reservations" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,7 +190,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="reservations1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToCourse" prefHeight="42.0" prefWidth="341.0" stylesheets="@style.css" text="Gestion des courses" underline="true">
+            <Button fx:id="reservations1" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToCourse" prefHeight="42.0" prefWidth="341.0" style="-fx-background-color: #48A5EA;" text="Gestion des courses" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -94,7 +202,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="abonnements" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToAbonne" prefHeight="42.0" prefWidth="329.0" stylesheets="@style.css" text="Gestion des abonnements" underline="true">
+            <Button fx:id="abonnements" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToAbonne" prefHeight="42.0" prefWidth="329.0" style="-fx-background-color: #48A5EA;" text="Gestion des abonnements" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -106,7 +214,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="feedback" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToFeedBack" prefHeight="42.0" prefWidth="328.0" stylesheets="@style.css" text="FeedBack" underline="true">
+            <Button fx:id="feedback" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#goToFeedBack" prefHeight="42.0" prefWidth="328.0" style="-fx-background-color: #48A5EA;" text="FeedBack" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -118,7 +226,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="logout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="327.0" stylesheets="@style.css" text="Se deconnecter" underline="true">
+            <Button fx:id="logout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="327.0" style="-fx-background-color: #48A5EA;" text="Se deconnecter" underline="true">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -132,101 +240,5 @@
             </Button>
          </children>
       </VBox>
-      <StackPane prefHeight="633.0" prefWidth="990.0" style="-fx-background-color: #02030A;" stylesheets="@style.css">
-         <children>
-            <Pane fx:id="pnlCustomer" prefHeight="200.0" prefWidth="973.0" stylesheets="@style.css" />
-            <Pane fx:id="pnlOrders" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" />
-            <Pane fx:id="pnlOverview" prefHeight="633.0" prefWidth="986.0" stylesheets="@style.css">
-               <children>
-                  <Label layoutX="396.0" layoutY="40.0" stylesheets="@style.css" text="Réservation N°" textFill="#e7e5e5">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="322.0" layoutY="156.0" text="Client details" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXHamburger fx:id="hamburger" layoutX="900.0" layoutY="31.0" prefHeight="35.0" prefWidth="44.0" style="-fx-background-color: white;" stylesheets="@style.css" />
-                  <Hyperlink fx:id="linkTotraited" layoutX="384.0" layoutY="550.0" text="Voir les reservations traitées" />
-                  <Label fx:id="Numero" layoutX="553.0" layoutY="41.0" prefHeight="17.0" prefWidth="35.0" textFill="WHITE">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <Hyperlink fx:id="linkTonottraited" layoutX="384.0" layoutY="573.0" text="Voir les reservations non traitées" />
-                  <Label layoutX="324.0" layoutY="191.0" text="Nom:" textFill="WHITE" />
-                  <Label layoutX="324.0" layoutY="209.0" text="Prenom:" textFill="WHITE" />
-                  <Label layoutX="324.0" layoutY="226.0" text="Adresse:" textFill="WHITE" />
-                  <Label layoutX="325.0" layoutY="242.0" text="Mobile:" textFill="WHITE" />
-                  <Label layoutX="735.0" layoutY="156.0" text="Date:" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane layoutX="302.0" layoutY="269.0" prefHeight="110.0" prefWidth="654.0" stylesheets="@style.css">
-                     <content>
-                        <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="108.0" prefWidth="652.0" stylesheets="@style.css">
-                           <columns>
-                              <TableColumn fx:id="produit" prefWidth="187.0" text="Produit" />
-                              <TableColumn fx:id="pointA" minWidth="0.0" prefWidth="150.0" text="Point d'achat" />
-                              <TableColumn fx:id="Destination" prefWidth="162.0" text="Destination" />
-                              <TableColumn fx:id="Remarques" prefWidth="152.0" text="Remarques" />
-                           </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
-                  <Label layoutX="674.0" layoutY="405.0" text="Frais de livraison:" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="674.0" layoutY="438.0" text="Total: " textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="735.0" layoutY="463.0" text="+ Prix de commande" textFill="RED">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="prix" layoutX="729.0" layoutY="436.0" text="prix" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="777.0" layoutY="438.0" text="DT" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="prix1" layoutX="806.0" layoutY="403.0" text="prix1" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="853.0" layoutY="404.0" text="DT" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="date" layoutX="792.0" layoutY="155.0" text="Label" textFill="WHITE">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="nom" layoutX="363.0" layoutY="191.0" text="nom" textFill="WHITE" />
-                  <Label fx:id="prenom" layoutX="374.0" layoutY="209.0" text="prenom" textFill="WHITE" />
-                  <Label fx:id="adresse" layoutX="376.0" layoutY="226.0" text="adresse" textFill="WHITE" />
-                  <Label fx:id="mobile" layoutX="377.0" layoutY="243.0" text="mobile" textFill="WHITE" />
-                  <Hyperlink fx:id="linkTonottraited1" layoutX="615.0" layoutY="550.0" onAction="#InventairPaid" text="Voir les inventaires payés" />
-                  <Hyperlink fx:id="linkTonottraited11" layoutX="615.0" layoutY="573.0" onAction="#InventairenotPaid" text="Voir  les inventaires non payés" />
-               </children>
-            </Pane>
-         </children>
-      </StackPane>
-      <JFXDrawer fx:id="draw" defaultDrawerSize="400.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="117.0" prefHeight="633.0" prefWidth="283.0" />
    </children>
 </AnchorPane>

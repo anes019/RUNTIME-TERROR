@@ -79,10 +79,8 @@ public class ReservationTraitedController implements Initializable {
     @FXML
      private TableColumn<reservation, String> Date;
 
-    @FXML
     private JFXHamburger hamburger;
     private Label total_not_traited;
-    @FXML
     private JFXDrawer draw;
     @FXML
     private VBox vbox;
@@ -137,24 +135,9 @@ public class ReservationTraitedController implements Initializable {
          count = sr.counttraited();
          int pageCount=(count/itemPerPage)+1;
          pagination.setPageCount(pageCount);
-         System.out.println( "page count"+ pageCount);
+       //  System.out.println( "page count"+ pageCount);
          pagination.setPageFactory(this::page);
-            draw.setSidePane(vbox);
 
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
-
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
         try {
            // displayAll();
             addButtonToTable();
@@ -221,7 +204,7 @@ public class ReservationTraitedController implements Initializable {
             ServiceReservation sr = new ServiceReservation();
             List listcs = sr.readTraited(from,to);
             int number = sr.counttraited();
-            listcs.forEach(System.out::println);
+           // listcs.forEach(System.out::println);
     
               // listcs.forEach(System.out::println);
             total_traited.setText(Integer.toString(number));
@@ -237,7 +220,7 @@ public class ReservationTraitedController implements Initializable {
         
     from = pageIndex * itemPerPage;
     to = itemPerPage;
-       System.out.println("test" + from +" "+ pageIndex);
+    //   System.out.println("test" + from +" "+ pageIndex);
         ObservableList listReserv = FXCollections.observableArrayList(displayAll() );
         tableview.setItems(listReserv);
   
@@ -304,7 +287,7 @@ return tableview;
                           
                             ServiceReservation sr = new ServiceReservation();
                             reservation reserv = getTableView().getItems().get(getIndex());
-                            System.out.println(reserv);
+                          //  System.out.println(reserv);
                             try {
 
                                 sr.restaurer(reserv.getId());
@@ -326,7 +309,7 @@ return tableview;
               
                             ServiceReservation sr = new ServiceReservation();
                             reservation reserv = getTableView().getItems().get(getIndex());
-                            System.out.println(reserv);
+                         //   System.out.println(reserv);
                             try {
 
                                 sr.refuse(reserv.getId());
@@ -338,7 +321,7 @@ return tableview;
                             
                             ServiceReservation sr = new ServiceReservation();
                             reservation reserv = getTableView().getItems().get(getIndex());
-                            System.out.println(reserv);
+                          //  System.out.println(reserv);
                             try {
 
                                 sr.delete(reserv.getPrix(), reserv.getPartenaire_id(), reserv.getId());

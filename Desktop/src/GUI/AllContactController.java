@@ -91,9 +91,7 @@ public class AllContactController implements Initializable {
     private TableColumn<ViewReclammation, String> contenu;
     @FXML
     private TableColumn<ViewReclammation, Date> date;
-    @FXML
     private JFXHamburger hamburger;
-    @FXML
     private JFXDrawer draw;
     @FXML
     private TableColumn<ViewReclammation, String> etat;
@@ -106,23 +104,7 @@ public class AllContactController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        draw.setSidePane(vbox);
 
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
-
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
-        
         try {
             DisplayAll();
         } catch (SQLException ex) {

@@ -49,6 +49,7 @@ import javafx.util.Callback;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -89,9 +90,7 @@ public class ReservationFXMLController implements Initializable {
     private TableColumn<reservation, String> Date;
     @FXML
     private TableColumn<reservation, String> pointA;
-    @FXML
     private JFXHamburger hamburger;
-    @FXML
     private JFXDrawer draw;
     @FXML
     private VBox vbox;
@@ -116,25 +115,11 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        draw.setSidePane(vbox);
-
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
-
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
+      
         try {
             displayAll();
             addButtonToTable();
+            rechercher();
             // TODO
         } catch (SQLException ex) {
             Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,7 +157,8 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
 
         });
         
-        
+      
+
              stat.setOnAction((ActionEvent event) -> {
             Parent page2;
             try {
@@ -190,7 +176,7 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
     }
 
     @FXML
-   void rechercher(ActionEvent event) throws SQLException {
+    void rechercher() throws SQLException {
         ServiceReservation cs = new ServiceReservation();
         ArrayList listcs = (ArrayList) cs.readTraited2();
         ObservableList OReservation = FXCollections.observableArrayList(listcs);
@@ -312,9 +298,6 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
     }
 
 
-    @FXML
-    private void rechercher(InputMethodEvent event) {
-    }
     
     
      @FXML
@@ -381,6 +364,7 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
                     stage.setScene(scene);
                     stage.show();
     }
+    
 
                @FXML
     private void InventairenotPaid(ActionEvent event) throws IOException {
@@ -402,4 +386,5 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
                     stage.setScene(scene);
                     stage.show();
     }
+
 }

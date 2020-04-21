@@ -83,9 +83,7 @@ public class CommissionController implements Initializable {
     private TableColumn<?, ?> commission_prix;
     @FXML
     private TableColumn<?, ?> commission_pourcentage;
-    @FXML
     private JFXHamburger hamburger;
-    @FXML
     private JFXDrawer draw;
 
     /**
@@ -93,21 +91,7 @@ public class CommissionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-  draw.setSidePane(vbox);
-              HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
 
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
         
         
          //affichage
@@ -137,9 +121,6 @@ public class CommissionController implements Initializable {
     }    
     
 
-    @FXML
-    private void handleClicks(ActionEvent event) {
-    }
          @FXML
     private void goToAcceuil(ActionEvent event) {
         
@@ -175,6 +156,16 @@ public class CommissionController implements Initializable {
                     stage.setScene(scene);
                     stage.show();
     }
+                     @FXML
+    private void goToInventaire(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Inventaire.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
+    }
       @FXML
     private void goToAbonne(ActionEvent event) {
         
@@ -188,7 +179,6 @@ public class CommissionController implements Initializable {
  
     }
     
-            @FXML
     private void goToFront(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
                     Stage stage = (Stage) node.getScene().getWindow();

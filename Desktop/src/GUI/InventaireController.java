@@ -110,7 +110,6 @@ public class InventaireController implements Initializable {
     private TableColumn<?, ?> afficher_inventaires_date;
     @FXML
     private TableColumn<?, ?> afficher_inventaires_montant;
-    @FXML
     private JFXHamburger hamburger;
     @FXML
     private Button voirCourses;
@@ -122,7 +121,6 @@ public class InventaireController implements Initializable {
     private Button payer;
     @FXML
     private Button details;
-    @FXML
     private JFXDrawer draw;
     @FXML
     private Label titre;
@@ -134,21 +132,7 @@ public class InventaireController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-           draw.setSidePane(vbox);
-              HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
-
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
+   
         
    payer.setVisible(true);
        archive_inventaire.setVisible(true);

@@ -89,11 +89,9 @@ public class AllRatingController implements Initializable {
     private TableColumn<ViewRating, String> date;
     @FXML
     private TableColumn<?, ?> actions;
-    @FXML
     private JFXHamburger hamburger;
     @FXML
     private Label total;
-    @FXML
     private JFXDrawer draw;
 
     ServiceFeedBack ServF = new ServiceFeedBack();
@@ -103,22 +101,7 @@ public class AllRatingController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        draw.setSidePane(vbox);
 
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
-
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
         
         try {
             DisplayAll();

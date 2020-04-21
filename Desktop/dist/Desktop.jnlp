@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Desktop.jar" size="1307282" download="eager" />
+    <jar href="Desktop.jar" size="1299371" download="eager" />
     <jar href="lib\annotations-13.0.jar" size="17536" download="eager" />
     <jar href="lib\client-5.2.1.jar" size="332373" download="eager" />
     <jar href="lib\commons-codec-1.11.jar" size="335042" download="eager" />

@@ -55,7 +55,6 @@ public class ReservationDetailController implements Initializable {
     private Pane pnlOrders;
     @FXML
     private Pane pnlOverview;
-    @FXML
     private JFXHamburger hamburger;
     @FXML
     private Hyperlink linkTotraited;
@@ -63,7 +62,6 @@ public class ReservationDetailController implements Initializable {
     private Label Numero;
     @FXML
     private Hyperlink linkTonottraited;
-    @FXML
     private JFXDrawer draw;
     @FXML
     private VBox vbox;
@@ -123,22 +121,7 @@ public class ReservationDetailController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        draw.setSidePane(vbox);
-        id_resrvation = RS.getId_reservation();
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
 
-            if (draw.isOpened()) {
-
-                draw.close();
-            } else {
-                draw.open();
-
-            }
-        });
         try {
             displayAll();
             addButtonToTable();

@@ -89,15 +89,24 @@ public class ServiceInventaire {
     
      
         List<InventaireR> list = new ArrayList<>();
-
+ String usernamep = "";
         try {
             ste = con.createStatement();
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
-
-                list.add(new InventaireR(rs.getInt(2), rs.getFloat(3),  rs.getDate(4)));
+  PreparedStatement pre_partenaire=con.prepareStatement("select * from utilisateurs where id=? ");
+               pre_partenaire.setInt(1,rs.getInt(2));
+               ResultSet rspartenaire=pre_partenaire.executeQuery();
+               while(rspartenaire.next())
+               {
+        
+                   usernamep=rspartenaire.getString("username");
+               }
+                list.add(new InventaireR(usernamep, rs.getFloat(3),  rs.getDate(4)));
 
             }
+           
+            
         } catch (SQLException ex) {
             Logger.getLogger(ServiceReservation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,13 +120,21 @@ public class ServiceInventaire {
     
      
         List<InventaireR> list = new ArrayList<>();
-
+ String usernamep = "";
         try {
             ste = con.createStatement();
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
    java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(4).toLocalDate());
-                list.add(new InventaireR(rs.getInt(2), rs.getFloat(3), rs.getDate(4)));
+            PreparedStatement pre_partenaire=con.prepareStatement("select * from utilisateurs where id=? ");
+               pre_partenaire.setInt(1,rs.getInt(2));
+               ResultSet rspartenaire=pre_partenaire.executeQuery();
+               while(rspartenaire.next())
+               {
+        
+                   usernamep=rspartenaire.getString("username");
+               }
+                list.add(new InventaireR(usernamep, rs.getFloat(3),  rs.getDate(4)));
 
             }
         } catch (SQLException ex) {

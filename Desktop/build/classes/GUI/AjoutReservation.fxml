@@ -20,8 +20,6 @@
    <children>
       <AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="700.0">
          <children>
-            <JFXTextField fx:id="Region" focusColor="#48a5ea" layoutX="133.0" layoutY="139.0" prefHeight="25.0" prefWidth="217.0" promptText="Region" />
-            <JFXTextField fx:id="Produit" focusColor="#48a5ea" layoutX="133.0" layoutY="271.0" prefHeight="25.0" prefWidth="217.0" promptText="Produit" />
             <Label layoutX="133.0" layoutY="31.0" text="Ajouter une Reservation" textFill="#48a5ea">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -31,8 +29,7 @@
             <JFXButton layoutX="133.0" layoutY="349.0" onAction="#Reset" prefHeight="29.0" prefWidth="116.0" text="Reset All" />
             <JFXButton fx:id="ajout" layoutX="524.0" layoutY="349.0" onAction="#AjouterReservation" prefHeight="39.0" prefWidth="116.0" style="-fx-background-color: #48A5EA;" text="Confirmer" textFill="WHITE" />
             <Separator layoutX="133.0" layoutY="68.0" prefHeight="1.0" prefWidth="520.0" />
-            <JFXTextField fx:id="PointA" focusColor="#48a5ea" layoutX="133.0" layoutY="182.0" prefHeight="25.0" prefWidth="217.0" promptText="Point d'achat" />
-            <JFXTextField fx:id="Destination" focusColor="#48a5ea" layoutX="133.0" layoutY="224.0" prefHeight="25.0" prefWidth="217.0" promptText="Destination" />
+            <JFXTextField fx:id="Destination" focusColor="#48a5ea" layoutX="133.0" layoutY="298.0" prefHeight="25.0" prefWidth="217.0" promptText="Destination" />
             <JFXTextField fx:id="Remarques" focusColor="#48a5ea" layoutX="402.0" layoutY="182.0" prefHeight="116.0" prefWidth="273.0" />
             <DatePicker fx:id="date_reservation" layoutX="402.0" layoutY="121.0" prefHeight="29.0" prefWidth="207.0">
                <effect>
@@ -74,7 +71,13 @@
                   </Group>
                </children>
             </Pane>
+            <JFXComboBox fx:id="PointA" focusColor="#48a5ea" labelFloat="true" layoutX="134.0" layoutY="200.0" prefHeight="25.0" prefWidth="217.0" />
+            <Text layoutX="133.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir un point d'achat" />
+            <JFXComboBox fx:id="Produit" focusColor="#48a5ea" labelFloat="true" layoutX="134.0" layoutY="260.0" prefHeight="25.0" prefWidth="217.0" />
+            <Text layoutX="133.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir un produit" />
          </children>
       </AnchorPane>
+      <JFXComboBox fx:id="Region" focusColor="#48a5ea" labelFloat="true" layoutX="133.0" layoutY="148.0" prefHeight="25.0" prefWidth="217.0" />
+      <Text layoutX="132.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir une region" />
    </children>
 </AnchorPane>

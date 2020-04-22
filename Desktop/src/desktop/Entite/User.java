@@ -16,6 +16,17 @@ public class User {
     private String password;
     private String telephone;
 
+    public User(int id,String username, String email, String role, String nom, String prenom,String mobile) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.role = role;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.password = password;
+        this.telephone = mobile;
+    }
+
     public User(int id,String username, String email, String role, String nom, String prenom) {
         this.id = id;
         this.username = username;
@@ -24,7 +35,7 @@ public class User {
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
-        this.telephone = telephone;
+ 
     }
 
   

@@ -13,6 +13,7 @@ import java.util.Objects;
  */
 public class reservation {
     private int id;
+     private User client;
     private int partenaire_id;
     private int client_id;
     private String pointAchat;
@@ -24,7 +25,7 @@ public class reservation {
     private String etat;
     
 
-    public reservation(int id,int client_id, int partenaire_id,  String pointAchat, String destination, java.sql.Date  date_reservation ,float prix , String listAchats, String remarques,String etat) {
+    public reservation(int id,int client_id, int partenaire_id,  String pointAchat, String destination, java.sql.Date  date_reservation ,float prix , String listAchats, String remarques,String etat,User user) {
          this.id=id;
         this.partenaire_id = partenaire_id;
         this.client_id = client_id;
@@ -34,16 +35,29 @@ public class reservation {
         this.remarques = remarques;
         this.prix = prix;
         this.date_reservation = date_reservation;
+        this.client=user;
       
     }
+   public reservation(int id,int client_id, int partenaire_id,  String pointAchat, String destination, java.sql.Date  date_reservation ,float prix , String listAchats, String remarques,String etat) {
+         this.id=id;
+        this.partenaire_id = partenaire_id;
+        this.client_id = client_id;
+        this.pointAchat = pointAchat;
+        this.destination = destination;
+        this.listAchats = listAchats;
+        this.remarques = remarques;
+        this.prix = prix;
+        this.date_reservation = date_reservation;
+    
+      
+    }
+    public User getClient() {
+        return client;
+    }
 
-
-
-
-
-
-
-
+    public void setClient(User client) {
+        this.client = client;
+    }
 
 
 
@@ -131,16 +145,17 @@ public class reservation {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 61 * hash + this.id;
-        hash = 61 * hash + this.partenaire_id;
-        hash = 61 * hash + this.client_id;
-        hash = 61 * hash + Objects.hashCode(this.pointAchat);
-        hash = 61 * hash + Objects.hashCode(this.destination);
-        hash = 61 * hash + Objects.hashCode(this.listAchats);
-        hash = 61 * hash + Objects.hashCode(this.remarques);
-        hash = 61 * hash + Float.floatToIntBits(this.prix);
-        hash = 61 * hash + Objects.hashCode(this.date_reservation);
-        hash = 61 * hash + Objects.hashCode(this.etat);
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + Objects.hashCode(this.client);
+        hash = 59 * hash + this.partenaire_id;
+        hash = 59 * hash + this.client_id;
+        hash = 59 * hash + Objects.hashCode(this.pointAchat);
+        hash = 59 * hash + Objects.hashCode(this.destination);
+        hash = 59 * hash + Objects.hashCode(this.listAchats);
+        hash = 59 * hash + Objects.hashCode(this.remarques);
+        hash = 59 * hash + Float.floatToIntBits(this.prix);
+        hash = 59 * hash + Objects.hashCode(this.date_reservation);
+        hash = 59 * hash + Objects.hashCode(this.etat);
         return hash;
     }
 
@@ -168,9 +183,6 @@ public class reservation {
         if (Float.floatToIntBits(this.prix) != Float.floatToIntBits(other.prix)) {
             return false;
         }
-        if (this.etat != other.etat) {
-            return false;
-        }
         if (!Objects.equals(this.pointAchat, other.pointAchat)) {
             return false;
         }
@@ -183,6 +195,12 @@ public class reservation {
         if (!Objects.equals(this.remarques, other.remarques)) {
             return false;
         }
+        if (!Objects.equals(this.etat, other.etat)) {
+            return false;
+        }
+        if (!Objects.equals(this.client, other.client)) {
+            return false;
+        }
         if (!Objects.equals(this.date_reservation, other.date_reservation)) {
             return false;
         }
@@ -191,10 +209,8 @@ public class reservation {
 
     @Override
     public String toString() {
-        return "reservation{" + "id=" + id + ", partenaire_id=" + partenaire_id + ", client_id=" + client_id + ", pointAchat=" + pointAchat + ", destination=" + destination + ", listAchats=" + listAchats + ", remarques=" + remarques + ", prix=" + prix + ", date_reservation=" + date_reservation + ", etat=" + etat + '}';
+        return "reservation{" + "id=" + id + ", client=" + client + ", partenaire_id=" + partenaire_id + ", client_id=" + client_id + ", pointAchat=" + pointAchat + ", destination=" + destination + ", listAchats=" + listAchats + ", remarques=" + remarques + ", prix=" + prix + ", date_reservation=" + date_reservation + ", etat=" + etat + '}';
     }
-    
-
 
 
 

@@ -6,6 +6,7 @@
 package desktop.Service;
 
 import desktop.Entite.InventaireR;
+import desktop.Entite.User;
 import desktop.Entite.commissionR;
 import desktop.Entite.reservation;
 import desktop.Utils.DataBase;
@@ -237,13 +238,28 @@ public class ServiceReservation {
     
      
         List<reservation> list = new ArrayList<>();
-
+ List<User>CLS= new ArrayList<User>();
         try {
             ste = con.createStatement();
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
    java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(6).toLocalDate());
-                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),  sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+    PreparedStatement pre_partenaire=con.prepareStatement("select * from utilisateurs where id=? ");
+               pre_partenaire.setInt(1,rs.getInt(2));
+               ResultSet Clients=pre_partenaire.executeQuery();
+  while(Clients.next())
+               {
+                   int idc=Clients.getInt("id");
+                   String username=Clients.getString("username");
+                   String email=Clients.getString("email");
+                   String role=Clients.getString("roles");
+                   String nom=Clients.getString("nom");
+                   String prenom=Clients.getString("prenom");
+                   User Client= new User(idc,username,email,role,nom,prenom);
+                   CLS.add(Client);
+               }
+       // CLS.forEach(System.out::println);
+               list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),  sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10),CLS.get(0)));
 
             }
         } catch (SQLException ex) {
@@ -258,13 +274,28 @@ public class ServiceReservation {
     
      
         List<reservation> list = new ArrayList<>();
-
+ List<User>CLS= new ArrayList<User>();
         try {
             ste = con.createStatement();
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
    java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(6).toLocalDate());
-                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),  sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+    PreparedStatement pre_partenaire=con.prepareStatement("select * from utilisateurs where id=? ");
+               pre_partenaire.setInt(1,rs.getInt(2));
+               ResultSet Clients=pre_partenaire.executeQuery();
+  while(Clients.next())
+               {
+                   int idc=Clients.getInt("id");
+                   String username=Clients.getString("username");
+                   String email=Clients.getString("email");
+                   String role=Clients.getString("roles");
+                   String nom=Clients.getString("nom");
+                   String prenom=Clients.getString("prenom");
+                   User Client= new User(idc,username,email,role,nom,prenom);
+                   CLS.add(Client);
+               }
+       // CLS.forEach(System.out::println);
+             list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),  sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10),CLS.get(0)));
 
             }
         } catch (SQLException ex) {
@@ -276,13 +307,29 @@ public class ServiceReservation {
     public List<reservation> readNottraited() throws SQLException {
         String req = "select * from reservation where etat ='non traite'";
         List<reservation> list = new ArrayList<>();
-
+ List<User>CLS= new ArrayList<User>();
         try {
             ste = con.createStatement();
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
    java.sql.Date sqlDate = java.sql.Date.valueOf(rs.getDate(6).toLocalDate());
-                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+       PreparedStatement pre_partenaire=con.prepareStatement("select * from utilisateurs where id=? ");
+               pre_partenaire.setInt(1,rs.getInt(2));
+               ResultSet Clients=pre_partenaire.executeQuery();
+  while(Clients.next())
+               {
+                   int idc=Clients.getInt("id");
+                   String username=Clients.getString("username");
+                   String email=Clients.getString("email");
+                   String role=Clients.getString("roles");
+                   String nom=Clients.getString("nom");
+                   String prenom=Clients.getString("prenom");
+                   User Client= new User(idc,username,email,role,nom,prenom);
+                   CLS.add(Client);
+               }
+              //  System.out.println("test");
+       //CLS.forEach(System.out::println);
+                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5),sqlDate, rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10),CLS.get(0)));
 
             }
         } catch (SQLException ex) {
@@ -297,14 +344,29 @@ public class ServiceReservation {
         String req = "select * from reservation where id ='" + id + "'";
 
         List<reservation> list = new ArrayList<>();
-
+ List<User>CLS= new ArrayList<User>();
         try {
             ste = con.createStatement();
 
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
-
-                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+                    PreparedStatement pre_partenaire=con.prepareStatement("select * from utilisateurs where id=? ");
+               pre_partenaire.setInt(1,rs.getInt(2));
+               ResultSet Clients=pre_partenaire.executeQuery();
+  while(Clients.next())
+               {
+                   int idc=Clients.getInt("id");
+                   String username=Clients.getString("username");
+                   String email=Clients.getString("email");
+                   String role=Clients.getString("roles");
+                   String nom=Clients.getString("nom");
+                   String prenom=Clients.getString("prenom");
+                       String mobile=Clients.getString("telephone");
+                   User Client= new User(idc,username,email,role,nom,prenom,mobile);
+                   CLS.add(Client);
+               }
+       // CLS.forEach(System.out::println);
+                list.add(new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10),CLS.get(0)));
 
             }
         } catch (SQLException ex) {
@@ -319,12 +381,30 @@ public class ServiceReservation {
         String req = "select * from reservation where id ='" + id + "'";
 
         reservation R = null;
+         List<User>CLS= new ArrayList<User>();
         ste = con.createStatement();
 
         ResultSet rs = ste.executeQuery(req);
 
         while (rs.next()) {
-            R = new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                         PreparedStatement pre_partenaire=con.prepareStatement("select * from utilisateurs where id=? ");
+               pre_partenaire.setInt(1,rs.getInt(2));
+               ResultSet Clients=pre_partenaire.executeQuery();
+            while(Clients.next())
+               {
+                   
+                   int idc=Clients.getInt("id");
+                   String username=Clients.getString("username");
+                   String email=Clients.getString("email");
+                   String role=Clients.getString("roles");
+                   String nom=Clients.getString("nom");
+                   String prenom=Clients.getString("prenom");
+                           String mobile=Clients.getString("telephone");
+                   User Client= new User(idc,username,email,role,nom,prenom,mobile);
+                   CLS.add(Client);
+               }
+     // CLS.forEach(System.out::println);           
+ R = new reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getFloat(7), rs.getString(8), rs.getString(9), rs.getString(10),CLS.get(0));
 
         }
 

@@ -42,7 +42,7 @@
                      <children>
                         <ScrollPane prefHeight="339.0" prefWidth="599.0" stylesheets="@style.css">
                            <content>
-                              <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="315.0" prefWidth="569.0" stylesheets="@style.css">
+                              <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="327.0" prefWidth="569.0" stylesheets="@style.css">
                                  <columns>
                                     <TableColumn fx:id="pointA" prefWidth="187.0" text="Point d'achat" />
                                     <TableColumn fx:id="Destination" minWidth="0.0" prefWidth="138.00003051757812" text="Destination" />

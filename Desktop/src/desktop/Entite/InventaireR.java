@@ -37,8 +37,8 @@ public class InventaireR {
         this.nompartenaire=nom;
     }
 
-    public InventaireR( int partenaire_id, float montant, Date date_inventaire) {
-         this.partenaire_id = partenaire_id;
+    public InventaireR( String  partenaire_id, float montant, Date date_inventaire) {
+         this.nompartenaire=partenaire_id;
         this.montant = montant;
         this.date_inventaire = date_inventaire; //To change body of generated methods, choose Tools | Templates.
     }

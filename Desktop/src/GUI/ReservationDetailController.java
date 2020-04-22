@@ -141,7 +141,10 @@ public class ReservationDetailController implements Initializable {
         int number = sr.counttraited();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(R.getDate_reservation());
-
+        nom.setText(R.getClient().getNom());
+        prenom.setText(R.getClient().getPrenom());
+        mobile.setText(R.getClient().getTelephone());
+        System.out.println("non"+R.getClient().getNom());
         date.setText(strDate);
         prix1.setText(Float.toString(R.getPrix()));
         prix.setText(Float.toString(R.getPrix()));

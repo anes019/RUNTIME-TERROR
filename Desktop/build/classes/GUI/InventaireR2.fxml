@@ -37,7 +37,7 @@
                            <content>
                               <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="304.0" prefWidth="455.0" stylesheets="@style.css">
                                  <columns>
-                                    <TableColumn fx:id="PartenaireID" prefWidth="187.0" text="PartenaireID" />
+                                    <TableColumn fx:id="PartenaireID" prefWidth="187.0" text="Partenaire" />
                                     <TableColumn fx:id="Montant" minWidth="0.0" prefWidth="138.00003051757812" text="Montant" />
                                     <TableColumn fx:id="Date" prefWidth="127.0" text="Date" />
                                  </columns>

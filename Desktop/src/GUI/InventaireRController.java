@@ -130,8 +130,7 @@ public class InventaireRController implements Initializable {
         ObservableList listInv = FXCollections.observableArrayList(listcs);
 
         tableview.setItems(listInv);
-  
-        PartenaireID.setCellValueFactory(new PropertyValueFactory<>("partenaire_id"));
+        PartenaireID.setCellValueFactory(new PropertyValueFactory<>("nompartenaire"));
         Montant.setCellValueFactory(new PropertyValueFactory<>("Montant"));
         Date.setCellValueFactory(new PropertyValueFactory<>("date_inventaire"));
 

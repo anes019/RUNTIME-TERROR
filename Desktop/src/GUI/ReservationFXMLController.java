@@ -131,11 +131,10 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
         ServiceReservation sr = new ServiceReservation();
         List listcs = sr.readNottraited();
         int number = sr.countNottraited();
-     
-
         ObservableList listReserv = FXCollections.observableArrayList(listcs);
-
+       
         tableview.setItems(listReserv);
+         listReserv.forEach(System.out::println);
         total_not_traited.setText(Integer.toString(number));
 
         pointA.setCellValueFactory(new PropertyValueFactory<>("pointAchat"));
@@ -178,7 +177,7 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
     @FXML
     void rechercher() throws SQLException {
         ServiceReservation cs = new ServiceReservation();
-        ArrayList listcs = (ArrayList) cs.readTraited2();
+        ArrayList listcs = (ArrayList) cs.readNottraited();
         ObservableList OReservation = FXCollections.observableArrayList(listcs);
         FilteredList<reservation> filteredData = new FilteredList<>(OReservation, p -> true);
         rechercher.textProperty().addListener((observable, oldValue, newValue) -> {

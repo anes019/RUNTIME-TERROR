@@ -99,7 +99,7 @@
                             <li><a href="{{ path('fos_message_inbox') }}">Messagerie</a></li>
                             <li> <a href="{{ path('_create_abonnement') }}"> S'abonner </a></li>
                             <li><a href="{{ path('feed_back_homepage') }}">Contact</a></li>
-                            {% if app.user.username == null %}
+                            <!--{ % if app.user.username == null %}
                                 <li><a href="#">Profile</a>
                                     <ul>
                                         <li><a href="admin/index">Admins</a></li>
@@ -107,9 +107,9 @@
                                         <li><a href="{{ path('fos_user_security_login')}}">Clients</a></li>
                                     </ul>
                                 </li>
-                                {% else %}
+                                { % else %}
                                     <li><a href="{{ path('fos_user_profile_show') }}">Profile</a></li>
-                            {% endif %}
+                            { % endif %}-->
                             <li></li>
                         </ul>
                     </nav>

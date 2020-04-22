@@ -99,8 +99,6 @@ public class ReservationDetailTraitedController implements Initializable {
     @FXML
     private Label prenom;
     @FXML
-    private Label adresse;
-    @FXML
     private Label mobile;
     private JFXDrawer draw;
 

@@ -37,7 +37,7 @@
                      <font>
                         <Font size="17.0" />
                      </font></Hyperlink>
-                  <Label fx:id="Numero" layoutX="575.0" layoutY="41.0" prefHeight="17.0" prefWidth="35.0">
+                  <Label fx:id="Numero" layoutX="575.0" layoutY="41.0" prefHeight="36.0" prefWidth="147.0">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -48,16 +48,15 @@
                      </font></Hyperlink>
                   <Label layoutX="370.0" layoutY="175.0" text="Nom:" />
                   <Label layoutX="370.0" layoutY="193.0" text="Prenom:" />
-                  <Label layoutX="370.0" layoutY="210.0" text="Adresse:" />
-                  <Label layoutX="371.0" layoutY="226.0" text="Mobile:" />
+                  <Label layoutX="371.0" layoutY="217.0" text="Mobile:" />
                   <Label layoutX="781.0" layoutY="140.0" text="Date:">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <ScrollPane layoutX="338.0" layoutY="270.0" prefHeight="110.0" prefWidth="647.0" style="-fx-background-color: white;" stylesheets="@style.css">
+                  <ScrollPane layoutX="338.0" layoutY="270.0" prefHeight="74.0" prefWidth="647.0" style="-fx-background-color: white;" stylesheets="@style.css">
                      <content>
-                        <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="108.0" prefWidth="645.0" stylesheets="@style.css">
+                        <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="71.0" prefWidth="645.0" stylesheets="@style.css">
                            <columns>
                               <TableColumn fx:id="produit" prefWidth="166.0" text="Produit" />
                               <TableColumn fx:id="pointA" minWidth="0.0" prefWidth="148.0" text="Point d'achat" />
@@ -111,8 +110,7 @@
                   </Label>
                   <Label fx:id="nom" layoutX="408.0" layoutY="173.0" text="nom" />
                   <Label fx:id="prenom" layoutX="419.0" layoutY="192.0" text="prenom" />
-                  <Label fx:id="adresse" layoutX="421.0" layoutY="208.0" text="adresse" />
-                  <Label fx:id="mobile" layoutX="422.0" layoutY="225.0" text="mobile" />
+                  <Label fx:id="mobile" layoutX="422.0" layoutY="216.0" text="mobile" />
                   <Hyperlink fx:id="linkTonottraited1" layoutX="668.0" layoutY="549.0" onAction="#InventairPaid" text="Voir les inventaires payés">
                      <font>
                         <Font size="17.0" />

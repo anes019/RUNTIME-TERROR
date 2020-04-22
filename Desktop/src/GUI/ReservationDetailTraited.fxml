@@ -38,7 +38,7 @@
                         <Font size="17.0" />
                      </font>
                   </Hyperlink>
-                  <Label fx:id="Numero" layoutX="571.0" layoutY="41.0" prefHeight="17.0" prefWidth="35.0">
+                  <Label fx:id="Numero" layoutX="571.0" layoutY="41.0" prefHeight="36.0" prefWidth="137.0">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -50,14 +50,13 @@
                   </Hyperlink>
                   <Label layoutX="350.0" layoutY="186.0" text="Nom:" />
                   <Label layoutX="350.0" layoutY="204.0" text="Prenom:" />
-                  <Label layoutX="350.0" layoutY="221.0" text="Adresse:" />
-                  <Label layoutX="350.0" layoutY="238.0" text="Mobile:" />
+                  <Label layoutX="350.0" layoutY="226.0" text="Mobile:" />
                   <Label layoutX="761.0" layoutY="151.0" text="Date:">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <ScrollPane layoutX="339.0" layoutY="272.0" prefHeight="74.0" prefWidth="637.0" stylesheets="@style.css">
+                  <ScrollPane layoutX="339.0" layoutY="272.0" prefHeight="75.0" prefWidth="637.0" stylesheets="@style.css">
                      <content>
                         <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" prefHeight="72.0" prefWidth="634.0" stylesheets="@style.css">
                            <columns>
@@ -111,8 +110,7 @@
                   </Label>
                   <Label fx:id="nom" layoutX="389.0" layoutY="186.0" text="nom" />
                   <Label fx:id="prenom" layoutX="400.0" layoutY="204.0" text="prenom" />
-                  <Label fx:id="adresse" layoutX="402.0" layoutY="221.0" text="adresse" />
-                  <Label fx:id="mobile" layoutX="403.0" layoutY="238.0" text="mobile" />
+                  <Label fx:id="mobile" layoutX="403.0" layoutY="226.0" text="mobile" />
                   <Hyperlink fx:id="linkTonottraited1" layoutX="672.0" layoutY="550.0" onAction="#InventairPaid" text="Voir les inventaires payés">
                      <font>
                         <Font size="17.0" />

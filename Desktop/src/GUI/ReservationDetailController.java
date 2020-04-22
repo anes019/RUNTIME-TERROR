@@ -106,11 +106,10 @@ public class ReservationDetailController implements Initializable {
     @FXML
     private Label prenom;
     @FXML
-    private Label adresse;
-    @FXML
     private Label mobile;
-    private int id_resrvation = 0;
+  
     ReservationSession RS = ReservationSession.getInstance();
+      private int id_resrvation = RS.getId_reservation();
     @FXML
     private Hyperlink linkTonottraited1;
     @FXML
@@ -134,17 +133,18 @@ public class ReservationDetailController implements Initializable {
 
     public void displayAll() throws SQLException {
 
-        ServiceReservation sr = new ServiceReservation();
+          ServiceReservation sr = new ServiceReservation();
         List listcs = sr.details(id_resrvation);
         reservation R = sr.details2(id_resrvation);
 
         int number = sr.counttraited();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(R.getDate_reservation());
-        nom.setText(R.getClient().getNom());
-        prenom.setText(R.getClient().getPrenom());
-        mobile.setText(R.getClient().getTelephone());
-        System.out.println("non"+R.getClient().getNom());
+          System.out.println("non"+R.getClient());
+nom.setText(R.getClient().getNom());
+prenom.setText(R.getClient().getPrenom());
+mobile.setText(R.getClient().getTelephone());
+ 
         date.setText(strDate);
         prix1.setText(Float.toString(R.getPrix()));
         prix.setText(Float.toString(R.getPrix()));

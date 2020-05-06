@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" layout="LayeredLayout" layeredLayoutPreferredWidthMM="0.0" layeredLayoutPreferredHeightMM="0.0"  autolayout="true" title="LOGIN" rtl="false" scrollableY="false" name="LOGIN">
+  <component type="Label" icon="resFile:logo3.png" name="Label">
+    <layoutConstraint insets="7.1428556mm auto auto auto" referenceComponents="-1 -1 -1 -1" referencePositions="0.0 0.0 0.0 0.0" />
+  </component>
+  <component type="TextField" uiid="email" preferredSize="69.04762mm inherit" hint="email" hintIcon="fontImage:e158" name="email">
+    <layoutConstraint insets="auto auto 10.05291mm auto" referenceComponents="0 -1 2 -1" referencePositions="1.0 0.0 0.0 0.0" />
+  </component>
+  <component type="TextField" uiid="pass" preferredSize="69.04762mm inherit" hint="mot de passe" hintIcon="fontImage:e897" name="pass">
+    <layoutConstraint insets="10.05291mm auto auto auto" referenceComponents="0 -1 -1 -1" referencePositions="1.0 0.0 0.0 0.0" />
+  </component>
+  <component type="Button" uiid="LOGIN" text="se connecter" styles="bgColor:2a7ab; fgColor:fff7f7; transparency:255; opacity:255; alignment:center;" preferredSize="34.920635mm inherit" name="LOGIN" actionEvent="true">
+    <layoutConstraint insets="6.084656mm auto auto auto" referenceComponents="2 -1 -1 -1" referencePositions="1.0 0.0 0.0 0.0" />
+  </component>
+  <component type="Button" uiid="s'inscrire" text="s'inscrire" styles="fgColor:91a6;" preferredSize="20.37037mm inherit" name="inscrit">
+    <layoutConstraint insets="4.497358mm auto auto auto" referenceComponents="3 -1 -1 -1" referencePositions="1.0 0.0 0.0 0.0" />
+  </component>
+</component>

@@ -2,6 +2,7 @@ utilisateurs_utilisateurs_reservation:
     resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/reservation.yml"
     prefix:   admin/reservation
 
+
 utilisateurs_utilisateurs_partenaire:
   resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/partenaire.yml"
   prefix:   admin/partenaire
@@ -14,7 +15,15 @@ reservation_new:
   path:     /reservation/new
   defaults: { _controller: "UtilisateursUtilisateursBundle:Reservation:new" }
   methods:  [GET, POST]
-
+ALLRESERVATION:
+  path:    /ALLRESERVATION/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Reservation:AllRESERVATION }
+DELETERESERVATION:
+  path:    /deleteReservation/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Reservation:deleteReservation }
+NEWRESERVATION:
+  path:    /NEW/RESERVATION
+  defaults: { _controller: UtilisateursUtilisateursBundle:Reservation:newReservation }
 utilisateurs_utilisateurs_homepage:
   path:     /
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }
@@ -95,24 +104,6 @@ confirm_mdp:
   path:    admin/confirmmdp/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Partenaire:changermdp }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-utilisateurs_utilisateurs_reservation:
-  resource: "@UtilisateursUtilisateursBundle/Resources/config/routing/reservation.yml"
-  prefix:   /reservation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

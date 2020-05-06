@@ -23,4 +23,10 @@ WHERE i.etat='non traite'");
 WHERE i.etat!='non traite'");
         return $query->getResult();
     }
+    public function myfindAllbyid($id)
+    {
+        $query=$this->getEntityManager()->createQuery("SELECT i FROM UtilisateursUtilisateursBundle:Reservation i 
+WHERE i.client=$id");
+        return $query->getResult();
+    }
 }

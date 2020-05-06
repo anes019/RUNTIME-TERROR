@@ -7,6 +7,9 @@ use Utilisateurs\UtilisateursBundle\Entity\InventaireR;
 use Utilisateurs\UtilisateursBundle\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Utilisateurs\UtilisateursBundle\Entity\Utilisateurs;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -39,11 +42,12 @@ class ReservationController extends Controller
     }
 
 
+
     public function listarchiveAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $reservations = $em->getRepository('UtilisateursUtilisateursBundle:Reservation')->myfindAllarchive();
+        $reservations = $em->getRepository('UtilisateursUtilisateursBundle:Reservation')->myfindAllarchive($request->get('id'));
         /**
          * @var $pagination \Knp\Component\Pager\Paginator
          */
@@ -149,6 +153,11 @@ class ReservationController extends Controller
             'form' => $form->createView(),'table'=>$table
         ));
     }
+
+
+
+
+
 
     /**
      * Finds and displays a reservation entity.
@@ -311,4 +320,126 @@ class ReservationController extends Controller
             ->getForm()
         ;
     }
+
+
+//    ***********************************************************************************
+
+    public function newReservationAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $reservation = new Reservation();
+        $commission= new CommissionR();
+        $inventaire= new InventaireR();
+
+        $reservation->setPrix(20);
+        $id=$request->get('partenaire');
+        $arrayinv=$em->getRepository(InventaireR::class)->findInventaireR($id);
+        $em = $this->getDoctrine()->getManager();
+        $from = $request->get('point_vente');
+        $to = $request->get('to');
+        $listeAchats = $request->get('produit');
+        $latitude_view2 =50;
+        $latitude_view= 20;
+        $longitude_view = 30;
+        $longitude_view2 =10;
+        $distance=sqrt(pow($longitude_view- $longitude_view2,2)-  pow($latitude_view2-$latitude_view,2));
+        $reservation->setpointAchat($from);
+        $reservation->setListAchats($listeAchats);
+        $reservation->setdestination($to);
+        $part=$em->getRepository(Utilisateurs::class)->find($id);
+        $reservation->setPrix(100);
+        $reservation->setPartenaire($part);
+        $reservation->setRemarques($request->get('remarques'));
+        // $reservation->setDate($request->get('date'));
+        $client=$em->getRepository(Utilisateurs::class)->find($request->get('id_client'));
+        $reservation->setClient($client);
+        $commission->setReservation($reservation);
+        $commission->setPartenaire($reservation->getPartenaire());
+        $commission->setPourcentage(0.15);
+        $commission->setDateCommission($reservation->getDate());
+
+        if(count($arrayinv)==0)
+        {
+            $inventaire->setPartenaire($part);
+            $inventaire->setMontant($reservation->getPrix()*$commission->getPourcentage());
+            $inventaire->setDateI($reservation->getDate());
+        }
+        else
+        {
+            $inventaire=$arrayinv[0];
+            $inventaire->setMontant($inventaire->getMontant()+$reservation->getPrix()*$commission->getPourcentage());
+        }
+        $commission->setInventaireR($inventaire);
+
+
+        $em->persist($inventaire);
+        $em->persist($commission);
+
+        $em->persist($reservation);
+        $em->flush();
+//        $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
+//        $client =new \Nexmo\Client($basic);
+//        $message = $client->message()->send([
+//            'to' => '21652715563',
+//            'from' => 'Twasalni?',
+//            'text' => 'Votre reservation est confirmé , liste achats:  '.$listeAchats.'  remarques:   '.$request->get('remarques').'',
+//        ]);
+//
+//        $mailer= $this->get('mailer');
+//            $msg = (new \Swift_Message('Reservation de taxi '))
+//                ->setFrom('noreply@twasalni.tn')
+//                ->setTo('anestemani00@gmail.com')
+//                ->setBody('Merci pour votre reservation');
+//            $mailer->send($msg);
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($reservation);
+        return new JsonResponse($formatted);
+    }
+
+
+    public function AllRESERVATIONAction(Request $request)
+
+    {
+        $groupe=$this->getDoctrine()->getManager()->getRepository("UtilisateursUtilisateursBundle:Reservation")->myfindAllbyid($request->get('id'));
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($groupe);
+        return new JsonResponse($formatted);
+    }
+
+
+    public function deleteReservationAction(Request $request)
+    {
+
+
+            $em = $this->getDoctrine()->getManager();
+            $r=$em->getRepository(Reservation::class)->find($request->get('id'));
+            $commission=$em->getRepository(CommissionR::class)->findCommissionbyReservation($request->get('id'));
+            $inventaire=$em->getRepository(InventaireR::class)->find($commission[0]->getInventaireR()->getId());
+            $inventaire->setMontant($inventaire->getMontant()-$r->getPrix()*$commission[0]->getPourcentage());
+            $montant=$inventaire->getMontant();
+            if($montant=0)
+            {
+                $com=$commission[0];
+                $em->remove($com);
+                $em->remove($inventaire);
+                $em->remove($r);
+                $em->flush();
+                $this->addFlash('error','reservation supprimé');
+            }
+            else {
+                $com=$commission[0];
+                $em->remove($com);
+                $em->persist($inventaire);
+                $em->remove($r);
+                $em->flush();
+                $this->addFlash('error','reservation supprimé');
+            }
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($r);
+        return new JsonResponse($formatted);
+
+    }
+
+
+
 }

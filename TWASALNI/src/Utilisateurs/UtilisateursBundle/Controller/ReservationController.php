@@ -440,6 +440,23 @@ class ReservationController extends Controller
 
     }
 
+    public function UpdateReservationAction(Request $request)
+    {
 
+        $em = $this->getDoctrine()->getManager();
+        $reservation=$em->getRepository(Reservation::class)->find($request->get('id'));
+        $reservation->setpointAchat($request->get('point_vente'));
+        $reservation->setListAchats($request->get('produit'));
+        $reservation->setdestination($request->get('to'));
+        $reservation->setRemarques($request->get('remarques'));
+        $em->persist($reservation);
+        $em->flush();
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($reservation);
+        return new JsonResponse($formatted);
+
+
+
+    }
 
 }

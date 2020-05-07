@@ -38,6 +38,16 @@ public class RESERVATION {
         this.client=user;
       
     }
+    
+      public RESERVATION(  int id,String pointAchat, String destination,  String listAchats, String remarques) {
+    this.id=id;
+        this.pointAchat = pointAchat;
+        this.destination = destination;
+        this.listAchats = listAchats;
+        this.remarques = remarques;
+
+      
+    }
    public RESERVATION(int id,int client_id, int partenaire_id,  String pointAchat, String destination, Date  date_reservation ,float prix , String listAchats, String remarques,String etat) {
          this.id=id;
         this.partenaire_id = partenaire_id;

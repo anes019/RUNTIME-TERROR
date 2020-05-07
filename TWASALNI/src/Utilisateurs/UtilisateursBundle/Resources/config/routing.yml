@@ -21,6 +21,9 @@ ALLRESERVATION:
 DELETERESERVATION:
   path:    /deleteReservation/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Reservation:deleteReservation }
+UPDATERESERVATION:
+  path:    /UPDATE/RESERVATION
+  defaults: { _controller: UtilisateursUtilisateursBundle:Reservation:UpdateReservation }
 NEWRESERVATION:
   path:    /NEW/RESERVATION
   defaults: { _controller: UtilisateursUtilisateursBundle:Reservation:newReservation }

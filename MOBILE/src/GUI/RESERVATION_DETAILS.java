@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import ENTITE.RESERVATION;
 import Services.ReservationService;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
@@ -164,7 +165,29 @@ public class RESERVATION_DETAILS  {
                                 new LISTReservation().start();}
   
         });  
-               
+                    btmodifier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if ((destination.getText().length()==0)||(point_achat.getText().length()==0))
+                    Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
+                else
+                {
+              
+                 
+        RESERVATION R = new RESERVATION(id,point_achat.getText(),destination.getText(),achats.getText(),remarques.getText());
+                        if( ReservationService.getInstance().updateReservation(R))
+                        {
+                            Dialog.show("Success","Reservation modifié",new Command("OK"));
+                          new LISTReservation().start();}
+                        else
+                            Dialog.show("ERROR", "Server error", new Command("OK"));
+                    
+                    
+                }
+                
+                
+            }
+        });          
         if(current != null){
             current.show();
             return;

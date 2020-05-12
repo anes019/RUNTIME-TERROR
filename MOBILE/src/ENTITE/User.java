@@ -7,7 +7,7 @@ package ENTITE;
 
 
 public class User {
-    private int id;
+    private Integer  id;
     private String username;
     private String email;
     private String role;
@@ -15,8 +15,10 @@ public class User {
     private String prenom;
     private String password;
     private String telephone;
+    private  String roles;
+    
 
-    public User(int id,String username, String email, String role, String nom, String prenom,String mobile) {
+    public User(Integer id,String username, String email, String role, String nom, String prenom,String mobile) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -27,7 +29,7 @@ public class User {
         this.telephone = mobile;
     }
 
-    public User(int id,String username, String email, String role, String nom, String prenom) {
+    public User(Integer id,String username, String email, String role, String nom, String prenom) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -38,15 +40,27 @@ public class User {
  
     }
 
+    public User() {
+    
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
   
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    /*public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
-    }*/
+    }
 
     public String getUsername() {
         return username;

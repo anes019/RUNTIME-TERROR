@@ -6,6 +6,7 @@
 package GUI;
 
 import ENTITE.RESERVATION;
+import ENTITE.User;
 import Services.ReservationService;
 import com.codename1.charts.models.Point;
 import com.codename1.components.OnOffSwitch;
@@ -20,6 +21,7 @@ import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -29,10 +31,15 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.RoundRectBorder;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.TWASALNI;
+import java.io.IOException;
+
+
 
 /**
  *
@@ -65,36 +72,45 @@ public class Reservation extends TWASALNI  {
         });        
     }
     
-    public void start() {
-       
+    public void start(int id) {
+  
+        // System.out.println("user id = " +id);
         Form reservation =new Form ("reservation");
-        Toolbar tb=reservation.getToolbar();
-      
-      
+     
 
+ 
         
-                tb.addMaterialCommandToSideMenu("AJOUTER RESERVATION",FontImage.MATERIAL_NEW_RELEASES, new ActionListener() {
+                reservation.getToolbar().addMaterialCommandToSideMenu("AJOUTER RESERVATION",FontImage.MATERIAL_NEW_RELEASES, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
             new Reservation().start();
             }
         });
                 
-            tb.addMaterialCommandToSideMenu("MES RESERVATION",FontImage.MATERIAL_LIST, new ActionListener() {
+            reservation.getToolbar().addMaterialCommandToSideMenu("MES RESERVATION",FontImage.MATERIAL_LIST, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-            new LISTReservation().start();
+            new LISTReservation().start(id);
             }
         });
             
-                 tb.addMaterialCommandToSideMenu("LOGIN",FontImage.MATERIAL_LOCK, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-            new LOGIN().show();
-            }
-        });
+       
          String icon = null;
-        
+    
+                 reservation.getToolbar().addCommandToOverflowMenu("se déconnecter",
+                null, ev -> {
+                    try {
+                        new LOGIN().show();
+                    } catch (IOException ex) {
+
+                    }
+                });
+        reservation.getToolbar().addCommandToOverflowMenu("Retour au menu",
+                null, ev -> {
+        new acceuil(id).show();
+                });
+         
+  
            Label message=new Label("Formulaire de reservation", icon);
         Label vide=new Label("", icon);
       
@@ -132,7 +148,7 @@ public class Reservation extends TWASALNI  {
                         if( ReservationService.getInstance().addReservation(R))
                         {
                             Dialog.show("Success","Reservation ajouté",new Command("OK"));
-                          new LISTReservation().start();}
+                          new LISTReservation().start(id);}
                         else
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                     

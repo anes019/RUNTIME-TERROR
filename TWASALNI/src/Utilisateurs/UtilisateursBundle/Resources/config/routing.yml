@@ -27,6 +27,9 @@ UPDATERESERVATION:
 NEWRESERVATION:
   path:    /NEW/RESERVATION
   defaults: { _controller: UtilisateursUtilisateursBundle:Reservation:newReservation }
+GETUSER:
+  path:    /USER/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Default:find }
 utilisateurs_utilisateurs_homepage:
   path:     /
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }

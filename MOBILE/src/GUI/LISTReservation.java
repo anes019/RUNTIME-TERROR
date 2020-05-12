@@ -6,6 +6,7 @@
 package GUI;
 
 import ENTITE.RESERVATION;
+import ENTITE.User;
 import Services.ReservationService;
 import static com.codename1.charts.util.ColorUtil.red;
 import com.codename1.components.ImageViewer;
@@ -33,6 +34,7 @@ import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -68,7 +70,7 @@ public class LISTReservation {
         });
     }
 
-    public void start() {
+    public void start(int id) {
         LISTreservation = new Form("Mes reservations", BoxLayout.y());
 
         Toolbar tb = LISTreservation.getToolbar();
@@ -83,25 +85,34 @@ public class LISTReservation {
         tb.addMaterialCommandToSideMenu("MES RESERVATIONS", FontImage.MATERIAL_LIST, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                new LISTReservation().start();
+                new LISTReservation().start(id);
             }
         });
 
-        tb.addMaterialCommandToSideMenu("LOGIN", FontImage.MATERIAL_LOCK, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                new LOGIN().show();
-            }
-        });
+
+        
+         LISTreservation.getToolbar().addCommandToOverflowMenu("se déconnecter",
+                null, ev -> {
+                    try {
+                        new LOGIN().show();
+                    } catch (IOException ex) {
+
+                    }
+                });
+        LISTreservation.getToolbar().addCommandToOverflowMenu("Retour au menu",
+                null, ev -> {
+        new acceuil(id).show();
+                });
         ArrayList<RESERVATION> reservations = new ArrayList<>();
-        int id = 2;
+      
+      //  System.out.println("user id " +id);
         reservations = Services.ReservationService.getInstance().getAllRESERVATIONS(id);
 
       
 
         for (RESERVATION r : reservations) {
             i++;
-            addItem(r, i);
+            addItem(r, i,id);
         }
 
         LISTreservation.show();
@@ -114,7 +125,7 @@ public class LISTReservation {
         LISTreservation.show();
     }
 
-    public void addItem(RESERVATION reservation, int i) {
+    public void addItem(RESERVATION reservation, int i,int id) {
         ImageViewer img = null;
         Container C1 = new Container(new BoxLayout(BoxLayout.X_AXIS));
         Container C2 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
@@ -142,7 +153,7 @@ public class LISTReservation {
         destination.addPointerPressedListener((ActionListener) (ActionEvent evt) -> {
             if (Dialog.show("Reservation " + " " + i, "Destination : " + reservation.getDestination() , "modifier", "Annuler")) {
 
-                new RESERVATION_DETAILS().start(i, reservation.getPointAchat(), reservation.getDestination(), reservation.getListAchats(), reservation.getId(), reservation.getRemarques(), reservation.getEtat(), reservation.getPartenaire_id());
+                new RESERVATION_DETAILS().start(i, reservation.getPointAchat(), reservation.getDestination(), reservation.getListAchats(), reservation.getId(), reservation.getRemarques(), reservation.getEtat(), reservation.getPartenaire_id(),id);
             }
         });
 
@@ -167,5 +178,7 @@ public class LISTReservation {
 
     public void destroy() {
     }
+
+
 
 }

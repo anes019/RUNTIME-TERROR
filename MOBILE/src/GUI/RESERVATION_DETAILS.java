@@ -26,6 +26,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
+import java.io.IOException;
+
 
 /**
  *
@@ -58,12 +60,12 @@ public class RESERVATION_DETAILS  {
         });        
     }
     
-    public void start(int i ,String pt_achat,String dest,String listachat,int id,String rq,String etat,int part) {
+    public void start(int i ,String pt_achat,String dest,String listachat,int id,String rq,String etat,int part,int user) {
        
         Form reservation =new Form ("reservation");
         Toolbar tb=reservation.getToolbar();
       
-       
+          System.out.println("user id = " +user);
    
         
                 tb.addMaterialCommandToSideMenu("AJOUTER RESERVATION",FontImage.MATERIAL_NEW_RELEASES, new ActionListener() {
@@ -76,16 +78,22 @@ public class RESERVATION_DETAILS  {
             tb.addMaterialCommandToSideMenu("MES RESERVATIONS",FontImage.MATERIAL_LIST, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-            new LISTReservation().start();
+            new LISTReservation().start(user);
             }
         });
             
-                 tb.addMaterialCommandToSideMenu("LOGIN",FontImage.MATERIAL_LOCK, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-            new LOGIN().show();
-            }
-        });
+         reservation.getToolbar().addCommandToOverflowMenu("se déconnecter",
+                null, ev -> {
+                    try {
+                        new LOGIN().show();
+                    } catch (IOException ex) {
+
+                    }
+                });
+        reservation.getToolbar().addCommandToOverflowMenu("Retour au menu",
+                null, ev -> {
+        new acceuil(user).show();
+                });
          String icon = null;
         
            Label message=new Label("Detail de reservation"+ " " +i);
@@ -149,7 +157,7 @@ public class RESERVATION_DETAILS  {
                         if( ReservationService.getInstance().DeleteReservation(id))
                         {
                             Dialog.show("Success","Reservation supprimé",new Command("OK"));
-                                new LISTReservation().start();}
+                                new LISTReservation().start(user);}
                         else
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                     
@@ -162,7 +170,7 @@ public class RESERVATION_DETAILS  {
                        btannuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {              
-                                new LISTReservation().start();}
+                                new LISTReservation().start(user);}
   
         });  
                     btmodifier.addActionListener(new ActionListener() {
@@ -178,7 +186,7 @@ public class RESERVATION_DETAILS  {
                         if( ReservationService.getInstance().updateReservation(R))
                         {
                             Dialog.show("Success","Reservation modifié",new Command("OK"));
-                          new LISTReservation().start();}
+                          new LISTReservation().start(user);}
                         else
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                     

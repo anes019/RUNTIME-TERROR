@@ -5,113 +5,203 @@
  */
 package GUI;
 
+import ENTITE.User;
+import Services.userService;
+import com.codename1.components.ImageViewer;
+import com.codename1.ui.Button;
+import com.codename1.ui.Command;
+import com.codename1.ui.Component;
+import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
+import com.codename1.ui.Font;
+import com.codename1.ui.Form;
+import com.codename1.ui.Image;
+import com.codename1.ui.Label;
+import com.codename1.ui.Stroke;
+import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.RoundRectBorder;
+import com.codename1.ui.plaf.Style;
+import java.io.IOException;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
- * GUI builder created Form
  *
- * @author anest
+ * @author hazem
  */
-public class LOGIN extends com.codename1.ui.Form {
+public class LOGIN extends Form {
 
-    public LOGIN() {
-        this(com.codename1.ui.util.Resources.getGlobalResources());
-    }
-    
-    public LOGIN(com.codename1.ui.util.Resources resourceObjectInstance) {
-        initGuiBuilderComponents(resourceObjectInstance);
-    }
+    Form current;
 
-//-- DON'T EDIT BELOW THIS LINE!!!
-    protected com.codename1.ui.Label gui_Label = new com.codename1.ui.Label();
-    protected com.codename1.ui.TextField gui_email = new com.codename1.ui.TextField();
-    protected com.codename1.ui.TextField gui_pass = new com.codename1.ui.TextField();
-    protected com.codename1.ui.Button gui_LOGIN = new com.codename1.ui.Button();
-    protected com.codename1.ui.Button gui_inscrit = new com.codename1.ui.Button();
+    public LOGIN() throws IOException {
+        current = this;
+        setTitle("Se connecter");
+        setLayout(BoxLayout.y());
+        Style loginStyle = getAllStyles();
+        loginStyle.setBgColor(0x72a1ed);
+        Container cnt1 = new Container(new FlowLayout(Container.CENTER));
+        Container cnt4 = new Container(new FlowLayout(Container.CENTER));
+        Container cnt5 = new Container(new FlowLayout(Container.CENTER));
 
-
-// <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void guiBuilderBindComponentListeners() {
-        EventCallbackClass callback = new EventCallbackClass();
-        gui_LOGIN.addActionListener(callback);
-    }
-
-    class EventCallbackClass implements com.codename1.ui.events.ActionListener, com.codename1.ui.events.DataChangedListener {
-        private com.codename1.ui.Component cmp;
-        public EventCallbackClass(com.codename1.ui.Component cmp) {
-            this.cmp = cmp;
+        Container cnt2 = new Container(new FlowLayout(Container.CENTER));
+        Container cnt3 = new Container(new FlowLayout(Container.CENTER));
+        ImageViewer Logo = null;
+        try {
+            Logo = new ImageViewer(Image.createImage("/logo3.png"));
+        } catch (IOException ex) {
         }
 
-        public EventCallbackClass() {
-        }
+        /**
+         * ***********************************************************************************************
+         */
+        Style logoStyle = Logo.getAllStyles();
+        logoStyle.setMargin(Component.TOP, 20);
+        Font largeBoldSystemFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_LARGE);
 
-        public void actionPerformed(com.codename1.ui.events.ActionEvent ev) {
-            com.codename1.ui.Component sourceComponent = ev.getComponent();
+        /**
+         * ***********************************************************************************************
+         */
+        TextField Username = new TextField("", "username");
+        Style userStyle = Username.getAllStyles();
+        Stroke borderStroke = new Stroke(2, Stroke.CAP_SQUARE, Stroke.JOIN_MITER, 1);
+        userStyle.setBorder(RoundRectBorder.create().
+                strokeColor(0).
+                strokeOpacity(120).
+                stroke(borderStroke));
+        userStyle.setBgColor(0xffffff);
+        userStyle.setBgTransparency(255);
+        userStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
+        userStyle.setMargin(Component.BOTTOM, 3);
+        userStyle.setMargin(Component.TOP, 10);
+        /**
+         * ***********************************************************************************************
+         */
+        TextField tpassword = new TextField();
+        Style passwordStyle = tpassword.getAllStyles();
+        passwordStyle.setBorder(RoundRectBorder.create().
+                strokeColor(0).
+                strokeOpacity(50).
+                stroke(borderStroke));
+        passwordStyle.setBgColor(0xffffff);
+        passwordStyle.setBgTransparency(255);
 
-            if(sourceComponent.getParent().getLeadParent() != null && (sourceComponent.getParent().getLeadParent() instanceof com.codename1.components.MultiButton || sourceComponent.getParent().getLeadParent() instanceof com.codename1.components.SpanButton)) {
-                sourceComponent = sourceComponent.getParent().getLeadParent();
+        tpassword.setHint("mot de passe");
+        tpassword.setConstraint(TextField.PASSWORD);
+        cnt2.addAll(Username);
+        cnt3.add(tpassword);
+        cnt1.add(Logo);
+        /**
+         * ***********************************************************************************************
+         */
+        Button btnval = new Button("Se connecter ");
+        Style butStyle = btnval.getAllStyles();
+        butStyle.setBorder(RoundRectBorder.create().
+                strokeColor(0x00000).
+                strokeOpacity(120).
+                stroke(borderStroke));
+        
+  
+        butStyle.setFgColor(0x474747);
+
+      
+        butStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
+        butStyle.setMargin(Component.BOTTOM, 3);
+        butStyle.setMargin(Component.TOP, 10);
+        butStyle.setMargin(Component.LEFT, 10);
+        butStyle.setMargin(Component.RIGHT, 10);
+        //cnt5.add(btnval);
+
+        /**
+         * ***********************************************************************************************
+         */
+        Button motOublier = new Button("Mot de passe oublié ?");
+        Style butStyle1 = motOublier.getAllStyles();
+
+      //  butStyle1.setBgColor(0xCD853F);
+        butStyle1.setFgColor(0xffffff);
+        butStyle1.setBgTransparency(0);
+        butStyle1.setMarginUnit(Style.UNIT_TYPE_DIPS);
+        butStyle1.setMargin(Component.TOP, 10);
+
+ 
+        cnt5.add(motOublier);
+        /**
+         * ***********************************************************************************************
+         */
+        Button inscrire = new Button("s'inscrire");
+        Style butStyle2 = inscrire.getAllStyles();
+
+     butStyle2.setFgColor(0xffffff);
+        butStyle2.setBgTransparency(0);
+        butStyle2.setMarginUnit(Style.UNIT_TYPE_DIPS);
+        butStyle2.setMargin(Component.TOP, 0);
+        /**
+         * ***********************************************************************************************
+         */
+        addAll(cnt1, cnt2, cnt3, btnval, cnt5, inscrire);
+        /**
+         * ***********************************************************************************************
+         */
+        btnval.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if ((Username.getText().length() == 0) || (tpassword.getText().length() == 0)) {
+                    Dialog.show("Alert", "vous devez saisir votre username et mot de passe", new Command("OK"));
+                } else {
+                    try {
+
+                        User u = userService.getInstance().getUser(Username.getText());
+                        String pw = u.getPassword();
+                        if(pw!=null)
+                        {
+                        String pw1 = pw.substring(4);
+                      
+                        String pw11 = "$2a$" + pw1;
+                        System.out.println("password1 = " + pw1);
+                             System.out.println("password2 = " + pw11);
+                             
+                          }
+                        String hashpw = BCrypt.hashpw(tpassword.getText(), BCrypt.gensalt());
+                       // System.out.println("password = " + pw);
+                   
+                    
+                  
+              
+                         if (u.getId()==null)
+                        {   Dialog.show("ERROR", "User not found", new Command("OK"));}
+                       
+                                  /* else if (BCrypt.checkpw(tpassword.getText(), pw) == false) {
+                            Dialog.show("ERROR", "Mot de passe invalide", new Command("OK"));
+
+                        }*/
+                         else  {
+                   
+                        
+                              new acceuil(u.getId()).show();
+                
+         // System.out.println("user id = " +u.getId());
+                        }
+
+                    } catch (NumberFormatException e) {
+                        Dialog.show("ERROR", "Status must be a number", new Command("OK"));
+                    }
+
+                }
+
             }
+        });
+        /**
+         * ***********************************************************************************************
+         */
+        getToolbar().addCommandToOverflowMenu("Exit",
+                null, ev -> {
+                    Display.getInstance().exitApplication();
+                });
 
-            if(sourceComponent == gui_LOGIN) {
-                onLOGINActionEvent(ev);
-            }
-        }
-
-        public void dataChanged(int type, int index) {
-        }
-    }
-    private void initGuiBuilderComponents(com.codename1.ui.util.Resources resourceObjectInstance) {
-        guiBuilderBindComponentListeners();
-        setLayout(new com.codename1.ui.layouts.LayeredLayout());
-        setInlineStylesTheme(resourceObjectInstance);
-        setRTL(true);
-        setScrollableY(false);
-                setInlineStylesTheme(resourceObjectInstance);
-        setTitle("LOGIN");
-        setName("LOGIN");
-        addComponent(gui_Label);
-        addComponent(gui_email);
-        addComponent(gui_pass);
-        addComponent(gui_LOGIN);
-        addComponent(gui_inscrit);
-                gui_Label.setInlineStylesTheme(resourceObjectInstance);
-        gui_Label.setName("Label");
-        gui_Label.setIcon(resourceObjectInstance.getImage("logo3.png"));
-        ((com.codename1.ui.layouts.LayeredLayout)gui_Label.getParent().getLayout()).setInsets(gui_Label, "7.1428556mm auto auto auto").setReferenceComponents(gui_Label, "-1 -1 -1 -1").setReferencePositions(gui_Label, "0.0 0.0 0.0 0.0");
-        gui_email.setPreferredSizeStr("69.04762mm inherit");
-        gui_email.setHint("email");
-        gui_email.setUIID("email");
-                gui_email.setInlineStylesTheme(resourceObjectInstance);
-        gui_email.setName("email");
-        gui_email.setHintIcon(com.codename1.ui.FontImage.createMaterial("\ue158".charAt(0), gui_email.getUnselectedStyle()));
-        ((com.codename1.ui.layouts.LayeredLayout)gui_email.getParent().getLayout()).setInsets(gui_email, "auto auto 10.05291mm auto").setReferenceComponents(gui_email, "0 -1 2 -1").setReferencePositions(gui_email, "1.0 0.0 0.0 0.0");
-        gui_pass.setPreferredSizeStr("69.04762mm inherit");
-        gui_pass.setHint("mot de passe");
-        gui_pass.setUIID("pass");
-                gui_pass.setInlineStylesTheme(resourceObjectInstance);
-        gui_pass.setName("pass");
-        gui_pass.setHintIcon(com.codename1.ui.FontImage.createMaterial("\ue897".charAt(0), gui_pass.getUnselectedStyle()));
-        ((com.codename1.ui.layouts.LayeredLayout)gui_pass.getParent().getLayout()).setInsets(gui_pass, "10.05291mm auto auto auto").setReferenceComponents(gui_pass, "0 -1 -1 -1").setReferencePositions(gui_pass, "1.0 0.0 0.0 0.0");
-        gui_LOGIN.setPreferredSizeStr("34.920635mm inherit");
-        gui_LOGIN.setText("se connecter");
-        gui_LOGIN.setUIID("LOGIN");
-                gui_LOGIN.setInlineStylesTheme(resourceObjectInstance);
-        gui_LOGIN.setInlineAllStyles("bgColor:2a7ab; fgColor:fff7f7; transparency:255; opacity:255; alignment:center;");
-        gui_LOGIN.setName("LOGIN");
-        ((com.codename1.ui.layouts.LayeredLayout)gui_LOGIN.getParent().getLayout()).setInsets(gui_LOGIN, "6.084656mm auto auto auto").setReferenceComponents(gui_LOGIN, "2 -1 -1 -1").setReferencePositions(gui_LOGIN, "1.0 0.0 0.0 0.0");
-        gui_inscrit.setPreferredSizeStr("43.121693mm inherit");
-        gui_inscrit.setText("s'inscrire");
-        gui_inscrit.setUIID("s'inscrire");
-                gui_inscrit.setInlineStylesTheme(resourceObjectInstance);
-        gui_inscrit.setInlineAllStyles("fgColor:91a6;");
-        gui_inscrit.setName("inscrit");
-        ((com.codename1.ui.layouts.LayeredLayout)gui_inscrit.getParent().getLayout()).setInsets(gui_inscrit, "4.497358mm 34.391533mm auto auto").setReferenceComponents(gui_inscrit, "3 -1 -1 -1").setReferencePositions(gui_inscrit, "1.0 0.0 0.0 0.0");
-    }// </editor-fold>
-
-//-- DON'T EDIT ABOVE THIS LINE!!!
-    public void onLOGINActionEvent(com.codename1.ui.events.ActionEvent ev) {
-       new Reservation().start();
     }
 
 }

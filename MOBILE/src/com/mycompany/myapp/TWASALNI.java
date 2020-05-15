@@ -52,10 +52,13 @@ public class TWASALNI {
     
     public void start() {
     
- 
+ try {
+            new LOGIN().show();
+        } catch (IOException ex) {
         
-            new Register().show();
-        
+        }
+
+       
     }
 
     public void stop() {

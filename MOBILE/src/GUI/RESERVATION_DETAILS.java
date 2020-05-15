@@ -130,20 +130,23 @@ public class RESERVATION_DETAILS  {
                 Label text = new Label("");
                 C.add(btmodifier);
                 C.add(btsupp);
-         
-                
-                   if (etat=="non traite")
-            {btmodifier.setEnabled(true);
-            btsupp.setEnabled(true);
-                   text.setText("");
-            }
-            else {
-                   btmodifier.setEnabled(false);
-            btsupp.setEnabled(false);
+          /* System.out.println(etat);
+          
+                   if (etat!="non traite")
+            {
+                    btmodifier.setEnabled(false);
+                   btsupp.setEnabled(false);
             text.setText("Cette reservation est deja traité ");
              Style Textcolor = text.getAllStyles();
              Textcolor.setFgColor(0xc20006);
-                   }
+            }
+                   else if(etat!="non traite")  {
+               
+                         btmodifier.setEnabled(true);
+            btsupp.setEnabled(true);
+                   text.setText("");
+         
+                   }*/
                 reservation.add(message);
                 reservation.add(vide);
                 C1.add(space);

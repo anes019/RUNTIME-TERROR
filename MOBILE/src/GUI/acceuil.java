@@ -36,6 +36,7 @@ public class acceuil extends Form {
         setTitle("Acceuil");
         setLayout(BoxLayout.y());
         Style loginStyle = getAllStyles();
+            // System.out.println("id="+id);
         ImageViewer BG = null;
         try {
             BG = new ImageViewer(Image.createImage("/bg.jpg"));
@@ -177,7 +178,7 @@ public class acceuil extends Form {
         btCOURSES.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                new CoursesGUI().start();
+                new CoursesGUI().start(id);
 
             }
         });

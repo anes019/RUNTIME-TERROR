@@ -31,6 +31,7 @@ import com.codename1.ui.list.GenericListCellRenderer;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -101,17 +102,56 @@ public class CoursesGUI {
             affich.add(c);
     }
     
-    public void start() {
+    public void start(int id) {
         if(current != null){
             current.show();
             return;
         }
         
-        
+        System.out.println(id);
         
         f= new Form("Ajouter une course",BoxLayout.y());
         affich= new Form("Afficher mes courses",BoxLayout.y());
         del= new Form("Supprimer une course",BoxLayout.y());
+        
+                f.getToolbar().addCommandToOverflowMenu("se déconnecter",
+                null, ev -> {
+                    try {
+                        new LOGIN().show();
+                    } catch (IOException ex) {
+
+                    }
+                });
+        f.getToolbar().addCommandToOverflowMenu("Retour au menu",
+                null, ev -> {
+                    new acceuil(id).show();
+                });
+        
+                   affich.getToolbar().addCommandToOverflowMenu("se déconnecter",
+                null, ev -> {
+                    try {
+                        new LOGIN().show();
+                    } catch (IOException ex) {
+
+                    }
+                });
+        affich.getToolbar().addCommandToOverflowMenu("Retour au menu",
+                null, ev -> {
+                    new acceuil(id).show();
+                });
+        
+                   del.getToolbar().addCommandToOverflowMenu("se déconnecter",
+                null, ev -> {
+                    try {
+                        new LOGIN().show();
+                    } catch (IOException ex) {
+
+                    }
+                });
+        del.getToolbar().addCommandToOverflowMenu("Retour au menu",
+                null, ev -> {
+                    new acceuil(id).show();
+                });
                 Toolbar tb= f.getToolbar();
         tb.addMaterialCommandToLeftSideMenu("Affichage", FontImage.MATERIAL_WEB, new ActionListener() {
             @Override
@@ -287,7 +327,7 @@ public class CoursesGUI {
                        
                        
 
-        Courses C = new Courses(0,tfDepart.getText(),tfDestination.getText(),dateCourse.getDate(),200,2,w);
+        Courses C = new Courses(0,tfDepart.getText(),tfDestination.getText(),dateCourse.getDate(),200,id,w);
                         if( CoursesService.getInstance().addCourse(C))
                         {
                             Dialog.show("Success","Course ajoutée",new Command("OK"));

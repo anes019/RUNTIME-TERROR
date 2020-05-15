@@ -46,14 +46,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 /**
  *
  * @author anest
  */
-public class Reservation extends TWASALNI  {
-     private Form current;
+public class Reservation extends TWASALNI {
+
+    private Form current;
     private Resources theme;
 
     public void init(Object context) {
@@ -71,46 +70,43 @@ public class Reservation extends TWASALNI  {
         addNetworkErrorListener(err -> {
             // prevent the event from propagating
             err.consume();
-            if(err.getError() != null) {
+            if (err.getError() != null) {
                 Log.e(err.getError());
             }
             Log.sendLogAsync();
             Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
-        });        
+        });
     }
-        private Map<String, Object> createListEntry(String name, String date) {
-    Map<String, Object> entry = new HashMap<>();
-    entry.put(name,"Line ");
-    entry.put("Line2", date);
-    return entry;
-}
-    
-    public void start(int id) {
-  
-        // System.out.println("user id = " +id);
-        Form reservation =new Form ("reservation");
-     
 
- 
-        
-                reservation.getToolbar().addMaterialCommandToSideMenu("AJOUTER RESERVATION",FontImage.MATERIAL_NEW_RELEASES, new ActionListener() {
+    private Map<String, Object> createListEntry(String name, String date) {
+        Map<String, Object> entry = new HashMap<>();
+        entry.put(name, "Line ");
+        entry.put("Line2", date);
+        return entry;
+    }
+
+    public void start(int id) {
+
+        // System.out.println("user id = " +id);
+        Form reservation = new Form("ajout de reservation");
+
+        reservation.getToolbar().addMaterialCommandToSideMenu("AJOUTER RESERVATION", FontImage.MATERIAL_NEW_RELEASES, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-            new Reservation().start();
+                new Reservation().start();
             }
         });
-                
-            reservation.getToolbar().addMaterialCommandToSideMenu("MES RESERVATION",FontImage.MATERIAL_LIST, new ActionListener() {
+
+        reservation.getToolbar().addMaterialCommandToSideMenu("MES RESERVATION", FontImage.MATERIAL_LIST, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-            new LISTReservation().start(id);
+                new LISTReservation().start(id);
             }
         });
-            
-       
-         String icon = null;
-    
-                 reservation.getToolbar().addCommandToOverflowMenu("se déconnecter",
+
+        String icon = null;
+
+        reservation.getToolbar().addCommandToOverflowMenu("se déconnecter",
                 null, ev -> {
                     try {
                         new LOGIN().show();
@@ -120,111 +116,99 @@ public class Reservation extends TWASALNI  {
                 });
         reservation.getToolbar().addCommandToOverflowMenu("Retour au menu",
                 null, ev -> {
-        new acceuil(id).show();
+                    new acceuil(id).show();
                 });
-         
-  
-           Label message=new Label("Formulaire de reservation", icon);
-        Label vide=new Label("", icon);
-      
-           TextField point_achat = new TextField(""," point d'achat");
-            TextField achats = new TextField("","list d'achat ");
-                   TextField destination = new TextField("","destination ");
-                    Picker date = new Picker();
-                         TextField remarques = new TextField("","remarques ");
-                Container C = new Container (BoxLayout.x());
-          //COMBOBOX
-                  ComboBox<Map<String, Object>> c = new ComboBox<>(createListEntry("0","Choisir un  partenaire"));
-         
-         
-        Picker p= new Picker();
 
-        
-        ArrayList<User> list2=new ArrayList<>();
-        userService us= new userService();
-        
-        list2=us.getPartenaires();
-        for(User u:list2)
-        {
-            c.addItem(createListEntry(Integer.toString(u.getId()),u.getNom()));
-            
-            
+
+        Label vide = new Label("", icon);
+
+        TextField point_achat = new TextField("", " point d'achat");
+        TextField achats = new TextField("", "list d'achat ");
+        TextField destination = new TextField("", "destination ");
+        Picker date = new Picker();
+        TextField remarques = new TextField("", "remarques ");
+        Container C = new Container(BoxLayout.x());
+        //COMBOBOX
+        ComboBox<Map<String, Object>> combo = new ComboBox<>(createListEntry("0", "Choisir un  partenaire"));
+
+        Picker p = new Picker();
+
+        ArrayList<User> list2 = new ArrayList<>();
+        userService us = new userService();
+
+        list2 = us.getPartenaires();
+        for (User u : list2) {
+            combo.addItem(createListEntry(Integer.toString(u.getId()), u.getNom()));
+
         }
-          c.setRenderer(new GenericListCellRenderer<>(new MultiButton(), new MultiButton()));
-          //ENDCOMBOBOX
-              
-                Button btvalider= new Button("valider");
-                Button btreset= new Button("reset");
-                C.add(btvalider);
-                C.add(btreset);
-                reservation.add(c);
-                reservation.add(message);
-                reservation.add(vide);
-                reservation.add(point_achat);
-                reservation.add(achats);
-                reservation.add(destination);
-                reservation.add(date);
-                reservation.add(remarques);
-                reservation.add(C);
-               btvalider.addActionListener(new ActionListener() {
+        combo.setRenderer(new GenericListCellRenderer<>(new MultiButton(), new MultiButton()));
+        //ENDCOMBOBOX
+
+        Button btvalider = new Button("valider");
+        Button btreset = new Button("reset");
+        C.add(btvalider);
+        C.add(btreset);
+
+      
+        reservation.add(combo);
+        reservation.add(vide);
+        reservation.add(point_achat);
+        reservation.add(achats);
+        reservation.add(destination);
+             reservation.add(date);
+
+      
+   
+        reservation.add(remarques);
+        reservation.add(C);
+        btvalider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if ((destination.getText().length()==0)||(point_achat.getText().length()==0))
+                if ((destination.getText().length() == 0) || (point_achat.getText().length() == 0)) {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
-                else
-                {
-                                            int w=66;
-                        for(Map.Entry<String,Object> x:c.getSelectedItem().entrySet())
-                        {
-                            w=Integer.parseInt(x.getKey());
-                            break;
-                        }
-                           System.out.println(w);
-                        if(w==0)
-                        {
+                } else {
+                    int part = 0;
+                    for (Map.Entry<String, Object> x : combo.getSelectedItem().entrySet()) {
+                        part = Integer.parseInt(x.getKey());
+                        break;
+                    }
+     
+                    if (part == 0) {
                         Dialog.show("Alert", "Choisissez un partenaire svp", new Command("OK"));
                         return;
-                        }
-                        System.out.println("Partenaire id: "+w);
-              
-                        
+                    }
+                    
 
-        RESERVATION R = new RESERVATION(2,w,point_achat.getText(),destination.getText(),date.getDate(),achats.getText(),remarques.getText(),"non traite");
-                        if( ReservationService.getInstance().addReservation(R))
-                        {
-                            Dialog.show("Success","Reservation ajouté",new Command("OK"));
-                          new LISTReservation().start(id);}
-                        else
-                            Dialog.show("ERROR", "Server error", new Command("OK"));
-                    
-                    
+                    RESERVATION R = new RESERVATION(id, part, point_achat.getText(), destination.getText(), date.getDate(), achats.getText(), remarques.getText(), "non traite");
+                    if (ReservationService.getInstance().addReservation(R)) {
+                        Dialog.show("Success", "Reservation ajouté", new Command("OK"));
+                        new LISTReservation().start(id);
+                    } else {
+                        Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }
+
                 }
-                
-                
+
             }
-        });            
-             
-                  
-        
-               
-        if(current != null){
+        });
+
+        if (current != null) {
             current.show();
             return;
         }
-   
+
         reservation.show();
     }
 
     public void stop() {
         current = getCurrentForm();
-        if(current instanceof Dialog) {
-            ((Dialog)current).dispose();
+        if (current instanceof Dialog) {
+            ((Dialog) current).dispose();
             current = getCurrentForm();
         }
     }
-    
+
     public void destroy() {
     }
 
-    
 }

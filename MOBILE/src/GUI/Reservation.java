@@ -8,7 +8,9 @@ package GUI;
 import ENTITE.RESERVATION;
 import ENTITE.User;
 import Services.ReservationService;
+import Services.userService;
 import com.codename1.charts.models.Point;
+import com.codename1.components.MultiButton;
 import com.codename1.components.OnOffSwitch;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
@@ -17,6 +19,7 @@ import static com.codename1.ui.CN.addNetworkErrorListener;
 import static com.codename1.ui.CN.getCurrentForm;
 import static com.codename1.ui.CN.updateNetworkThreadCount;
 import com.codename1.ui.CheckBox;
+import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
@@ -31,6 +34,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.list.GenericListCellRenderer;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
@@ -38,6 +42,9 @@ import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.TWASALNI;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -71,6 +78,12 @@ public class Reservation extends TWASALNI  {
             Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
         });        
     }
+        private Map<String, Object> createListEntry(String name, String date) {
+    Map<String, Object> entry = new HashMap<>();
+    entry.put(name,"Line ");
+    entry.put("Line2", date);
+    return entry;
+}
     
     public void start(int id) {
   
@@ -120,12 +133,31 @@ public class Reservation extends TWASALNI  {
                     Picker date = new Picker();
                          TextField remarques = new TextField("","remarques ");
                 Container C = new Container (BoxLayout.x());
-          
+          //COMBOBOX
+                  ComboBox<Map<String, Object>> c = new ComboBox<>(createListEntry("0","Choisir un  partenaire"));
+         
+         
+        Picker p= new Picker();
+
+        
+        ArrayList<User> list2=new ArrayList<>();
+        userService us= new userService();
+        
+        list2=us.getPartenaires();
+        for(User u:list2)
+        {
+            c.addItem(createListEntry(Integer.toString(u.getId()),u.getNom()));
+            
+            
+        }
+          c.setRenderer(new GenericListCellRenderer<>(new MultiButton(), new MultiButton()));
+          //ENDCOMBOBOX
               
                 Button btvalider= new Button("valider");
                 Button btreset= new Button("reset");
                 C.add(btvalider);
                 C.add(btreset);
+                reservation.add(c);
                 reservation.add(message);
                 reservation.add(vide);
                 reservation.add(point_achat);
@@ -141,10 +173,23 @@ public class Reservation extends TWASALNI  {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 else
                 {
+                                            int w=66;
+                        for(Map.Entry<String,Object> x:c.getSelectedItem().entrySet())
+                        {
+                            w=Integer.parseInt(x.getKey());
+                            break;
+                        }
+                           System.out.println(w);
+                        if(w==0)
+                        {
+                        Dialog.show("Alert", "Choisissez un partenaire svp", new Command("OK"));
+                        return;
+                        }
+                        System.out.println("Partenaire id: "+w);
               
                         
 
-        RESERVATION R = new RESERVATION(2,24,point_achat.getText(),destination.getText(),date.getDate(),achats.getText(),remarques.getText(),"non traite");
+        RESERVATION R = new RESERVATION(2,w,point_achat.getText(),destination.getText(),date.getDate(),achats.getText(),remarques.getText(),"non traite");
                         if( ReservationService.getInstance().addReservation(R))
                         {
                             Dialog.show("Success","Reservation ajouté",new Command("OK"));

@@ -28,6 +28,30 @@ public class User {
         this.password = password;
         this.telephone = mobile;
     }
+    
+    public User(Integer id,String username, String email, String role, String nom, String prenom,String password,String mobile) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.role = role;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.password = password;
+        this.telephone = mobile;
+    }
+    
+    public User(String username, String email, String role, String nom, String prenom,String password,String mobile) {
+        
+        this.username = username;
+        this.email = email;
+        this.role = role;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.password = password;
+        this.telephone = mobile;
+    }
+    
+
 
     public User(Integer id,String username, String email, String role, String nom, String prenom) {
         this.id = id;

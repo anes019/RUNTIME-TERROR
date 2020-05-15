@@ -14,6 +14,7 @@ import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
 import GUI.LOGIN;
+import GUI.Register;
 import GUI.acceuil;
 
 
@@ -52,11 +53,9 @@ public class TWASALNI {
     public void start() {
     
  
-        try {
-            new LOGIN().show();
-        } catch (IOException ex) {
         
-        }
+            new Register().show();
+        
     }
 
     public void stop() {

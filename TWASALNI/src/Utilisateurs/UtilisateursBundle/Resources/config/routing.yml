@@ -30,6 +30,11 @@ NEWRESERVATION:
 GETUSER:
   path:    /USER/{id}
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:find }
+
+AjoutUser:
+  path:    /ajout
+  defaults: { _controller: UtilisateursUtilisateursBundle:Default:findd }
+
 utilisateurs_utilisateurs_homepage:
   path:     /
   defaults: { _controller: UtilisateursUtilisateursBundle:Default:index }

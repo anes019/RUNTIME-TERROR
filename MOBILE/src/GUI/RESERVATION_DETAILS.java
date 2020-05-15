@@ -23,6 +23,7 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
@@ -122,13 +123,27 @@ public class RESERVATION_DETAILS  {
 
                remarques.setText(rq);
                 Container C = new Container (BoxLayout.x());
-            
+     
                 Button btmodifier= new Button("modifier");
                 Button btsupp= new Button("supprimer");
                 Button btannuler= new Button("annuler");
+                Label text = new Label("");
                 C.add(btmodifier);
                 C.add(btsupp);
-            
+         
+                
+                   if (etat=="non traite")
+            {btmodifier.setEnabled(true);
+            btsupp.setEnabled(true);
+                   text.setText("");
+            }
+            else {
+                   btmodifier.setEnabled(false);
+            btsupp.setEnabled(false);
+            text.setText("Cette reservation est deja traité ");
+             Style Textcolor = text.getAllStyles();
+             Textcolor.setFgColor(0xc20006);
+                   }
                 reservation.add(message);
                 reservation.add(vide);
                 C1.add(space);
@@ -144,7 +159,9 @@ public class RESERVATION_DETAILS  {
                 C1.add(date);
                 C1.add(remarques);
                 C1.add(C);
+                       C1.add(text);
                 C1.add(btannuler);
+                
                 reservation.add(C1);
               
                      

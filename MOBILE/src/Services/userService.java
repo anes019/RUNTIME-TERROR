@@ -24,6 +24,7 @@ import java.util.Map;
  */
 public class userService {
     private ConnectionRequest req;
+    private boolean resultOK;
          public static userService  instance=null;
   public ArrayList<User> users;
                public User ti=new User();
@@ -173,6 +174,19 @@ public class userService {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return users;
+    }
+        public boolean createUser(User user) {
+        String url = "http://localhost/RUNTIME-TERROR/TWASALNI/web/app_dev.php/ajout?&username="+user.getUsername()+"&email="+user.getEmail()+"&type="+user.getRoles()+"&nom="+user.getNom()+"&prenom="+user.getPrenom()+"&password="+user.getPassword()+"&telephone="+user.getTelephone();                       
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
     }
     
 }

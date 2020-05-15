@@ -116,10 +116,7 @@ public class RESERVATION_DETAILS  {
                destination.setText(dest);
                achats.setText(listachat);
                
-               System.out.println("list achats:"+listachat);
-               System.out.println("remarques:"+rq);
-                   System.out.println("etat:"+etat);
-                  System.out.println("partenaire:"+part);
+       
 
                remarques.setText(rq);
                 Container C = new Container (BoxLayout.x());
@@ -130,23 +127,22 @@ public class RESERVATION_DETAILS  {
                 Label text = new Label("");
                 C.add(btmodifier);
                 C.add(btsupp);
-          /* System.out.println(etat);
-          
-                   if (etat!="non traite")
+           System.out.println("affihi zok om l etat"+etat);
+      
+                   if (etat.equals("non traite"))
             {
-                    btmodifier.setEnabled(false);
+                btmodifier.setEnabled(true);
+                   btsupp.setEnabled(true);
+            }
+                   
+                   else {
+                            btmodifier.setEnabled(false);
                    btsupp.setEnabled(false);
             text.setText("Cette reservation est deja traité ");
              Style Textcolor = text.getAllStyles();
              Textcolor.setFgColor(0xc20006);
-            }
-                   else if(etat!="non traite")  {
-               
-                         btmodifier.setEnabled(true);
-            btsupp.setEnabled(true);
-                   text.setText("");
-         
-                   }*/
+                          }
+                   System.out.println("affihi zok om l etat2"+etat);
                 reservation.add(message);
                 reservation.add(vide);
                 C1.add(space);

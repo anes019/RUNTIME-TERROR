@@ -38,6 +38,10 @@ course_create:
   path:     /createCourse
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:create }
 
+NEWCOURSE:
+  path:    /NEW/COURSE
+  defaults: { _controller: UtilisateursUtilisateursBundle:Courses:newCourses }
+
 course_read:
   path:     admin/readCourses
   defaults: { _controller: UtilisateursUtilisateursBundle:Courses:read }
@@ -113,3 +117,22 @@ confirm_mdp:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+
+
+GETPARTENAIRES:
+  path:     /PARTENAIRES
+  defaults: { _controller: UtilisateursUtilisateursBundle:Partenaire:GetPartenaires }
+
+
+GETCOURSESMob:
+  path:     /COURSEuu
+  defaults: { _controller: UtilisateursUtilisateursBundle:Courses:GetCourses }
+
+
+DELCOURSESMOBILE:
+  path:     /DEL/COURSE/{id}
+  defaults: { _controller: UtilisateursUtilisateursBundle:Courses:DelMobile }
+
+
+

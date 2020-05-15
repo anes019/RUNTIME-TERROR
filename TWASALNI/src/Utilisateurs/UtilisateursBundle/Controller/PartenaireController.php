@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Partenaire controller.
@@ -240,5 +243,15 @@ class PartenaireController extends Controller
             'tabP'=>$tabP,
             'part'=>$part,
         ]);
+    }
+
+
+
+    public function GetPartenairesAction()
+    {
+        $groupe=$this->getDoctrine()->getManager()->getRepository("UtilisateursUtilisateursBundle:Utilisateurs")->findrole();
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($groupe);
+        return new JsonResponse($formatted);
     }
 }

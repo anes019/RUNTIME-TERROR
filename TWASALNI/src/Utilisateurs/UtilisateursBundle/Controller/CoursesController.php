@@ -9,7 +9,9 @@ use Utilisateurs\UtilisateursBundle\Entity\Courses;
 use Utilisateurs\UtilisateursBundle\Entity\InventaireC;
 use Utilisateurs\UtilisateursBundle\Entity\Utilisateurs;
 use Utilisateurs\UtilisateursBundle\Form\CoursesType;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 class CoursesController extends Controller
 {
     public function createAction(Request $request)
@@ -191,5 +193,133 @@ class CoursesController extends Controller
 
 
     }
+
+
+
+    //*****************************************PARTIE MOBILE**********************************
+
+
+
+    public function newCoursesAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $course = new Courses();
+        $date = new \DateTime();
+
+        $commission= new Commission();
+        $inventaire= new InventaireC();
+
+
+
+        $course->setPartenaire($em->getRepository(Utilisateurs::class)->find($request->get('partenaire')));
+        $course->setClient($em->getRepository(Utilisateurs::class)->find($request->get('client')));
+
+        $course->setDepart($request->get('from'));
+        $course->setDestination($request->get('to'));
+        $date = new \DateTime();
+        $course->setDateCourse($date);
+        $course->setPrix(0);
+        $idPart=$request->get('partenaire');
+        $part=$em->getRepository(Utilisateurs::class)->find($idPart);
+
+
+
+
+        $arrayinv=$em->getRepository(InventaireC::class)->findInventaire($idPart);
+
+
+
+
+
+
+        $commission->setCourse($course);
+        $commission->setPartenaire($course->getPartenaire());
+        $commission->setPourcentage(0.15);
+        $commission->setDateCommission($course->getDateCourse());
+
+        if(count($arrayinv)==0)
+        {
+            $inventaire->setPartenaire($part);
+            $inventaire->setMontant($course->getPrix()*$commission->getPourcentage());
+            $inventaire->setDateI($course->getDateCourse());
+            $inventaire->setPaye(0);
+        }
+        else
+         {
+             $inventaire=$arrayinv[0];
+             $inventaire->setMontant($inventaire->getMontant()+$course->getPrix()*$commission->getPourcentage());
+         }
+        $commission->setInventairec($inventaire);
+
+
+        $em->persist($inventaire);
+        $em->persist($commission);
+        $em->persist($course);
+
+           /* $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
+            $client = new \Nexmo\Client($basic);
+
+
+
+             $message = $client->message()->send([
+                  'to' => '21698604435',
+                  'from' => 'Arbi',
+                  'text' => 'Merci pour votre validation'
+              ]);
+
+            $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo('arbi.saidi8@gmail.com')
+                ->setBody('Merci pour votre reservation ');*/
+
+
+        $em->flush();
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($course);
+        return new JsonResponse($formatted);
+
+
+
+    }
+
+
+    public function GetCoursesAction()
+    {
+        $groupe=$this->getDoctrine()->getManager()->getRepository(Courses::class)->findAll();
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($groupe);
+        return new JsonResponse($formatted);
+    }
+
+
+    public function DelMobileAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $course=$em->getRepository(Courses::class)->find($id);
+        $commission=$em->getRepository(Commission::class)->findCommissionbyCourse($id);
+        $inventaire=$em->getRepository(InventaireC::class)->find($commission[0]->getInventairec()->getId());
+        $inventaire->setMontant($inventaire->getMontant()-$course->getPrix()*$commission[0]->getPourcentage());
+
+        $com=$commission[0];
+        $em->remove($com);
+        if($inventaire->getMontant()==0)
+        {
+            $em->remove($inventaire);
+        }
+        else {
+            $em->persist($inventaire);
+        }
+        $em->remove($course);
+        $em->flush();
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted=$serializer->normalize($course);
+        return new JsonResponse($formatted);
+
+    }
+
+
+
+
 
 }

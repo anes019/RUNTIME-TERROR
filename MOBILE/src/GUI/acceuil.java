@@ -177,6 +177,7 @@ public class acceuil extends Form {
         btCOURSES.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
+                new CoursesGUI().start();
 
             }
         });

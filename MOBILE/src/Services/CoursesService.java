@@ -5,99 +5,94 @@
  */
 package Services;
 
+import ENTITE.Courses;
+import ENTITE.User;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
-import ENTITE.User;
 import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import com.codename1.io.CharArrayReader;
+import com.codename1.io.ConnectionRequest;
+import com.codename1.io.JSONParser;
+import com.codename1.io.NetworkEvent;
+import com.codename1.io.NetworkManager;
+import com.codename1.ui.events.ActionListener;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
  *
- * @author hazem
+ * @author Arbi
  */
-public class userService {
+public class CoursesService {
+    
+    public static CoursesService instance=null;
+    public boolean resultOK;
     private ConnectionRequest req;
-         public static userService  instance=null;
-  public ArrayList<User> users;
-               public User ti=new User();
-
-    public userService() {
+    public ArrayList<Courses> courses;
+    
+    
+     public CoursesService() {
          req = new ConnectionRequest();
     }
-    
-     public static userService getInstance() {
+
+    public static CoursesService getInstance() {
         if (instance == null) {
-            instance = new userService();
+            instance = new CoursesService();
         }
         return instance;
     }
-     
-
-     
-          public User parseUser(String jsonText){
-       
-                User u = new User();
-              try {
-            users=new ArrayList<>();
-            JSONParser j = new JSONParser();
-           
-            Map<String,Object> UserListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-
-           if(UserListJson.isEmpty()==false)
-           {
-               
-                float id = Float.parseFloat(UserListJson.get("id").toString());
-                System.out.println(id);
-                u.setId((int)id);
-               
-                u.setUsername(UserListJson.get("username").toString());
-                u.setEmail(UserListJson.get("email").toString());
-                u.setPassword(UserListJson.get("password").toString());
-                u.setTelephone( UserListJson.get("telephone").toString());
-                u.setRoles(UserListJson.get("roles").toString());
-                users.add(u);
-            
-            }
-            
-        } catch (IOException ex) {
-            
-        }
-        return u;
-    }
-     
-         public User getUser(String username){
-        String url = Statics.BASE_URL+"/USER/"+username;
-      
-        req.setUrl(url);
-        req.setPost(false);
+    
+    public boolean addCourse(Courses c) {
+        String url = Statics.BASE_URL + "/NEW/COURSE?partenaire="+c.getPartenaireId()+"&client="+c.getClientId()+"&from="+c.getDepart()+"&to="+c.getDestination()+"&prix="+c.getPrix()+"&date="+c.getDate_course(); //création de l'URL
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-             
-           
-                ti = parseUser(new String(req.getResponseData()));
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this); //Supprimer cet actionListener
+                /* une fois que nous avons terminé de l'utiliser.
+                La ConnectionRequest req est unique pour tous les appels de 
+                n'importe quelle méthode du Service task, donc si on ne supprime
+                pas l'ActionListener il sera enregistré et donc éxécuté même si 
+                la réponse reçue correspond à une autre URL(get par exemple)*/
                 
-                req.removeResponseListener(this);
-            
-                        }
-
+            }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        return ti;
+        return resultOK;
     }
-         
-         
-             
-        public ArrayList<User> parseUsers(String jsonText){
+    public boolean deleteCourse(int id) {
+        String url = Statics.BASE_URL + "/DEL/COURSE/"+id; //création de l'URL
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this); //Supprimer cet actionListener
+                /* une fois que nous avons terminé de l'utiliser.
+                La ConnectionRequest req est unique pour tous les appels de 
+                n'importe quelle méthode du Service task, donc si on ne supprime
+                pas l'ActionListener il sera enregistré et donc éxécuté même si 
+                la réponse reçue correspond à une autre URL(get par exemple)*/
+                
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+    
+                   public ArrayList<Courses> parseC(String jsonText){
              try {
-            users=new ArrayList<>();
+            courses=new ArrayList<>();
             JSONParser j = new JSONParser();// Instanciation d'un objet JSONParser permettant le parsing du résultat json
 
             /*
@@ -132,18 +127,23 @@ public class userService {
             //Parcourir la liste des tâches Json
             for(Map<String,Object> obj : list){
                 //Création des tâches et récupération de leurs données
-                User u= new User();
+                Courses u= new Courses();
                 float id = Float.parseFloat(obj.get("id").toString());
                 u.setId((int)id);
-                u.setNom(obj.get("nom").toString());
-                u.setPrenom(obj.get("prenom").toString());
+                u.setDepart(obj.get("depart").toString());
+                u.setDestination(obj.get("destination").toString());
+                float prix = Float.parseFloat(obj.get("prix").toString());
+                u.setPrix((int)prix);
+                
+                
+                
              
                   
 
                 
 
                 //Ajouter la tâche extraite de la réponse Json à la liste
-                 users.add(u);
+                 courses.add(u);
             }
             
             
@@ -155,24 +155,23 @@ public class userService {
         de la base de données à travers un service web
         
         */
-        return users;
+        return courses;
     }
          
          
     
-        public ArrayList<User> getPartenaires(){
-        String url = Statics.BASE_URL+"/PARTENAIRES";
+        public ArrayList<Courses> getCs(){
+        String url = Statics.BASE_URL+"/COURSEuu";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                users = parseUsers(new String(req.getResponseData()));
+                courses = parseC(new String(req.getResponseData()));
                 req.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        return users;
+        return courses;
     }
-    
 }

@@ -91,6 +91,8 @@ public class AjoutReservationController implements Initializable {
     private Hyperlink login;
     @FXML
     private Hyperlink feedback;
+    
+            //ObservableList Une liste qui permet de suivre les changements lorsqu'ils se produisent.
     ObservableList<String> Regions
             = FXCollections.observableArrayList(
                     "petit Ariana",
@@ -283,6 +285,11 @@ public class AjoutReservationController implements Initializable {
 
         });
 
+//callback vous permet de définir ce que le corps de la méthode va en faire.
+//La classe ou la méthode qui le prend comme paramètre détermine quand il sera appelé
+//le premier paramètre spécifie le type de l'objet transmis à la méthode d'appel,
+//le deuxième paramètre spécifiant le type de retour de la méthode
+
         Callback<ListView<User>, ListCell<User>> cellFactory = new Callback<ListView<User>, ListCell<User>>() {
 
             @Override
@@ -304,7 +311,8 @@ public class AjoutReservationController implements Initializable {
 
         partenaire_ajout.setButtonCell(cellFactory.call(null));
         partenaire_ajout.setCellFactory(cellFactory);
-        //remplissage du combobox
+        
+//remplissage du combobox
         ServiceUtilisateur us = new ServiceUtilisateur();
         List<User> arr = new ArrayList<>();
         try {
@@ -316,20 +324,7 @@ public class AjoutReservationController implements Initializable {
             partenaire_ajout.getItems().add(u);
         }
 
-        admin.setOnAction((ActionEvent event) -> {
-            Parent page2;
-            try {
-                page2 = FXMLLoader.load(getClass().getResource("/GUI/ReservationFXML.fxml"));
-                Scene scene2 = new Scene(page2);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(scene2);
-                window.show();
 
-            } catch (IOException ex) {
-                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        });
 
         Region.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
@@ -420,6 +415,20 @@ Produit.setValue(null);
                         break;
 
                 }
+            }
+
+        });
+                admin.setOnAction((ActionEvent event) -> {
+            Parent page2;
+            try {
+                page2 = FXMLLoader.load(getClass().getResource("/GUI/ReservationFXML.fxml"));
+                Scene scene2 = new Scene(page2);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene2);
+                window.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         });

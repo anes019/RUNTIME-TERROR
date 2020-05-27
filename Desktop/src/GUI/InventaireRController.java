@@ -195,8 +195,8 @@ public class InventaireRController implements Initializable {
                             InventaireR Inv = getTableView().getItems().get(getIndex());
                             System.out.println(Inv);
                             try {
-
                                 sr.payer(Inv.getPartenaire_id());
+                                    System.out.println(Inv.getPartenaire_id());
                                 displayAll();
                             } catch (SQLException ex) {
                                 Logger.getLogger(InventaireRController.class.getName()).log(Level.SEVERE, null, ex);

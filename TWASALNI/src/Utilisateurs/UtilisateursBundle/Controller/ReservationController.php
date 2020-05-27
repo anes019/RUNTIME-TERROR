@@ -353,6 +353,7 @@ class ReservationController extends Controller
         // $reservation->setDate($request->get('date'));
         $client=$em->getRepository(Utilisateurs::class)->find($request->get('id_client'));
         $reservation->setClient($client);
+        $email=$client->getEmail();
         $commission->setReservation($reservation);
         $commission->setPartenaire($reservation->getPartenaire());
         $commission->setPourcentage(0.15);
@@ -377,20 +378,20 @@ class ReservationController extends Controller
 
         $em->persist($reservation);
         $em->flush();
-//        $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
-//        $client =new \Nexmo\Client($basic);
-//        $message = $client->message()->send([
-//            'to' => '21652715563',
-//            'from' => 'Twasalni?',
-//            'text' => 'Votre reservation est confirmé , liste achats:  '.$listeAchats.'  remarques:   '.$request->get('remarques').'',
-//        ]);
-//
-//        $mailer= $this->get('mailer');
-//            $msg = (new \Swift_Message('Reservation de taxi '))
-//                ->setFrom('noreply@twasalni.tn')
-//                ->setTo('anestemani00@gmail.com')
-//                ->setBody('Merci pour votre reservation');
-//            $mailer->send($msg);
+        $basic  = new \Nexmo\Client\Credentials\Basic('a7c8d346', '06RtyiF7aVUXE90L');
+        $client =new \Nexmo\Client($basic);
+        $message = $client->message()->send([
+            'to' => '21652715563',
+            'from' => 'Twasalni?',
+            'text' => 'Votre reservation est confirmé , liste achats:  '.$listeAchats.'  remarques:   '.$request->get('remarques').'',
+        ]);
+
+        $mailer= $this->get('mailer');
+            $msg = (new \Swift_Message('Reservation de taxi '))
+                ->setFrom('noreply@twasalni.tn')
+                ->setTo($email)
+                ->setBody('Merci pour votre reservation');
+            $mailer->send($msg);
         $serializer= new Serializer([new ObjectNormalizer()]);
         $formatted=$serializer->normalize($reservation);
         return new JsonResponse($formatted);

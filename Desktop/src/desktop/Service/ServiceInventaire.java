@@ -51,11 +51,19 @@ public class ServiceInventaire {
         ServiceCommission c = new ServiceCommission();
         float p = c.pourcentage(id_r);
         float v1 = Montant(id);
-        float d = v1 -(prix * p);
-        
+             
+        double d = v1 -(prix * p);
+              System.out.println("montant"+v1);
+              System.out.println("prix"+prix);
+              System.out.println("pourcentage"+p);
+              d=(float) (Math.round(d*1000)/1000.0);
+              System.out.println("diff"+d);
+                     
+                     
         if (d == 0) {
-            if (delete_inv(id)) {
-                c.delete_comm(id_r);
+            if (c.delete_comm(id_r)) {
+                delete_inv(id);
+              
                 return true;
             }
         } else {
@@ -75,7 +83,7 @@ public class ServiceInventaire {
         return true;
     }
 
-    public boolean update(float d, int id) throws SQLException {
+    public boolean update(double d, int id) throws SQLException {
         pre = con.prepareStatement("update inventaire_r set montant='" + d + "' where partenaire_id='" + id + "'");
         pre.executeUpdate();
         System.out.println("ok");
@@ -102,7 +110,7 @@ public class ServiceInventaire {
         
                    usernamep=rspartenaire.getString("username");
                }
-                list.add(new InventaireR(usernamep, rs.getFloat(3),  rs.getDate(4)));
+                list.add(new InventaireR(rs.getInt(2),usernamep, rs.getFloat(3),  rs.getDate(4)));
 
             }
            
@@ -134,7 +142,7 @@ public class ServiceInventaire {
         
                    usernamep=rspartenaire.getString("username");
                }
-                list.add(new InventaireR(usernamep, rs.getFloat(3),  rs.getDate(4)));
+                list.add(new InventaireR(rs.getInt(2),usernamep, rs.getFloat(3),  rs.getDate(4)));
 
             }
         } catch (SQLException ex) {

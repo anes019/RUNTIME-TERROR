@@ -151,7 +151,7 @@ public class LISTReservation {
         Label List_achat = new Label("list d'achats" + " " + reservation.getListAchats());
 
         destination.addPointerPressedListener((ActionListener) (ActionEvent evt) -> {
-            if (Dialog.show("Reservation " + " " + i, "Destination : " + reservation.getDestination() , "modifier", "Annuler")) {
+            if (Dialog.show("Reservation " + " " + i, "Destination : " + reservation.getDestination() , "Consulter", "Annuler")) {
 
                 new RESERVATION_DETAILS().start(i, reservation.getPointAchat(), reservation.getDestination(), reservation.getListAchats(), reservation.getId(), reservation.getRemarques(), reservation.getEtat(), reservation.getPartenaire_id(),id);
             }

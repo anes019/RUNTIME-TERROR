@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
- 
 
- 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -60,6 +58,10 @@ import javafx.stage.Stage;
  *
  * @author anest
  */
+
+
+//Initializable:Appelé pour initialiser un contrôleur une fois que son élément racine a été complètement traité.
+
 public class ReservationTraitedController implements Initializable {
 
     @FXML
@@ -77,7 +79,7 @@ public class ReservationTraitedController implements Initializable {
     @FXML
     private TableColumn<reservation, String> Destination;
     @FXML
-     private TableColumn<reservation, String> Date;
+    private TableColumn<reservation, String> Date;
 
     private JFXHamburger hamburger;
     private Label total_not_traited;
@@ -105,13 +107,12 @@ public class ReservationTraitedController implements Initializable {
     @FXML
     private Hyperlink linkTonottraited;
 
-    
-    ObservableList <reservation> data =FXCollections.observableArrayList();
+    ObservableList<reservation> data = FXCollections.observableArrayList();
     @FXML
     private Pagination pagination;
-    
-  int from =0, to=0;
-  int itemPerPage=6;
+
+    int from = 0, to = 0;
+    int itemPerPage = 6;
     @FXML
     private Hyperlink stat;
     @FXML
@@ -123,24 +124,26 @@ public class ReservationTraitedController implements Initializable {
      * Initializes the controller class.
      */
     @Override
+
     public void initialize(URL url, ResourceBundle rb) {
-        
-            
+
         pointA.setCellValueFactory(new PropertyValueFactory<>("pointAchat"));
         Destination.setCellValueFactory(new PropertyValueFactory<>("destination"));
         Date.setCellValueFactory(new PropertyValueFactory<>("date_reservation"));
-       
-        int count =0;
- ServiceReservation sr = new ServiceReservation();
-         count = sr.counttraited();
-         int pageCount=(count/itemPerPage)+1;
-         pagination.setPageCount(pageCount);
-       //  System.out.println( "page count"+ pageCount);
-         pagination.setPageFactory(this::page);
 
+        int count = 0;
+        ServiceReservation sr = new ServiceReservation();
+        //pagination
+        count = sr.counttraited();
+        int pageCount = (count / itemPerPage) + 1;
+        pagination.setPageCount(pageCount);
+        pagination.setPageFactory(this::page);
+//fin pagination
         try {
-           // displayAll();
+             displayAll();
             addButtonToTable();
+            
+            //lien vers reservtion non traité
             linkTonottraited.setOnAction((ActionEvent event) -> {
                 Parent page2;
                 try {
@@ -155,96 +158,90 @@ public class ReservationTraitedController implements Initializable {
                 }
 
             });
-            
-                   stat.setOnAction((ActionEvent event) -> {
-            Parent page2;
-            try {
-                page2 = FXMLLoader.load(getClass().getResource("/GUI/Statistique.fxml"));
-                Scene scene2 = new Scene(page2);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(scene2);
-                window.show();
+            //afficher stat
+            stat.setOnAction((ActionEvent event) -> {
+                Parent page2;
+                try {
+                    page2 = FXMLLoader.load(getClass().getResource("/GUI/Statistique.fxml"));
+                    Scene scene2 = new Scene(page2);
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(scene2);
+                    window.show();
 
-            } catch (IOException ex) {
-                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                } catch (IOException ex) {
+                    Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-        });
+            });
             // TODO
         } catch (SQLException ex) {
             Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-   private Label label;
- 
-   private void showConfirmation() {
- 
-      Alert alert = new Alert(AlertType.CONFIRMATION);
-      alert.setTitle("Delete File");
-      alert.setHeaderText("Are you sure want to move this file to the Recycle Bin?");
-      alert.setContentText("C:/MyFile.txt");
- 
-      // option != null.
-      Optional<ButtonType> option = alert.showAndWait();
- 
-      if (option.get() == null) {
-         this.label.setText("No selection!");
-      } else if (option.get() == ButtonType.OK) {
-      
-      } else if (option.get() == ButtonType.CANCEL) {
-         this.label.setText("Cancelled!");
-      } else {
-         this.label.setText("-");
-      }
-   }
-    public List displayAll()  {
+    
+    // fin intialisation 
+    private Label label;
+
+    // list des reservations
+    public List displayAll() {
 
         try {
             ServiceReservation sr = new ServiceReservation();
-            List listcs = sr.readTraited(from,to);
+            List listcs = sr.readTraited(from, to);
             int number = sr.counttraited();
-           // listcs.forEach(System.out::println);
-    
-              // listcs.forEach(System.out::println);
+            // listcs.forEach(System.out::println);
+            // listcs.forEach(System.out::println);
             total_traited.setText(Integer.toString(number));
             return listcs;
         } catch (SQLException ex) {
             Logger.getLogger(ReservationTraitedController.class.getName()).log(Level.SEVERE, null, ex);
-               return null;
+            return null;
         }
 
     }
-    
-       public Node page( int pageIndex)   {
-        
-    from = pageIndex * itemPerPage;
-    to = itemPerPage;
-    //   System.out.println("test" + from +" "+ pageIndex);
-        ObservableList listReserv = FXCollections.observableArrayList(displayAll() );
+
+    // pagination
+    public Node page(int pageIndex) {
+
+        from = pageIndex * itemPerPage;
+        to = itemPerPage;
+        //ObservableList Une liste qui permet de suivre les changements lorsqu'ils se produisent.
+        ObservableList listReserv = FXCollections.observableArrayList(displayAll());
         tableview.setItems(listReserv);
-  
-return tableview;
+
+        return tableview;
     }
-  
 
     private void addButtonToTable() throws SQLException {
         TableColumn actionCol = new TableColumn("Action");
+        //extraire la valeur d'un élément de ligne TableView
         actionCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
-        Callback<TableColumn<reservation, Void>, TableCell<reservation, Void>> cellFactory;
+//callback vous permet de définir ce que le corps de la méthode va en faire.
+//La classe ou la méthode qui le prend comme paramètre détermine quand il sera appelé
+//le premier paramètre spécifie le type de l'objet transmis à la méthode d'appel,
+//le deuxième paramètre spécifiant le type de retour de la méthode
+
+// TableCell Représente une seule intersection de ligne / colonne dans un TableView. 
+//Pour représenter cette intersection, un TableCell contient une propriété tableColumn, ainsi qu'une propriété d'index .
+
+
+        Callback<TableColumn<reservation, Void>,TableCell<reservation, Void>> cellFactory;
+        
+       
         cellFactory = new Callback<TableColumn<reservation, Void>, TableCell<reservation, Void>>() {
             @Override
             public TableCell<reservation, Void> call(final TableColumn<reservation, Void> param) {
                 final TableCell<reservation, Void> cell = new TableCell<reservation, Void>() {
-
+ // creation des buttons et espace entre eux
                     private final Button delete = new Button();
                     private final Button restaurer = new Button("");
                     private final Button details = new Button("");
                     Label lb = new Label("  ");
                     Label lb2 = new Label("  ");
+                    
                     private final HBox pane = new HBox(details, lb2, restaurer, lb, delete);
-
                     {
                         final Tooltip tooltip = new Tooltip();
                         tooltip.setText("supprimer ");
@@ -266,71 +263,61 @@ return tableview;
                         delete.setMaxSize(10, 10);
                         restaurer.setMaxSize(10, 10);
                         details.setMaxSize(10, 10);
-                       
+
+           
                         
-                        delete.setOnAction((ActionEvent event) -> {
-                            
-     
-                            
-                     
-
-                        });
-
+                        // action restaurer
                         restaurer.setOnAction((ActionEvent event) -> {
-                                                        
-      Alert alert = new Alert(AlertType.CONFIRMATION);
-      alert.setTitle("Restaurer réservation");
-      alert.setHeaderText("Voulez-vous vraiment restaurer cette réservation?");
-      Optional<ButtonType> option = alert.showAndWait();
- if (option.get() == ButtonType.OK) {
-                            
-                          
-                            ServiceReservation sr = new ServiceReservation();
-                            reservation reserv = getTableView().getItems().get(getIndex());
-                          //  System.out.println(reserv);
-                            try {
 
-                                sr.restaurer(reserv.getId());
-                                displayAll();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                            Alert alert = new Alert(AlertType.CONFIRMATION);
+                            alert.setTitle("Restaurer réservation");
+                            alert.setHeaderText("Voulez-vous vraiment restaurer cette réservation?");
+                            Optional<ButtonType> option = alert.showAndWait();
+                            if (option.get() == ButtonType.OK) {
+
+                                ServiceReservation sr = new ServiceReservation();
+                                reservation reserv = getTableView().getItems().get(getIndex());
+                                //  System.out.println(reserv);
+                                try {
+
+                                    sr.restaurer(reserv.getId());
+                                    displayAll();
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
- }
                         });
+
+                        // fin restaurer
+                        
+                        
+                        //action delete
                         delete.setOnAction((ActionEvent event) -> {
-                            
-                            
-                             Alert alert = new Alert(AlertType.CONFIRMATION);
-      alert.setTitle("suppression");
-      alert.setHeaderText("Voulez-vous vraiment supprimer cette réservation?");
-      Optional<ButtonType> option = alert.showAndWait();
 
- if (option.get() == ButtonType.OK) {
-              
-                            ServiceReservation sr = new ServiceReservation();
-                            reservation reserv = getTableView().getItems().get(getIndex());
-                         //   System.out.println(reserv);
-                            try {
+                            Alert alert = new Alert(AlertType.CONFIRMATION);
+                            alert.setTitle("suppression");
+                            alert.setHeaderText("Voulez-vous vraiment supprimer cette réservation?");
+                            Optional<ButtonType> option = alert.showAndWait();
 
-                                sr.refuse(reserv.getId());
-                                displayAll();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-      } 
-                            
-                            ServiceReservation sr = new ServiceReservation();
-                            reservation reserv = getTableView().getItems().get(getIndex());
-                          //  System.out.println(reserv);
-                            try {
+                            if (option.get() == ButtonType.OK) {
 
-                                sr.delete(reserv.getPrix(), reserv.getPartenaire_id(), reserv.getId());
-                                displayAll();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                                ServiceReservation sr = new ServiceReservation();
+                                reservation reserv = getTableView().getItems().get(getIndex());
+
+                                try {
+                                    sr.delete(reserv.getPrix(), reserv.getPartenaire_id(), reserv.getId());
+                                    displayAll();
+                                    
+                                }
+                                catch (SQLException ex) {
+                                    Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
 
                         });
+  // fin delete
+  
+  //action details
                         details.setOnAction((ActionEvent event) -> {
                             Parent page2;
                             try {
@@ -346,13 +333,18 @@ return tableview;
                                 Logger.getLogger(ReservationFXMLController.class.getName()).log(Level.SEVERE, null, ex);
                             }
 
-                        });
+                    
+                       });
+                        // fin details
+                        
+                        
                     }
-
+//fin HBox
+                    
+                    
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
-
                         setGraphic(empty ? null : pane);
                     }
                 };
@@ -366,82 +358,85 @@ return tableview;
 
     }
 
-     @FXML
+    // fin addbutton
+    
+    
+    @FXML
     private void goToAcceuil(ActionEvent event) {
-        
+
     }
 
-          @FXML
+    @FXML
     private void goToclients(ActionEvent event) throws IOException {
-       
+
     }
-               @FXML
+
+    @FXML
     private void goToPartenaire(ActionEvent event) throws IOException {
-       
-    }  
-    
-             @FXML
+
+    }
+
+    @FXML
     private void goToCourse(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
-                    Stage stage = (Stage) node.getScene().getWindow();
-                    stage.close();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
 
-                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("CoursesAdmin.fxml")));
-                    stage.setScene(scene);
-                    stage.show();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("CoursesAdmin.fxml")));
+        stage.setScene(scene);
+        stage.show();
     }
-    
-                 @FXML
+
+    @FXML
     private void goToReservation(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
-                    Stage stage = (Stage) node.getScene().getWindow();
-                    stage.close();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
 
-                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("ReservationFXML.fxml")));
-                    stage.setScene(scene);
-                    stage.show();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("ReservationFXML.fxml")));
+        stage.setScene(scene);
+        stage.show();
     }
-      @FXML
+
+    @FXML
     private void goToAbonne(ActionEvent event) {
-        
+
     }
 
-    
-        
-
-               @FXML
+    @FXML
     private void goToFeedBack(ActionEvent event) throws IOException {
- 
+
     }
-    
+
     private void goToFront(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
-                    Stage stage = (Stage) node.getScene().getWindow();
-                    stage.close();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
 
-                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")));
-                    stage.setScene(scene);
-                    stage.show();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")));
+        stage.setScene(scene);
+        stage.show();
     }
-    
-             @FXML
+
+    @FXML
     private void InventairenotPaid(ActionEvent event) throws IOException {
-                Node node = (Node) event.getSource();
-                    Stage stage = (Stage) node.getScene().getWindow();
-                    stage.close();
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
 
-                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR.fxml")));
-                    stage.setScene(scene);
-                    stage.show();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR.fxml")));
+        stage.setScene(scene);
+        stage.show();
     }
-            @FXML
-    private void InventairPaid(ActionEvent event) throws IOException {
-                Node node = (Node) event.getSource();
-                    Stage stage = (Stage) node.getScene().getWindow();
-                    stage.close();
 
-                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR2.fxml")));
-                    stage.setScene(scene);
-                    stage.show();
+    @FXML
+    private void InventairPaid(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("InventaireR2.fxml")));
+        stage.setScene(scene);
+        stage.show();
     }
 }

@@ -179,18 +179,12 @@ public class ServiceReservation {
     }
       
       
-      
-    
-    
-
-
     public boolean delete(float montant, int id, int id_r) throws SQLException {
 
         ServiceInventaire I = new ServiceInventaire();
         if (I.compare(montant, id, id_r)) {
             pre = con.prepareStatement("delete from `pidev`.`reservation` where id = '" + id_r + "'");
-
-            System.out.println(pre.execute());
+           System.out.println(pre.execute());
             return true;
 
         } else {

@@ -227,6 +227,8 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
                         refuse.setMaxSize(10, 10);
                         accept.setMaxSize(10, 10);
                         details.setMaxSize(10, 10);
+                        
+                        
                         refuse.setOnAction((ActionEvent event) -> {
                             ServiceReservation sr = new ServiceReservation();
                             reservation reserv = getTableView().getItems().get(getIndex());
@@ -300,8 +302,14 @@ ObservableList <reservation> data =FXCollections.observableArrayList();
     
     
      @FXML
-    private void goToAcceuil(ActionEvent event) {
-        
+    private void goToAcceuil(ActionEvent event) throws IOException {
+             Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    stage.close();
+
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AjoutReservation.fxml")));
+                    stage.setScene(scene);
+                    stage.show();
     }
 
           @FXML

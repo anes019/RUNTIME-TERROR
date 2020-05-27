@@ -42,8 +42,8 @@ public class ServiceCommission {
         ResultSet rs = ste.executeQuery(req);
         rs.next();
         float pourcentage = rs.getFloat(1);
-        System.out.print("pppppppp");
-        System.out.println(pourcentage);
+       System.out.println("%"+pourcentage);
+     
         return pourcentage;
     }
 

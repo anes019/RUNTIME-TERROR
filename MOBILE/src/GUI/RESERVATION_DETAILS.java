@@ -127,7 +127,7 @@ public class RESERVATION_DETAILS  {
                 Label text = new Label("");
                 C.add(btmodifier);
                 C.add(btsupp);
-           System.out.println("affihi zok om l etat"+etat);
+
       
                    if (etat.equals("non traite"))
             {

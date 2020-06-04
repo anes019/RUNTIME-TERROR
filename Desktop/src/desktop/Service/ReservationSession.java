@@ -46,10 +46,10 @@ public class ReservationSession {
     }
       public void cleanUserSession() {
        
-        id_reservation = 0;//7 or null
+        id_reservation = 0;
       instance = null;
         
-       // or null
+  
     } 
     
 }

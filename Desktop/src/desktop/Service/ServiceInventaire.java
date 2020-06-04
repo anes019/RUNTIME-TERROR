@@ -53,11 +53,11 @@ public class ServiceInventaire {
         float v1 = Montant(id);
              
         double d = v1 -(prix * p);
-              System.out.println("montant"+v1);
-              System.out.println("prix"+prix);
-              System.out.println("pourcentage"+p);
-              d=(float) (Math.round(d*1000)/1000.0);
-              System.out.println("diff"+d);
+             // System.out.println("montant"+v1);
+            //  System.out.println("prix"+prix);
+            //  System.out.println("pourcentage"+p);
+            //  d=(float) (Math.round(d*1000)/1000.0);
+           //   System.out.println("diff"+d);
                      
                      
         if (d == 0) {
@@ -66,7 +66,8 @@ public class ServiceInventaire {
               
                 return true;
             }
-        } else {
+        } 
+        else {
             if (update(d, id)) {
                 c.delete_comm(id_r);
                 return true;

@@ -11,6 +11,7 @@ package desktop.Service;
  */
 public class Session {
     private static int idSession;
+    private static int taxi;
 
     public static int getIdSession() {
         return idSession;
@@ -18,6 +19,14 @@ public class Session {
 
     public static void setIdSession(int idSession) {
         Session.idSession = idSession;
+    }
+
+    public static int getTaxi() {
+        return taxi;
+    }
+
+    public static void setTaxi(int taxi) {
+        Session.taxi = taxi;
     }
     
     
